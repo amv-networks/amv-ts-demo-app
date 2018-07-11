@@ -1,0 +1,22 @@
+<div class="container">
+  <h2 class="header__title">FAQ</h2>
+
+  <mat-nav-list>
+    <a mat-list-item [routerLink]="" fragment="{{faq.anchorTag}}" *ngFor="let faq of faqs"> {{faq.title | translate }} </a>
+  </mat-nav-list>
+
+  <mat-card class="faq-card" *ngFor="let faq of faqs" [attr.id]="faq.anchorTag">
+    <mat-card-header>
+      <!--mat-card-title>{{faq.title}}</mat-card-title-->
+      <h3 class="mat-h2">{{faq.title | translate }}</h3>
+    </mat-card-header>
+    <mat-card-content>
+      <div>
+        <p>
+          {{faq.text | translate }}
+        </p>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</div>
+<div class="clear"></div>

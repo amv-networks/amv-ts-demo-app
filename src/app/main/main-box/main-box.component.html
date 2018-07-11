@@ -1,0 +1,24 @@
+<div class="container">
+  <h2 class="header__title">Dashboard {{vehicleId}}</h2>
+
+  <div fxFlex fxLayout="row" fxLayout.xs="column" fxLayoutAlign="center center">
+    <div fxFlex></div>
+    <div fxFlex="33">
+      <mat-spinner *ngIf="loading" class="m-1"></mat-spinner>
+    </div>
+    <div fxFlex></div>
+  </div>
+
+  <mat-tab-group class="mt-1">
+      <mat-tab label="Map">
+        <app-main-box-map [vehicleId]="vehicleId"></app-main-box-map>
+      </mat-tab>
+    <mat-tab label="xfcd">
+      <app-main-box-xfcd [vehicleId]="vehicleId"></app-main-box-xfcd>
+    </mat-tab>
+    <mat-tab label="Reservations">
+      <app-main-box-reservations [vehicleId]="vehicleId"></app-main-box-reservations>
+    </mat-tab>
+  </mat-tab-group>
+</div>
+<div class="clear"></div>

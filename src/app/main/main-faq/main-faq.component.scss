@@ -1,0 +1,19 @@
+@import "mixins";
+
+
+.header__title {
+  text-align: left;
+  font-size: 1.5rem;
+  font-weight: 300;
+  padding: 1rem 0 0;
+}
+
+.container {
+  margin-left: 6%;
+  padding-right: 17%;
+}
+
+.faq-card {
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}

@@ -1,0 +1,82 @@
+[
+  {
+    "driverTagId": "string",
+    "from": "2018-07-08T01:12:39.076Z",
+    "reservationId": 1,
+    "rfid": {
+      "driverTagId": "ABCDEF123"
+    },
+    "until": "2018-07-08T04:12:39.076Z",
+    "vehicleId": 1001
+  },
+  {
+    "btle": {
+      "accessCertificateId": "0123456789abcdef",
+      "appId": "000000001",
+      "mobileSerialNumber": "F00000001"
+    },
+    "driverTagId": "string",
+    "from": "2018-07-09T03:12:39.076Z",
+    "reservationId": 2,
+    "rfid": {
+      "driverTagId": "string"
+    },
+    "until": "2018-07-11T03:12:39.076Z",
+    "vehicleId": 1001
+  },
+  {
+    "btle": {
+      "accessCertificateId": "0123456789abcdef",
+      "appId": "000000001",
+      "mobileSerialNumber": "A00000001"
+    },
+    "driverTagId": "string",
+    "from": "2018-07-08T03:54:22.076Z",
+    "reservationId": 3,
+    "rfid": {
+      "driverTagId": "string"
+    },
+    "until": "2018-07-12T03:12:39.076Z",
+    "vehicleId": 1001
+  },
+  {
+    "btle": {
+      "accessCertificateId": "0123456789abcdef",
+      "appId": "000000002",
+      "mobileSerialNumber": "C00000001"
+    },
+    "driverTagId": "string",
+    "from": "2018-07-08T03:22:39.076Z",
+    "reservationId": 4,
+    "rfid": {
+      "driverTagId": "string"
+    },
+    "until": "2018-07-11T03:00:00.076Z",
+    "vehicleId": 1001
+  },
+  {
+    "btle": {
+      "accessCertificateId": "0123456789abcdef",
+      "appId": "000000002",
+      "mobileSerialNumber": "B00000001"
+    },
+    "driverTagId": "string",
+    "from": "2018-07-08T04:33:12.076Z",
+    "reservationId": 16,
+    "rfid": {
+      "driverTagId": "string"
+    },
+    "until": "2018-07-18T03:12:39.076Z",
+    "vehicleId": 1001
+  },
+  {
+    "driverTagId": "string",
+    "from": "2018-07-08T03:11:39.076Z",
+    "reservationId": 17,
+    "rfid": {
+      "driverTagId": "43e1f12ab"
+    },
+    "until": "2018-08-08T03:12:39.076Z",
+    "vehicleId": 1001
+  }
+]

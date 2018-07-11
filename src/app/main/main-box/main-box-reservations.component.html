@@ -1,0 +1,76 @@
+<mat-card class="m-1">
+
+  <mat-card-content>
+    <div fxFlex fxLayout="row" fxLayout.xs="column" fxLayoutAlign="center center">
+      <div fxFlex></div>
+      <div fxFlex="33">
+        <mat-spinner *ngIf="loading" class="m-1"></mat-spinner>
+      </div>
+      <div fxFlex></div>
+    </div>
+
+    <div *ngIf="!loading">
+      <span class="h3-1 mt-1" [matBadge]="dataSource.data.length" matBadgeOverlap="false">Reservations</span>
+
+      <mat-card class="mt-1" *ngIf="dataSource.data.length === 0">No content</mat-card>
+
+      <div class="mt-1" *ngIf="dataSource.data.length > 0">
+        <mat-form-field class="full-width">
+          <input matInput (keyup)="applyReservationsFilter($event.target.value)" placeholder="Filter">
+        </mat-form-field>
+
+        <table mat-table matSort [dataSource]="dataSource" class="mt-1 full-width  mat-elevation-z8">
+
+          <!-- Checkbox Column -->
+          <ng-container matColumnDef="select">
+            <th mat-header-cell *matHeaderCellDef>
+              <mat-checkbox (change)="$event ? masterToggle() : null" [checked]="selection.hasValue() && isAllSelected()" [indeterminate]="selection.hasValue() && !isAllSelected()">
+              </mat-checkbox>
+            </th>
+            <td mat-cell *matCellDef="let row">
+              <mat-checkbox (click)="$event.stopPropagation()" (change)="$event ? selection.toggle(row) : null" [checked]="selection.isSelected(row)">
+              </mat-checkbox>
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="reservationId">
+            <th mat-header-cell *matHeaderCellDef> no. </th>
+            <td mat-cell *matCellDef="let element"> {{element.reservationId}} </td>
+          </ng-container>
+          <ng-container matColumnDef="from">
+            <th mat-header-cell *matHeaderCellDef> from </th>
+            <td mat-cell *matCellDef="let element"> {{element.from | date:'medium' }} </td>
+          </ng-container>
+          <ng-container matColumnDef="until">
+            <th mat-header-cell *matHeaderCellDef> until </th>
+            <td mat-cell *matCellDef="let element"> {{element.until | date:'medium' }} </td>
+          </ng-container>
+          <ng-container matColumnDef="type">
+            <th mat-header-cell *matHeaderCellDef> type </th>
+            <td mat-cell *matCellDef="let element"> {{element.btle ? 'btle' : 'rfid'}} </td>
+          </ng-container>
+          <ng-container matColumnDef="data">
+            <th mat-header-cell *matHeaderCellDef> data </th>
+            <td mat-cell *matCellDef="let element">{{(element.btle ? element.btle.mobileSerialNumber : element.rfid.driverTagId)}}</td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="selection.toggle(row)">
+          </tr>
+        </table>
+
+        <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+      </div>
+    </div>
+  </mat-card-content>
+  <mat-card-actions>
+    <button class="m-1" mat-button mat-raised-button color="primary" (click)="createReservation()">
+      <mat-icon>create</mat-icon> create
+    </button>
+    
+    <button class="m-1" mat-button mat-raised-button color="ancient" [disabled]="!selection.hasValue()" (click)="deleteSelectedItems()">
+      <mat-icon>delete_forever</mat-icon> delete {{ isAllSelected() ? 'all' : '' }}
+    </button>
+
+  </mat-card-actions>
+</mat-card>

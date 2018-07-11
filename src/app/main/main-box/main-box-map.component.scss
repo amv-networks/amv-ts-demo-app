@@ -1,0 +1,17 @@
+@import "mixins";
+
+.header__title {
+  text-align: left;
+  font-size: 1.5rem;
+  font-weight: 300;
+  padding: 1rem 0 0;
+}
+
+.container {
+  margin: 1rem;
+}
+
+.map {
+  height: 480px;
+  width: 100%;
+}

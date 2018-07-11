@@ -1,0 +1,125 @@
+{
+  "configVersion": 1,
+  "index": "/index.html",
+  "assetGroups": [
+    {
+      "name": "app",
+      "installMode": "prefetch",
+      "updateMode": "prefetch",
+      "urls": [
+        "/favicon.ico",
+        "/index.html"
+      ],
+      "patterns": []
+    },
+    {
+      "name": "assets",
+      "installMode": "lazy",
+      "updateMode": "prefetch",
+      "urls": [
+        "/assets/api/rest/v1/car-sharing/vehicle/1001/reservation",
+        "/assets/api/rest/v1/car-sharing/vehicle/1002/reservation",
+        "/assets/api/rest/v1/car-sharing/vehicle/1003/reservation",
+        "/assets/api/rest/v1/car-sharing/vehicle/1004/reservation",
+        "/assets/api/rest/v1/contract/1/subscription",
+        "/assets/api/rest/v1/xfcd/last",
+        "/assets/CNAME",
+        "/assets/css/loading.css",
+        "/assets/css/reset.css",
+        "/assets/i18n/en.json",
+        "/assets/images/404.gif",
+        "/assets/images/angular.svg",
+        "/assets/images/github-circle-white-transparent.svg",
+        "/assets/images/heroes/1-thumbnail.jpg",
+        "/assets/images/heroes/1.jpg",
+        "/assets/images/heroes/2-thumbnail.jpg",
+        "/assets/images/heroes/2.jpg",
+        "/assets/images/heroes/3-thumbnail.jpg",
+        "/assets/images/heroes/3.jpg",
+        "/assets/images/heroes/4-thumbnail.jpg",
+        "/assets/images/heroes/4.jpg",
+        "/assets/images/heroes/5-thumbnail.jpg",
+        "/assets/images/heroes/5.jpg",
+        "/assets/images/heroes/6-thumbnail.jpg",
+        "/assets/images/heroes/6.jpg",
+        "/assets/images/heroes/7-thumbnail.jpg",
+        "/assets/images/heroes/7.jpg",
+        "/assets/images/heroes/8-thumbnail.jpg",
+        "/assets/images/heroes/8.jpg",
+        "/assets/images/heroes/9-thumbnail.jpg",
+        "/assets/images/heroes/9.jpg",
+        "/assets/images/heroes/default.png",
+        "/assets/js/modernizr.js",
+        "/assets/leaflet/dist/images/layers-2x.png",
+        "/assets/leaflet/dist/images/layers.png",
+        "/assets/leaflet/dist/images/marker-icon-2x.png",
+        "/assets/leaflet/dist/images/marker-icon.png",
+        "/assets/leaflet/dist/images/marker-shadow.png",
+        "/assets/sitemap.xml"
+      ],
+      "patterns": []
+    }
+  ],
+  "dataGroups": [],
+  "hashTable": {
+    "/favicon.ico": "8dde64d5926ab8d2352062bb7ca536f818feacaa",
+    "/assets/api/rest/v1/car-sharing/vehicle/1001/reservation": "0d3b458bcde8da3afde2ad35904b9eb127e156ff",
+    "/index.html": "91c7dd2644146abf735a908eae8cd10206ca4633",
+    "/assets/api/rest/v1/car-sharing/vehicle/1002/reservation": "076e9a4f845febcf63b9e2cf10b11c7fc683395b",
+    "/assets/api/rest/v1/car-sharing/vehicle/1003/reservation": "21e6814ef6ad2575190366d2702237a4548fb166",
+    "/assets/api/rest/v1/car-sharing/vehicle/1004/reservation": "b4b8e8407f43d1591315bde9a45630d04b336fe5",
+    "/assets/api/rest/v1/contract/1/subscription": "70ade22baf575cdc0e8ee57d75e36eb322e661fa",
+    "/assets/api/rest/v1/xfcd/last": "0cca60107a48a71e74de3d144d7aa46868752b16",
+    "/assets/CNAME": "e52867b819101e44bcb34553abe026372eff5686",
+    "/assets/css/loading.css": "b2fb4239d4fcff487b71e8bc252904c7163e849c",
+    "/assets/css/reset.css": "98e924ee8c54cf2e58cbd479eb9e2802a9f5666b",
+    "/assets/i18n/en.json": "d9808533f85e68ab0773a66c44ac1f0e59d72e53",
+    "/assets/images/404.gif": "5884765f20002934d84bbe9fb8cca3a46dc1326f",
+    "/assets/images/angular.svg": "7da80dad176d6c831fc69d1ee3d0f7350e6b64d3",
+    "/assets/images/github-circle-white-transparent.svg": "070117dba8fdc93157acf0f9ed42bf291f78c0c5",
+    "/assets/images/heroes/1-thumbnail.jpg": "214479faa752a72b0b848cb06dc6ea85c8aa565b",
+    "/assets/images/heroes/1.jpg": "3563f2000887131872f26f039f5adc5f8a64ec99",
+    "/assets/images/heroes/2-thumbnail.jpg": "819a3423846ea4985705eec145bd5da6b414210e",
+    "/assets/images/heroes/2.jpg": "61f362b97086e72a758079d59b54f3ef7172cdc9",
+    "/assets/images/heroes/3-thumbnail.jpg": "f4fa4147cbc09b360a685847f6545546b3ce3831",
+    "/assets/images/heroes/3.jpg": "fbbd686edffeb4f79beafbeddd67d2d388d14430",
+    "/assets/images/heroes/4-thumbnail.jpg": "7ca2b19a5570ebabf86e25037a83a254c17b3e06",
+    "/assets/images/heroes/4.jpg": "39c7df03fd511adf8977285fda8cf6e607142ba0",
+    "/assets/images/heroes/5-thumbnail.jpg": "1785287ad3235385d8572faa0659ce23eeea2a20",
+    "/assets/images/heroes/5.jpg": "30ec6d209b859acfbfd75f350385c00cd138e1bb",
+    "/assets/images/heroes/6-thumbnail.jpg": "c903b33b213827ac5f33d8d8a72412de198f6edb",
+    "/assets/images/heroes/6.jpg": "5882eecc4ae916361f5cc5cbb370d60347cd15ea",
+    "/assets/images/heroes/7-thumbnail.jpg": "355abfddb39e2a538bed4d865afbbf7762c037be",
+    "/assets/images/heroes/7.jpg": "26a308e32aaeb0fc8479750181090abda7f5eae6",
+    "/assets/images/heroes/8-thumbnail.jpg": "ef5c9dc7089c65beee81670a9f47728cdc6d4fce",
+    "/assets/images/heroes/8.jpg": "a9e77b42530012a954af62417a1e77b0d906ef58",
+    "/assets/images/heroes/9-thumbnail.jpg": "c7db08c9e520fdbf03a229770efaf20628f93022",
+    "/assets/images/heroes/9.jpg": "dc12717b6e2070ae7a313851cfb8a1cdfc0e1b49",
+    "/assets/images/heroes/default.png": "4ba5c23dab24b6cb77cd8794a4b64b6e54998c31",
+    "/assets/js/modernizr.js": "bd2c046e84848d884d13ebabe0bb13976b66fb91",
+    "/assets/leaflet/dist/images/layers-2x.png": "152a162333e46d24f9d89f566312fc0c64011dee",
+    "/assets/leaflet/dist/images/layers.png": "c9e7528e491a39232ba24a2706c6c739d6fb0f06",
+    "/assets/leaflet/dist/images/marker-icon-2x.png": "cf3a536596b1f58e0ac805404183c8e6d6bdacb5",
+    "/assets/leaflet/dist/images/marker-icon.png": "60a90bcbb2b42b7ddb4556db94eb7c1084b0e5da",
+    "/assets/leaflet/dist/images/marker-shadow.png": "7b6a8df63930381e96604e705168d0527d6b82bc",
+    "/assets/sitemap.xml": "a1b0efe0ff8a55bf2729cc4fc22cc32b8c011c39"
+  },
+  "navigationUrls": [
+    {
+      "positive": true,
+      "regex": "^\\/.*$"
+    },
+    {
+      "positive": false,
+      "regex": "^\\/(?:.+\\/)?[^\\/]*\\.[^\\/]*$"
+    },
+    {
+      "positive": false,
+      "regex": "^\\/(?:.+\\/)?[^\\/]*__[^\\/]*$"
+    },
+    {
+      "positive": false,
+      "regex": "^\\/(?:.+\\/)?[^\\/]*__[^\\/]*\\/.*$"
+    }
+  ]
+}

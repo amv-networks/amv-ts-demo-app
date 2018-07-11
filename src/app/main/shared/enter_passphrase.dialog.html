@@ -1,0 +1,16 @@
+<h2 mat-dialog-title>{{ data.title }}</h2>
+<mat-dialog-content>
+
+  <form class="form-container" [formGroup]="options">
+    <mat-form-field class="full-width ">
+      <mat-label>{{ data.label }}</mat-label>
+      <input matInput type="password" formControlName="input" minlength="1" [placeholder]="data.placeholder" (keyup.enter)="onEnterPressed()">
+      <mat-error *ngIf="options.get('input')?.invalid">Invalid</mat-error>
+      <mat-hint>{{ data.hint }}</mat-hint>
+    </mat-form-field>
+  </form>
+</mat-dialog-content>
+
+<mat-dialog-actions>
+  <button mat-button [mat-dialog-close]="this.options.get('input').value" [disabled]="options.get('input')?.invalid">{{ data.submit }}</button>
+</mat-dialog-actions>
