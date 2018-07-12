@@ -7,17 +7,16 @@ export interface LeafletOptions {
   center: latLng;
 }
 
-export function zoomToPlace(leafletMap : Map, lat : number, lng : number, zoom: number = 15, delayStepInMs : number = 1000, animate = false) : void {
-  console.log('Zoom to place ', zoom, arguments);
+export function zoomToPlace(leafletMap: Map, lat: number, lng: number, zoom: number = 15,
+  delayStepInMs: number = 1000, animate = false): void {
   if (animate) {
     leafletMap.flyTo(latLng(lat, lng), zoom);
   } else {
-    console.log('setView ', zoom, arguments);
     leafletMap.setView([lat, lng], zoom);
   }
 }
 
-export function createLeafletOptions(options : LeafletOptions) {
+export function createLeafletOptions(options: LeafletOptions) {
   return {
     layers: [
       tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
@@ -35,7 +34,7 @@ export function createLeafletOptions(options : LeafletOptions) {
   };
 }
 
-export function createMarkerForVehicle(vehicle : any) : latLng {
+export function createMarkerForVehicle(vehicle: any): latLng {
   const m = marker([vehicle.latitude, vehicle.longitude], {
     title: vehicle.id,
     icon: icon({

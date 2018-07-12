@@ -20,23 +20,22 @@ import { createMarkerForVehicle, createLeafletOptions, zoomToPlace } from '../sh
 })
 
 export class MainBoxMapComponent implements OnInit {
-  static INITIAL_CENTER = latLng(47.5, 13);
-  static INITIAL_ZOOM = 7;
+  private static INITIAL_CENTER = latLng(47.5, 13);
+  private static INITIAL_ZOOM = 7;
 
   @Input() vehicleId: number;
 
   loading = true;
-  private debugMode = false;
+  debugMode = false;
 
-  private lastData: any[] = [];
+  lastData: any[] = [];
 
-  private selectedVehicle: any;
+  selectedVehicle: any;
 
-  private leafletOptions: any;
-  private leafletOptions2: any;
-  private leafletLayers: any[];
+  leafletOptions: any;
+  leafletLayers: any[];
 
-  private map: Map;
+  map: Map;
 
   constructor(private router: Router,
     private formBuilder: FormBuilder,

@@ -23,11 +23,11 @@ import { ApplicationSettings } from '../shared/application_settings.model';
 })
 
 export class MainFrontComponent implements OnInit {
-  static INITIAL_CENTER = latLng(47.5, 13);
-  static INITIAL_ZOOM = 6;
+  private static INITIAL_CENTER = latLng(47.5, 13);
+  private static INITIAL_ZOOM = 6;
 
   loading = true;
-  private debugMode = false;
+  debugMode = false;
 
   subscriptions: any[] = [];
   lastData: any[] = [];
@@ -38,8 +38,8 @@ export class MainFrontComponent implements OnInit {
   leafletLayers: any[];
 
   @ViewChild('sideNavDebug')
-  private sideNavDebug: any;
-  private map: Map;
+  sideNavDebug: any;
+  map: Map;
 
   constructor(private router: Router,
     private formBuilder: FormBuilder,
@@ -117,13 +117,13 @@ export class MainFrontComponent implements OnInit {
     this.snackBar.open(content, 'OK', config);
   }
 
-  private focusVehicleOnMap(vehicle: any, zoom : number = 15, animate = false) {
+  private focusVehicleOnMap(vehicle: any, zoom: number = 15, animate = false) {
     if (null != this.map) {
       zoomToPlace(this.map, vehicle.latitude, vehicle.longitude, zoom, 1000, animate);
     }
   }
 
-  private load(onLoadFinished : Function) {
+  private load(onLoadFinished: Function) {
     this.loading = true;
 
     this.applicationSettingsService.get().pipe(

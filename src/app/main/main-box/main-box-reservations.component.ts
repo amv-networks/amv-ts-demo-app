@@ -44,14 +44,14 @@ export class MainBoxReservationsComponent implements OnInit, AfterViewInit {
 
   loading = true;
 
-  private displayedColumns: string[] = ['select', 'reservationId', 'from', 'until', 'type', 'data'];
-  private dataSource = new MatTableDataSource<Reservation>([]);
+  displayedColumns: string[] = ['select', 'reservationId', 'from', 'until', 'type', 'data'];
+  dataSource = new MatTableDataSource<Reservation>([]);
   selection = new SelectionModel<Reservation>(true, []);
 
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
-  private reservations: Reservation[] = [];
+  reservations: Reservation[] = [];
 
   constructor(
     public dialog: MatDialog,
@@ -64,7 +64,6 @@ export class MainBoxReservationsComponent implements OnInit, AfterViewInit {
   ngOnInit() {
     this.load();
   }
-  
 
   ngAfterViewInit(): void {
     this.dataSource.sort = this.sort;
