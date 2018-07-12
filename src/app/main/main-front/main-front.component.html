@@ -1,6 +1,7 @@
-<div class="container">
+
+
   <mat-sidenav-container hasBackdrop="false">
-    <mat-sidenav #sideNavMain mode="side" opened disableClose position="end">
+    <mat-sidenav #sideNavMain mode="side" opened disableClose position="end" class="height-vh-100">
       <div class="clear mb-1"></div>
       <button mat-button matTooltip="Reload latest xfcd data" matTooltipPosition="right" (click)="reload()">
         <mat-icon>autorenew</mat-icon>
@@ -17,7 +18,7 @@
 
     </mat-sidenav>
     <mat-sidenav-content>
-      <mat-sidenav-container [hasBackdrop]="sideNavDebug.opened">
+      <mat-sidenav-container [hasBackdrop]="sideNavDebug.opened" class="height-vh-100">
         <mat-sidenav #sideNavOne mode="over" opened disableClose position="start">
           <div class="m-0_5" style="width: 250px">
             <div fxFlex fxLayout="row" fxLayout.xs="column" fxLayoutAlign="center center">
@@ -105,8 +106,3 @@
       </mat-sidenav-container>
     </mat-sidenav-content>
   </mat-sidenav-container>
-
-
-</div>
-
-<div class="clear"></div>
