@@ -1,6 +1,7 @@
 import { Observable, of } from 'rxjs';
 import { map, tap, } from 'rxjs/operators';
-import { Map, tileLayer, latLng, circle, polygon, marker, icon, control } from 'leaflet';
+import { Map, tileLayer, latLng, circle, polygon, marker, icon, control, Util, Control } from 'leaflet';
+import { LeafletDirective } from '@asymmetrik/ngx-leaflet';
 
 export interface LeafletOptions {
   zoom: number;
@@ -14,6 +15,21 @@ export function zoomToPlace(leafletMap: Map, lat: number, lng: number, zoom: num
   } else {
     leafletMap.setView([lat, lng], zoom);
   }
+}
+
+export function customizeMap(leafletMap: Map): Map {
+  // This will prevent the awkward scroll bug produced by Chrome browsers
+  // https://github.com/Leaflet/Leaflet/issues/4125#issuecomment-356289643
+  Control.include({
+    _refocusOnMap: Util.falseFn // Do nothing.
+  });
+
+  if (leafletMap.zoomControl) {
+    leafletMap.removeControl(leafletMap.zoomControl);
+  }
+  leafletMap.addControl(control.zoom({ position: 'topright' }));
+
+  return leafletMap;
 }
 
 export function createLeafletOptions(options: LeafletOptions) {

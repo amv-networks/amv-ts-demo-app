@@ -11,7 +11,7 @@ import { TrafficsoftClientService } from '../shared/trafficsoft-clients.service'
 import { MatSnackBar, MatSnackBarConfig } from '@angular/material';
 import { Map, tileLayer, latLng, circle, polygon, marker, icon, control } from 'leaflet';
 import { ApplicationSettingsService } from '../shared/application_settings.service';
-import { createMarkerForVehicle, createLeafletOptions, zoomToPlace } from '../shared/leaflet-map.util';
+import { createMarkerForVehicle, createLeafletOptions, zoomToPlace, customizeMap } from '../shared/leaflet-map.util';
 import { ApplicationSettings } from '../shared/application_settings.model';
 
 
@@ -72,13 +72,7 @@ export class MainFrontComponent implements OnInit {
   }
 
   onMapReady(_map: Map) {
-    this.map = _map;
-
-    if (this.map.zoomControl) {
-      this.map.removeControl(this.map.zoomControl);
-    }
-    this.map.addControl(control.zoom({ position: 'topright' }));
-
+    this.map = customizeMap(_map);
   }
 
   resetMapZoom(): void {
