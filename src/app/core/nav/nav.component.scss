@@ -16,7 +16,7 @@
       align-items: center;
       padding: calculateRem(8px) calculateRem(16px);
       color: $secondary--color;
-      height: 2rem;
+      height: 3rem;
       background: $primary--color;
 
       .mat-raised-button {
@@ -55,7 +55,7 @@
       position: relative;
 
       nav {
-        height: 4rem;
+        height: 6rem;
         display: flex;
         padding: 1rem 1rem 0;
 
