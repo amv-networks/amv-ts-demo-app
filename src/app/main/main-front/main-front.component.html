@@ -40,19 +40,19 @@
                   <table>
                     <tr>
                       <td style="padding-right: 1rem;">
-                        <b class="bold">timestamp</b>
+                        <span class="bold">timestamp</span>
                       </td>
                       <td>{{ vehicle.timestamp | date:'short' }}</td>
                     </tr>
                     <tr>
                       <td>
-                        <b class="bold">lat/lon</b>
+                        <span class="bold">lat/lon</span>
                       </td>
                       <td> {{ vehicle.latitude | number:0 }} / {{ vehicle.longitude | number:0 }}</td>
                     </tr>
                     <tr>
                       <td>
-                        <b class="bold">speed</b>
+                        <span class="bold">speed</span>
                       </td>
                       <td>{{ vehicle.speed | number:0 }} km/h</td>
 
@@ -69,7 +69,7 @@
                     matTooltipPosition="above" matTooltipShowDelay="500">
                     <mat-icon>code</mat-icon>
                   </button>
-                  <button class="m-1" style="float: right" mat-icon-button mat-raised-button (click)="focusVehicle(vehicle)" matTooltip="Focus on map"
+                  <button class="m-1" style="float: right" mat-icon-button mat-raised-button (click)="onFocusVehicleClicked(vehicle)" matTooltip="Focus on map"
                     matTooltipPosition="above" matTooltipShowDelay="500">
                     <mat-icon>my_location</mat-icon>
                   </button>

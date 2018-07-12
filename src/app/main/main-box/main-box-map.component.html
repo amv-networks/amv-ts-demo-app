@@ -7,9 +7,11 @@
 </div>
 
 
-<div *ngIf="!loading">
-    <div #map class="map" leaflet [leafletOptions]="leafletOptions" [leafletLayers]="leafletLayers" (leafletMapReady)="onMapReady($event)">
-    </div>
+<div class="m-1">
+    <button mat-button (click)="focusVehicleOnMap(selectedVehicle)" [disabled]="loading"><mat-icon>my_location</mat-icon> focus</button>
+</div>
+
+<div #map class="map" leaflet [leafletOptions]="leafletOptions" [leafletLayers]="leafletLayers" (leafletMapReady)="onMapReady($event)">
 </div>
 
 <div class="clear"></div>

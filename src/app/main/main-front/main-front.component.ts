@@ -11,7 +11,10 @@ import { TrafficsoftClientService } from '../shared/trafficsoft-clients.service'
 import { MatSnackBar, MatSnackBarConfig } from '@angular/material';
 import { Map, tileLayer, latLng, circle, polygon, marker, icon, control } from 'leaflet';
 import { ApplicationSettingsService } from '../shared/application_settings.service';
+import { createMarkerForVehicle, createLeafletOptions, zoomToPlace } from '../shared/leaflet-map.util';
 import { ApplicationSettings } from '../shared/application_settings.model';
+
+
 
 @Component({
   selector: 'app-main-front',
@@ -21,7 +24,7 @@ import { ApplicationSettings } from '../shared/application_settings.model';
 
 export class MainFrontComponent implements OnInit {
   static INITIAL_CENTER = latLng(47.5, 13);
-  static INITIAL_ZOOM = 7;
+  static INITIAL_ZOOM = 6;
 
   loading = true;
   private debugMode = false;
@@ -44,76 +47,28 @@ export class MainFrontComponent implements OnInit {
     private snackBar: MatSnackBar,
     private applicationSettingsService: ApplicationSettingsService) {
 
-    this.leafletOptions = {
-      layers: [
-        tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
-          minZoom: 0,
-          maxZoom: 7,
-          attribution: '-'
-        }),
-        tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-          minZoom: 7,
-          attribution: '-'
-        }),
-      ],
+    this.leafletOptions = createLeafletOptions({
       zoom: MainFrontComponent.INITIAL_ZOOM,
       center: MainFrontComponent.INITIAL_CENTER
-    };
+    });
   }
 
   ngOnInit() {
     this.applicationSettingsService.get()
       .subscribe(settings => this.debugMode = settings.debugMode);
 
-    this.load();
-  }
-
-  load() {
-    this.loading = true;
-
-    this.applicationSettingsService.get().pipe(
-      flatMap(settings => this.fetchLastData(settings))
-    ).subscribe(lastData => {
-      this.lastData = lastData;
-
-      const markerArray = this.lastData
-        .filter(d => d.latitude && d.longitude)
-        .map(d => {
-          const m = marker([d.latitude, d.longitude], {
-            title: d.id,
-            icon: icon({
-              iconSize: [25, 41],
-              iconAnchor: [13, 41],
-              iconUrl: 'assets/leaflet/dist/images/marker-icon.png',
-              shadowUrl: 'assets/leaflet/dist/images/marker-shadow.png'
-            }),
-            riseOnHover: true
-          });
-
-          m.bindPopup('<b class="bold">' + d.id + '</b><br />' +
-            '<b class="bold">lat/lon</b>:' + d.latitude + '/' + d.longitude + '<br />' +
-            '<b class="bold">speed</b>:' + d.speed + ' km/h');
-
-          m.bindTooltip('' + d.id);
-          return m;
-        });
-
-      this.leafletLayers = markerArray;
-    }, err => {
-      this.popupError('Error while loading data: ' + err);
-      this.loading = false;
-    }, () => {
-      this.popupMessage('Succussfully loaded data');
-      this.loading = false;
+    this.load(() => {
+      if (this.lastData.length > 0) {
+        this.focusVehicleOnMap(this.lastData[0], MainFrontComponent.INITIAL_ZOOM);
+      }
     });
   }
 
   reload() {
-
     this.subscriptions = [];
     this.lastData = [];
 
-    this.load();
+    this.load(() => {});
   }
 
   onMapReady(_map: Map) {
@@ -125,6 +80,7 @@ export class MainFrontComponent implements OnInit {
     this.map.addControl(control.zoom({ position: 'topright' }));
 
   }
+
   resetMapZoom(): void {
     if (null != this.map) {
       this.map.setView(MainFrontComponent.INITIAL_CENTER, MainFrontComponent.INITIAL_ZOOM);
@@ -132,9 +88,9 @@ export class MainFrontComponent implements OnInit {
     }
   }
 
-  focusVehicle(vehicle: any) {
+  onFocusVehicleClicked(vehicle: any) {
     if (null != this.map) {
-      this.map.setView([vehicle.latitude, vehicle.longitude], 13);
+      this.focusVehicleOnMap(vehicle);
       this.popupMessage('Vehicle ' + vehicle.id + ' has been focused');
     }
   }
@@ -144,42 +100,6 @@ export class MainFrontComponent implements OnInit {
       this.sideNavDebug.toggle();
     }
     this.selectedVehicle = vehicle;
-  }
-
-  getOrFetchSubscriptions(settings: ApplicationSettings): Observable<any[]> {
-    const fetch: Observable<any[]> = this.trafficsoftClientService.contract(settings)
-      .pipe(flatMap(client => {
-        return fromPromise(client.fetchSubscriptions(settings.contractId))
-          .pipe(
-            map(response => response['data']),
-            map(data => data.subscriptions as any[]),
-            tap(subscriptions => this.subscriptions = subscriptions)
-          );
-      }));
-
-    return this.subscriptions.length > 0 ? of(this.subscriptions) : fetch;
-  }
-
-  fetchVehicleIds(settings: ApplicationSettings): Observable<any[]> {
-    return this.getOrFetchSubscriptions(settings).pipe(
-      map(subscriptions => subscriptions.map(s => s.vehicleId))
-    );
-  }
-
-  fetchLastData(settings: ApplicationSettings): Observable<any[]> {
-    return zip(
-      this.trafficsoftClientService.xfcd(settings),
-      this.fetchVehicleIds(settings),
-      of(1).pipe(delay(442))
-    ).pipe(flatMap(pair => {
-      const client = pair[0];
-      const vehicleIds = pair[1];
-
-      return fromPromise(client.getLastData(vehicleIds)).pipe(
-        map(response => response['data'] || []),
-        map(array => array.sort((a, b) => a.id > b.id))
-      );
-    }));
   }
 
   popupError(error): void {
@@ -195,5 +115,72 @@ export class MainFrontComponent implements OnInit {
     config.duration = AppConfig.snackBarDuration;
     config.panelClass = panelClass;
     this.snackBar.open(content, 'OK', config);
+  }
+
+  private focusVehicleOnMap(vehicle: any, zoom : number = 15, animate = false) {
+    if (null != this.map) {
+      zoomToPlace(this.map, vehicle.latitude, vehicle.longitude, zoom, 1000, animate);
+    }
+  }
+
+  private load(onLoadFinished : Function) {
+    this.loading = true;
+
+    this.applicationSettingsService.get().pipe(
+      flatMap(settings => this.fetchLastData(settings))
+    ).subscribe(lastData => {
+      this.lastData = lastData;
+
+      const markerArray = this.lastData
+        .filter(vehicle => vehicle.latitude && vehicle.longitude)
+        .map(vehicle => createMarkerForVehicle(vehicle));
+
+      this.leafletLayers = markerArray;
+
+      onLoadFinished();
+    }, err => {
+      this.popupError('Error while loading data: ' + err);
+      this.loading = false;
+    }, () => {
+      this.loading = false;
+    });
+  }
+
+  private getOrFetchSubscriptions(settings: ApplicationSettings): Observable<any[]> {
+    return this.subscriptions.length > 0 ? of(this.subscriptions) : this.fetchSubscriptions(settings);
+  }
+
+  private fetchSubscriptions(settings: ApplicationSettings): Observable<any[]> {
+    return this.trafficsoftClientService.contract(settings)
+      .pipe(flatMap(client => {
+        return fromPromise(client.fetchSubscriptions(settings.contractId))
+          .pipe(
+            map(response => response['data']),
+            map(data => data.subscriptions as any[]),
+            tap(subscriptions => this.subscriptions = subscriptions)
+          );
+      }));
+  }
+
+  private fetchVehicleIds(settings: ApplicationSettings): Observable<any[]> {
+    return this.getOrFetchSubscriptions(settings).pipe(
+      map(subscriptions => subscriptions.map(s => s.vehicleId))
+    );
+  }
+
+  private fetchLastData(settings: ApplicationSettings): Observable<any[]> {
+    return zip(
+      this.trafficsoftClientService.xfcd(settings),
+      this.fetchVehicleIds(settings),
+      of(1).pipe(delay(442))
+    ).pipe(flatMap(pair => {
+      const client = pair[0];
+      const vehicleIds = pair[1];
+
+      return fromPromise(client.getLastData(vehicleIds)).pipe(
+        map(response => response['data'] || []),
+        map(array => array.sort((a, b) => a.id > b.id))
+      );
+    }));
   }
 }

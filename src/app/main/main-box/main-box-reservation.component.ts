@@ -36,7 +36,7 @@ export class CancelReservationDialogComponent {
 @Component({
   selector: 'app-main-box-reservations',
   templateUrl: './main-box-reservations.component.html',
-  /*styleUrls: ['./main-box.component.scss']*/
+  /*styleUrls: ['./main-box-reservations.component.scss']*/
 })
 
 export class MainBoxReservationsComponent implements OnInit, AfterViewInit {
@@ -101,7 +101,7 @@ export class MainBoxReservationsComponent implements OnInit, AfterViewInit {
 
       this.dataSource.data = this.reservations;
     }, err => {
-      this.popupError('erro while fetching reservations: ' + err);
+      this.popupError('Error while fetching reservations: ' + err);
       this.loading = false;
     }, () => {
       this.loading = false;
@@ -134,7 +134,6 @@ export class MainBoxReservationsComponent implements OnInit, AfterViewInit {
         ),
         mergeAll()
       ).subscribe(deleteReservationResult => {
-        console.log(deleteReservationResult);
       }, error => {
         this.popupError(error);
       }, () => {

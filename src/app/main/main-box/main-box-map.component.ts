@@ -10,6 +10,7 @@ import { MatSnackBar, MatSnackBarConfig } from '@angular/material';
 import { Map, tileLayer, latLng, circle, polygon, marker, icon, control } from 'leaflet';
 import { ApplicationSettingsService } from '../shared/application_settings.service';
 import { ApplicationSettings } from '../shared/application_settings.model';
+import { createMarkerForVehicle, createLeafletOptions, zoomToPlace } from '../shared/leaflet-map.util';
 
 
 @Component({
@@ -32,6 +33,7 @@ export class MainBoxMapComponent implements OnInit {
   private selectedVehicle: any;
 
   private leafletOptions: any;
+  private leafletOptions2: any;
   private leafletLayers: any[];
 
   private map: Map;
@@ -42,6 +44,13 @@ export class MainBoxMapComponent implements OnInit {
     private snackBar: MatSnackBar,
     private applicationSettingsService: ApplicationSettingsService) {
 
+    // TODO: what, wtf? tried `createLeafletOptions` and it does not work -> vehicle will not be focused -> very strange..
+    /*
+      this.leafletOptions = createLeafletOptions({
+        zoom: MainBoxMapComponent.INITIAL_ZOOM,
+        center: MainBoxMapComponent.INITIAL_CENTER
+      });
+    */
     this.leafletOptions = {
       layers: [
         tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
@@ -63,51 +72,8 @@ export class MainBoxMapComponent implements OnInit {
     this.applicationSettingsService.get()
       .subscribe(settings => this.debugMode = settings.debugMode);
 
+      console.log('what');
     this.load();
-  }
-
-  load() {
-    this.loading = true;
-
-    this.applicationSettingsService.get().pipe(
-      flatMap(settings => this.fetchLastData(settings))
-    ).subscribe(lastData => {
-      this.lastData = lastData;
-
-      const markerArray = this.lastData
-        .filter(d => d.latitude && d.longitude)
-        .map(d => {
-          const m = marker([d.latitude, d.longitude], {
-            title: d.id,
-            icon: icon({
-              iconSize: [25, 41],
-              iconAnchor: [13, 41],
-              iconUrl: 'assets/leaflet/dist/images/marker-icon.png',
-              shadowUrl: 'assets/leaflet/dist/images/marker-shadow.png'
-            }),
-            riseOnHover: true
-          });
-
-          m.bindPopup('<b class="bold">' + d.id + '</b><br />' +
-            '<b class="bold">lat/lon</b>:' + d.latitude + '/' + d.longitude + '<br />' +
-            '<b class="bold">speed</b>:' + d.speed + ' km/h');
-
-          m.bindTooltip('' + d.id);
-          return m;
-        });
-
-      this.leafletLayers = markerArray;
-
-      if (lastData.length > 0) {
-        this.focusVehicle(lastData[0]);
-      }
-    }, err => {
-      this.popupError('fetch subscription errored');
-      this.loading = false;
-    }, () => {
-      this.popupMessage('Succussfully loaded data');
-      this.loading = false;
-    });
   }
 
   reload() {
@@ -124,21 +90,14 @@ export class MainBoxMapComponent implements OnInit {
     }
     this.map.addControl(control.zoom({ position: 'topright' }));
 
-    if (this.lastData.length > 0) {
-      this.focusVehicle(this.lastData[0]);
+    if (this.selectedVehicle) {
+      this.focusVehicleOnMap(this.selectedVehicle);
     }
   }
 
-  resetMapZoom(): void {
+  focusVehicleOnMap(vehicle: any) {
     if (null != this.map) {
-      this.map.setView(MainBoxMapComponent.INITIAL_CENTER, MainBoxMapComponent.INITIAL_ZOOM);
-      this.popupMessage('Map zoom and center have been reset');
-    }
-  }
-
-  focusVehicle(vehicle: any) {
-    if (null != this.map) {
-      this.map.setView([vehicle.latitude, vehicle.longitude], 13);
+      zoomToPlace(this.map, vehicle.latitude, vehicle.longitude, 15);
     }
   }
 
@@ -165,5 +124,32 @@ export class MainBoxMapComponent implements OnInit {
     config.duration = AppConfig.snackBarDuration;
     config.panelClass = panelClass;
     this.snackBar.open(content, 'OK', config);
+  }
+
+  private load() {
+    this.loading = true;
+
+    this.applicationSettingsService.get().pipe(
+      flatMap(settings => this.fetchLastData(settings))
+    ).subscribe(lastData => {
+      this.lastData = lastData;
+
+      if (lastData.length > 0) {
+        this.selectedVehicle = lastData[0];
+
+        const markerArray = this.lastData
+        .filter(d => d.latitude && d.longitude)
+        .map(d => createMarkerForVehicle(d));
+
+        this.leafletLayers = markerArray;
+
+        this.focusVehicleOnMap(this.selectedVehicle);
+      }
+    }, err => {
+      this.popupError('Loading latest data errored');
+      this.loading = false;
+    }, () => {
+      this.loading = false;
+    });
   }
 }
