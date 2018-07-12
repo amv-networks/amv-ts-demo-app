@@ -1,25 +1,25 @@
 <mat-card class="m-1">
 
   <mat-card-content>
-    <div fxFlex fxLayout="row" fxLayout.xs="column" fxLayoutAlign="center center">
-      <div fxFlex></div>
-      <div fxFlex="33">
-        <mat-spinner *ngIf="loading" class="m-1"></mat-spinner>
-      </div>
-      <div fxFlex></div>
-    </div>
-
-    <div *ngIf="!loading">
+    <div>
       <span class="h3-1 mt-1" [matBadge]="dataSource.data.length" matBadgeOverlap="false">Reservations</span>
 
-      <mat-card class="mt-1" *ngIf="dataSource.data.length === 0">No content</mat-card>
+      <div fxFlex fxLayout="row" fxLayout.xs="column" fxLayoutAlign="center center">
+        <div fxFlex></div>
+        <div fxFlex="33">
+          <mat-spinner *ngIf="loading" class="m-1"></mat-spinner>
+        </div>
+        <div fxFlex></div>
+      </div>
+    
+      <mat-card class="mt-1" *ngIf="!loading && dataSource.data.length === 0">No content</mat-card>
 
-      <div class="mt-1" *ngIf="dataSource.data.length > 0">
+      <div class="mt-1" [hidden]="!(dataSource.data.length > 0)">
         <mat-form-field class="full-width">
           <input matInput (keyup)="applyReservationsFilter($event.target.value)" placeholder="Filter">
         </mat-form-field>
 
-        <table mat-table matSort [dataSource]="dataSource" class="mt-1 full-width  mat-elevation-z8">
+        <table mat-table matSort [dataSource]="dataSource" class="mt-1 mb-1 full-width mat-elevation-z2">
 
           <!-- Checkbox Column -->
           <ng-container matColumnDef="select">
@@ -70,6 +70,10 @@
     
     <button class="m-1" mat-button mat-raised-button color="ancient" [disabled]="!selection.hasValue()" (click)="deleteSelectedItems()">
       <mat-icon>delete_forever</mat-icon> delete {{ isAllSelected() ? 'all' : '' }}
+    </button>
+
+    <button class="m-1" mat-button (click)="reload()" [disabled]="loading">
+      <mat-icon>autorenew</mat-icon> reload
     </button>
 
   </mat-card-actions>

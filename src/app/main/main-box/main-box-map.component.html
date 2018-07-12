@@ -1,14 +1,15 @@
+
+<div class="m-1">
+    <button class="m-1" mat-button (click)="reload()" [disabled]="loading"><mat-icon>autorenew</mat-icon> reload</button>
+    <button class="m-1" mat-button (click)="focusVehicleOnMap(selectedVehicle)" [disabled]="loading"><mat-icon>my_location</mat-icon> focus</button>
+</div>
+
 <div fxFlex fxLayout="row" fxLayout.xs="column" fxLayoutAlign="center center">
     <div fxFlex></div>
-    <div fxFlex="33">
+    <div fxFlex="10">
         <mat-spinner *ngIf="loading" class="m-1"></mat-spinner>
     </div>
     <div fxFlex></div>
-</div>
-
-
-<div class="m-1">
-    <button mat-button (click)="focusVehicleOnMap(selectedVehicle)" [disabled]="loading"><mat-icon>my_location</mat-icon> focus</button>
 </div>
 
 <div #map class="map" leaflet [leafletOptions]="leafletOptions" [leafletLayers]="leafletLayers" (leafletMapReady)="onMapReady($event)">

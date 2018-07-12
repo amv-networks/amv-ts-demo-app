@@ -64,10 +64,34 @@ export class MainBoxReservationsComponent implements OnInit, AfterViewInit {
   ngOnInit() {
     this.load();
   }
+  
 
   ngAfterViewInit(): void {
     this.dataSource.sort = this.sort;
     this.dataSource.paginator = this.paginator;
+  }
+
+
+  popupError(error): void {
+    this.popupSnackBar(error, 'background-red');
+  }
+
+  popupMessage(message): void {
+    this.popupSnackBar(message, '');
+  }
+
+  popupSnackBar(content: any, panelClass: string): void {
+    const config: any = new MatSnackBarConfig();
+    config.duration = AppConfig.snackBarDuration;
+    config.panelClass = panelClass;
+    this.snackBar.open(content, 'OK', config);
+  }
+
+  reload() {
+    this.reservations = [];
+    this.dataSource.data = this.reservations;
+
+    this.load();
   }
 
   applyReservationsFilter(filterValue: string) {
@@ -87,27 +111,6 @@ export class MainBoxReservationsComponent implements OnInit, AfterViewInit {
       this.selection.clear() :
       this.dataSource.data.forEach(row => this.selection.select(row));
   }
-
-  load() {
-    this.loading = true;
-
-    this.applicationSettingsService.get().pipe(
-      flatMap(settings => zip(
-        this.fetchReservations(settings),
-        of(1).pipe(delay(242))
-      ))
-    ).subscribe(data => {
-      this.reservations = data[0];
-
-      this.dataSource.data = this.reservations;
-    }, err => {
-      this.popupError('Error while fetching reservations: ' + err);
-      this.loading = false;
-    }, () => {
-      this.loading = false;
-    });
-  }
-
   createReservation(): void {
     this.popupError(new Error('Not yet implemented.'));
   }
@@ -174,19 +177,23 @@ export class MainBoxReservationsComponent implements OnInit, AfterViewInit {
       );
     }));
   }
+  private load() {
+    this.loading = true;
 
-  popupError(error): void {
-    this.popupSnackBar(error, 'background-red');
-  }
+    this.applicationSettingsService.get().pipe(
+      flatMap(settings => zip(
+        this.fetchReservations(settings),
+        of(1).pipe(delay(242))
+      ))
+    ).subscribe(data => {
+      this.reservations = data[0];
 
-  popupMessage(message): void {
-    this.popupSnackBar(message, '');
-  }
-
-  popupSnackBar(content: any, panelClass: string): void {
-    const config: any = new MatSnackBarConfig();
-    config.duration = AppConfig.snackBarDuration;
-    config.panelClass = panelClass;
-    this.snackBar.open(content, 'OK', config);
+      this.dataSource.data = this.reservations;
+    }, err => {
+      this.popupError('Error while fetching reservations: ' + err);
+      this.loading = false;
+    }, () => {
+      this.loading = false;
+    });
   }
 }

@@ -5,6 +5,9 @@
   @include font-roboto();
 }
 
+[hidden] { 
+  display: none !important;
+}
 
 snack-bar-container.mat-snack-bar-container.background-red {
   background-color: #bf0000 !important;
