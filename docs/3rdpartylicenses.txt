@@ -1605,6 +1605,10 @@ Apache License
  See the License for the specific language governing permissions and
  limitations under the License.
 
+@angular/core@6.0.0
+MIT
+MIT
+
 @angular/platform-browser@6.0.0
 MIT
 MIT
@@ -1732,10 +1736,6 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 
 @angular/router@6.0.0
-MIT
-MIT
-
-@angular/core@6.0.0
 MIT
 MIT
 
