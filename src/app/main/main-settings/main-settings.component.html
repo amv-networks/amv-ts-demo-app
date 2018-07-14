@@ -1,14 +1,13 @@
-<div class="container">
+<div class="container mat-typography">
 
   <button mat-button class="m-1" [disabled]="!hasUserValue" style="float: right" (click)="onDeleteStoredSettingsClicked(); settingsForm.reset();">
     <mat-icon>delete_all</mat-icon> Delete stored settings
   </button>
 
-  <h2 class="header__title">Settings</h2>
-
+  <h1>Settings</h1>
 
   <form #settingsForm="ngForm" class="form-container" [formGroup]="options">
-    <mat-card class="m-1">
+    <mat-card>
       <mat-tab-group class="mt-1 mb-1">
         <mat-tab label="API">
           <div class="mt-1 mb-1">
@@ -71,4 +70,3 @@
   </form>
 
 </div>
-<div class="clear"></div>

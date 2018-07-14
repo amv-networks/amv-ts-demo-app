@@ -1,14 +1,15 @@
 @import "mixins";
 
-.header__title {
-  text-align: left;
-  font-size: 1.5rem;
-  font-weight: 300;
-  padding: 1rem 0 0;
-}
-
 .container {
   margin: 1rem;
+}
+
+.title {
+  margin-bottom: 0;
+}
+
+.subtitle {
+  color: $grey;
 }
 
 .form-container {

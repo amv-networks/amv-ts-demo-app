@@ -1,7 +1,8 @@
-<div class="container">
-  <h2 class="header__title">Dashboard {{vehicleId}}</h2>
+<div class="container mat-typography">
+  <h1 class="title">Vehicle {{vehicleId}}</h1>
+  <h2 class="subtitle">Dashboard</h2>
 
-  <mat-tab-group class="mt-1">
+  <mat-tab-group>
       <mat-tab label="Map">
         <app-main-box-map [vehicleId]="vehicleId"></app-main-box-map>
       </mat-tab>
@@ -13,4 +14,3 @@
     </mat-tab>
   </mat-tab-group>
 </div>
-<div class="clear"></div>
