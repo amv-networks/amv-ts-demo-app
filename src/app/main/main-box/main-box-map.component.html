@@ -1,7 +1,8 @@
 
 <div class="m-1">
-    <button class="m-1" mat-button (click)="reload()" [disabled]="loading"><mat-icon>autorenew</mat-icon> reload</button>
     <button class="m-1" mat-button (click)="focusVehicleOnMap(selectedVehicle)" [disabled]="loading"><mat-icon>my_location</mat-icon> focus</button>
+    <button class="m-1" mat-button (click)="reload()" [disabled]="loading" style="float:right"><mat-icon>autorenew</mat-icon> reload</button>
+    <div class="clear"></div>
 </div>
 
 <div fxFlex fxLayout="row" fxLayout.xs="column" fxLayoutAlign="center center">

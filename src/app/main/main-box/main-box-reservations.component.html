@@ -1,8 +1,12 @@
-<mat-card class="m-1">
+<mat-card class="m-1 mat-typography">
 
   <mat-card-content>
     <div>
-      <span class="h3-1 mt-1" [matBadge]="dataSource.data.length" matBadgeOverlap="false">Reservations</span>
+
+      <button class="m-1" style="float:right" mat-button (click)="reload()" [hidden]="loading">
+        <mat-icon>autorenew</mat-icon> reload
+      </button>
+      <h3 class="mt-1"><span [matBadge]="dataSource.data.length" matBadgeOverlap="false">Reservations</span></h3>
 
       <div fxFlex fxLayout="row" fxLayout.xs="column" fxLayoutAlign="center center">
         <div fxFlex></div>
@@ -34,19 +38,19 @@
           </ng-container>
 
           <ng-container matColumnDef="reservationId">
-            <th mat-header-cell *matHeaderCellDef> no. </th>
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> no. </th>
             <td mat-cell *matCellDef="let element"> {{element.reservationId}} </td>
           </ng-container>
           <ng-container matColumnDef="from">
-            <th mat-header-cell *matHeaderCellDef> from </th>
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> from </th>
             <td mat-cell *matCellDef="let element"> {{element.from | date:'medium' }} </td>
           </ng-container>
           <ng-container matColumnDef="until">
-            <th mat-header-cell *matHeaderCellDef> until </th>
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> until </th>
             <td mat-cell *matCellDef="let element"> {{element.until | date:'medium' }} </td>
           </ng-container>
           <ng-container matColumnDef="type">
-            <th mat-header-cell *matHeaderCellDef> type </th>
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> type </th>
             <td mat-cell *matCellDef="let element"> {{element.btle ? 'btle' : 'rfid'}} </td>
           </ng-container>
           <ng-container matColumnDef="data">
@@ -70,10 +74,6 @@
     
     <button class="m-1" mat-button mat-raised-button color="ancient" [disabled]="!selection.hasValue()" (click)="deleteSelectedItems()">
       <mat-icon>delete_forever</mat-icon> delete {{ isAllSelected() ? 'all' : '' }}
-    </button>
-
-    <button class="m-1" mat-button (click)="reload()" [disabled]="loading">
-      <mat-icon>autorenew</mat-icon> reload
     </button>
 
   </mat-card-actions>
