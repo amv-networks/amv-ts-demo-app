@@ -52,9 +52,39 @@ export class MainBoxXfcdComponent implements OnInit, AfterViewInit {
   ngAfterViewInit(): void {
   }
 
-  load() {
-    this.loading = true;
+  popupError(error): void {
+    this.popupSnackBar(error, 'background-red');
+  }
 
+  popupMessage(message): void {
+    this.popupSnackBar(message, '');
+  }
+
+  popupSnackBar(content: any, panelClass: string): void {
+    const config: any = new MatSnackBarConfig();
+    config.duration = AppConfig.snackBarDuration;
+    config.panelClass = panelClass;
+    this.snackBar.open(content, 'OK', config);
+  }
+
+  reload() {
+    this.lastData = {};
+    this.xfcdDataSource.data = [];
+    this.statesDataSource.data = [];
+
+    this.load();
+  }
+
+  applyXfcdFilter(filterValue: string) {
+    this.xfcdDataSource.filter = filterValue.trim().toLowerCase();
+  }
+
+  applyStatesFilter(filterValue: string) {
+    this.statesDataSource.filter = filterValue.trim().toLowerCase();
+  }
+
+  private load() {
+    this.loading = true;
 
     this.applicationSettingsService.get().pipe(
       flatMap(settings => this.fetchLastData(settings))
@@ -71,15 +101,7 @@ export class MainBoxXfcdComponent implements OnInit, AfterViewInit {
     });
   }
 
-  applyXfcdFilter(filterValue: string) {
-    this.xfcdDataSource.filter = filterValue.trim().toLowerCase();
-  }
-
-  applyStatesFilter(filterValue: string) {
-    this.statesDataSource.filter = filterValue.trim().toLowerCase();
-  }
-
-  fetchLastData(settings: ApplicationSettings): Observable<any[]> {
+  private fetchLastData(settings: ApplicationSettings): Observable<any[]> {
     return zip(
       this.trafficsoftClientService.xfcd(settings),
       of(this.vehicleId),
@@ -93,20 +115,5 @@ export class MainBoxXfcdComponent implements OnInit, AfterViewInit {
         map(data => data.filter(d => d.id === this.vehicleId))
       );
     }));
-  }
-
-  popupError(error): void {
-    this.popupSnackBar(error, 'background-red');
-  }
-
-  popupMessage(message): void {
-    this.popupSnackBar(message, '');
-  }
-
-  popupSnackBar(content: any, panelClass: string): void {
-    const config: any = new MatSnackBarConfig();
-    config.duration = AppConfig.snackBarDuration;
-    config.panelClass = panelClass;
-    this.snackBar.open(content, 'OK', config);
   }
 }

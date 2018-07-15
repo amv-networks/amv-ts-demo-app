@@ -12,11 +12,13 @@
 snack-bar-container.mat-snack-bar-container.background-red {
   background-color: #bf0000 !important;
 }
+.app-spinner-center {
+  margin: 1rem auto 1rem auto;
+}
 
 a, .cp {
   cursor: pointer;
 }
-
 .m-1 {
   margin: 1rem;
 }
@@ -31,6 +33,19 @@ a, .cp {
 }
 .mb-1 {
   margin-bottom: 1rem;
+}
+
+.m-2 {
+  margin: 2rem;
+}
+.mt-2 {
+  margin-top: 2rem;
+}
+
+.mat-button.btn-lg,
+.mat-raised-button.btn-lg {
+  padding: 1rem;
+  font-size: 1.2rem;
 }
 
 .h3-1 {

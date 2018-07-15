@@ -10,6 +10,7 @@ import { MainFaqComponent } from './main-faq/main-faq.component';
 import { MainSettingsComponent } from './main-settings/main-settings.component';
 import { MainBoxComponent } from './main-box/main-box.component';
 import { MainBoxReservationsComponent, CancelReservationDialogComponent } from './main-box/main-box-reservations.component';
+import { MainBoxReservationCreateComponent } from './main-box/main-box-reservation-create/main-box-reservation-create.component';
 import { MainBoxXfcdComponent } from './main-box/main-box-xfcd.component';
 import { MainBoxMapComponent } from './main-box/main-box-map.component';
 
@@ -36,6 +37,7 @@ import { LeafletModule } from '@asymmetrik/ngx-leaflet';
     MainBoxComponent,
     MainSettingsComponent,
     MainBoxReservationsComponent,
+    MainBoxReservationCreateComponent,
     MainBoxXfcdComponent,
     MainBoxMapComponent,
     CancelReservationDialogComponent,

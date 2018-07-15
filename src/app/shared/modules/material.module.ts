@@ -23,8 +23,13 @@ import {
   MatCheckboxModule,
   MatPaginatorModule,
   MatSortModule,
+  // MatDatepickerModule,
+  MatNativeDateModule,
 } from '@angular/material';
 import { NgModule } from '@angular/core';
+
+import { MatDatepickerModule, MatMomentDateModule } from '@coachcare/datepicker';
+
 
 @NgModule({
   imports: [
@@ -51,7 +56,10 @@ import { NgModule } from '@angular/core';
     MatChipsModule,
     MatRadioModule,
     MatCheckboxModule,
-    MatPaginatorModule
+    MatPaginatorModule,
+    MatDatepickerModule,
+    MatMomentDateModule,
+    MatNativeDateModule,
   ],
   exports: [
     MatSidenavModule,
@@ -77,7 +85,10 @@ import { NgModule } from '@angular/core';
     MatRadioModule,
     MatCheckboxModule,
     MatPaginatorModule,
-    MatBadgeModule
+    MatBadgeModule,
+    MatDatepickerModule,
+    MatMomentDateModule,
+    MatNativeDateModule,
   ],
 })
 

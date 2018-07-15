@@ -5,13 +5,7 @@
     <div class="clear"></div>
 </div>
 
-<div fxFlex fxLayout="row" fxLayout.xs="column" fxLayoutAlign="center center">
-    <div fxFlex></div>
-    <div fxFlex="10">
-        <mat-spinner *ngIf="loading" class="m-1"></mat-spinner>
-    </div>
-    <div fxFlex></div>
-</div>
+<mat-spinner *ngIf="loading" class="app-spinner-center"></mat-spinner>
 
 <div #map class="map" leaflet [leafletOptions]="leafletOptions" [leafletLayers]="leafletLayers" (leafletMapReady)="onMapReady($event)">
 </div>
