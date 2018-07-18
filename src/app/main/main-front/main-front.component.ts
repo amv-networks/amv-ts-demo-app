@@ -14,14 +14,11 @@ import { ApplicationSettingsService } from '../shared/application_settings.servi
 import { createMarkerForVehicle, createLeafletOptions, zoomToPlace, customizeMap } from '../shared/leaflet-map.util';
 import { ApplicationSettings } from '../shared/application_settings.model';
 
-
-
 @Component({
   selector: 'app-main-front',
   templateUrl: './main-front.component.html',
   styleUrls: ['./main-front.component.scss']
 })
-
 export class MainFrontComponent implements OnInit {
   private static INITIAL_CENTER = latLng(47.5, 13);
   private static INITIAL_ZOOM = 6;
@@ -58,9 +55,7 @@ export class MainFrontComponent implements OnInit {
       .subscribe(settings => this.debugMode = settings.debugMode);
 
     this.load(() => {
-      if (this.lastData.length > 0) {
-        this.focusVehicleOnMap(this.lastData[0], MainFrontComponent.INITIAL_ZOOM);
-      }
+      this.focusFirstVehicleIfPossible();
     });
   }
 
@@ -68,7 +63,7 @@ export class MainFrontComponent implements OnInit {
     this.subscriptions = [];
     this.lastData = [];
 
-    this.load(() => {});
+    this.load(() => { });
   }
 
   onMapReady(_map: Map) {
@@ -78,6 +73,9 @@ export class MainFrontComponent implements OnInit {
   resetMapZoom(): void {
     if (null != this.map) {
       this.map.setView(MainFrontComponent.INITIAL_CENTER, MainFrontComponent.INITIAL_ZOOM);
+
+      this.focusFirstVehicleIfPossible();
+
       this.popupMessage('Map zoom and center have been reset');
     }
   }
@@ -105,10 +103,16 @@ export class MainFrontComponent implements OnInit {
   }
 
   popupSnackBar(content: any, panelClass: string): void {
-    const config: any = new MatSnackBarConfig();
+    const config = new MatSnackBarConfig();
     config.duration = AppConfig.snackBarDuration;
     config.panelClass = panelClass;
     this.snackBar.open(content, 'OK', config);
+  }
+
+  private focusFirstVehicleIfPossible() {
+    if (this.lastData.length > 0) {
+      this.focusVehicleOnMap(this.lastData[0], MainFrontComponent.INITIAL_ZOOM);
+    }
   }
 
   private focusVehicleOnMap(vehicle: any, zoom: number = 15, animate = false) {
