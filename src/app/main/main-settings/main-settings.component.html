@@ -7,10 +7,10 @@
   <h1>Settings</h1>
 
   <form #settingsForm="ngForm" class="form-container" [formGroup]="options">
-    <mat-card>
-      <mat-tab-group class="mt-1 mb-1">
+    <div class="mat-elevation-z5">
+      <mat-tab-group>
         <mat-tab label="API">
-          <div class="mt-1 mb-1">
+          <div class="m-1">
 
             <mat-form-field class="full-width mb-1">
               <mat-label>Base URL</mat-label>
@@ -19,29 +19,24 @@
               <mat-error *ngIf="options.get('baseUrl')?.invalid">Invalid</mat-error>
             </mat-form-field>
 
-            <table class="full-width mb-1">
-              <tr>
-                <td>
-                  <div class="mr-1">
-                    <mat-form-field class="full-width">
-                      <mat-label>Username</mat-label>
-                      <mat-hint>The username you want to authenticate with</mat-hint>
-                      <input matInput type="text" placeholder="john_doe" formControlName="username" minlength="1">
-                      <mat-error *ngIf="options.get('username')?.invalid">Invalid</mat-error>
-                    </mat-form-field>
-                  </div>
-                </td>
-                <td>
-                  <div class="">
-                    <mat-form-field class="full-width ">
-                      <mat-label>Password</mat-label>
-                      <input matInput type="password" formControlName="password" minlength="1">
-                      <mat-error *ngIf="options.get('password')?.invalid">Invalid</mat-error>
-                    </mat-form-field>
-                  </div>
-                </td>
-              </tr>
-            </table>
+            <div fxFlex fxLayout="row" fxLayout.xs="column">
+              <div fxFlex>
+                <mat-form-field class="full-width">
+                  <mat-label>Username</mat-label>
+                  <mat-hint>The username you want to authenticate with</mat-hint>
+                  <input matInput type="text" placeholder="john_doe" formControlName="username" minlength="1">
+                  <mat-error *ngIf="options.get('username')?.invalid">Invalid</mat-error>
+                </mat-form-field>
+              </div>
+              <div fxFlex="1"></div>
+              <div fxFlex>
+                <mat-form-field class="full-width ">
+                  <mat-label>Password</mat-label>
+                  <input matInput type="password" formControlName="password" minlength="1">
+                  <mat-error *ngIf="options.get('password')?.invalid">Invalid</mat-error>
+                </mat-form-field>
+              </div>
+            </div>
 
             <mat-form-field class="full-width mb-1">
               <mat-label>Contract ID</mat-label>
@@ -52,21 +47,25 @@
           </div>
         </mat-tab>
         <mat-tab label="Application">
-          <div class="mt-1 mb-1">
-            <mat-checkbox class="ml-1" formControlName="debugMode">Debug Mode</mat-checkbox>
+          <div class="m-1">
+            <div class="mt-1 mb-1">
+              <mat-checkbox class="ml-1" formControlName="debugMode">Debug Mode</mat-checkbox>
+            </div>
           </div>
         </mat-tab>
       </mat-tab-group>
 
-      <mat-card-actions>
-        <button mat-raised-button color="primary" [disabled]="options.invalid" (click)="onFormSubmit()">
-          <mat-icon>save_alt</mat-icon> {{ hasUserKey ? 'Save' : 'Enter passphrase and save' }}
-        </button>
-        <button mat-raised-button color="primary" *ngIf="hasUserKey" [disabled]="options.invalid" (click)="onFormSubmitWithNewPassphrase()">
+      <div class="m-1">
+        <div class="mr-1" style="display: inline-block;">
+          <button mat-raised-button color="primary" [disabled]="options.invalid" (click)="onFormSubmit()">
+            <mat-icon>save_alt</mat-icon> {{ hasUserKey ? 'Save' : 'Enter passphrase and save' }}
+          </button>
+        </div>
+        <button mat-raised-button color="primary" [hidden]="!hasUserKey" [disabled]="options.invalid" (click)="onFormSubmitWithNewPassphrase()">
           <mat-icon>lock</mat-icon> Save with new passphrase
         </button>
-      </mat-card-actions>
-    </mat-card>
+      </div>
+    </div>
   </form>
 
 </div>

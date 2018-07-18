@@ -71,7 +71,6 @@ export class MainBoxMapComponent implements OnInit {
     this.applicationSettingsService.get()
       .subscribe(settings => this.debugMode = settings.debugMode);
 
-      console.log('what');
     this.load();
   }
 
@@ -137,8 +136,8 @@ export class MainBoxMapComponent implements OnInit {
         this.selectedVehicle = lastData[0];
 
         const markerArray = this.lastData
-        .filter(d => d.latitude && d.longitude)
-        .map(d => createMarkerForVehicle(d));
+          .filter(d => d.latitude && d.longitude)
+          .map(d => createMarkerForVehicle(d));
 
         this.leafletLayers = markerArray;
 

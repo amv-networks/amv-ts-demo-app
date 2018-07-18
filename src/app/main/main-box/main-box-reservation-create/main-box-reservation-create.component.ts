@@ -89,13 +89,13 @@ export class MainBoxReservationCreateComponent implements OnInit, AfterViewInit 
     this.applicationSettingsService.get().pipe(
       flatMap(settings => this.createReservation(settings, reservation))
     ).subscribe(result => {
+      this.router.navigate(['/box', this.vehicleId, '_tabs', 'reservation']);
     }, error => {
       this.popupError(error);
     }, () => {
       this.popupMessage('Successfully created reservation.');
     });
   }
-
 
   private createReservation(settings: ApplicationSettings, reservation: any): Observable<Reservation[]> {
     return zip(

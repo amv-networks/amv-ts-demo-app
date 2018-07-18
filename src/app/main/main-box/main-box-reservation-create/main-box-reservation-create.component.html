@@ -5,7 +5,7 @@
 
   <div class="mt-1 mb-1">
     <div>
-      <button mat-button mat-raised-button routerLink="/box/{{vehicleId}}">
+      <button mat-button mat-raised-button routerLink="/box/{{vehicleId}}/_tabs/reservation">
         <mat-icon>dashboard</mat-icon>
         Back to dashboard
       </button>
@@ -17,35 +17,30 @@
 
     <mat-tab-group class="mat-elevation-z5">
       <mat-tab label="RFID">
-        <div class="m-2">
-          <table class="full-width mb-1">
-            <tr>
-              <td>
-                <div class="mr-1">
-                  <mat-form-field class="full-width" appearance="outline">
-                    <mat-label>from</mat-label>
-                    <mat-hint>Choose a start date</mat-hint>
-                    <input matInput formControlName="from" [matDatepicker]="from" placeholder="Jul 9, 2018, 5:15:00 AM">
-                    <mat-datepicker-toggle matSuffix [for]="from"></mat-datepicker-toggle>
-                    <mat-datepicker type="datetime" touchUi #from></mat-datepicker>
-                    <mat-error *ngIf="rfidOptions.get('from')?.invalid">Invalid</mat-error>
-                  </mat-form-field>
-                </div>
-              </td>
-              <td>
-                <div class="">
-                  <mat-form-field class="full-width" appearance="outline">
-                    <mat-label>until</mat-label>
-                    <mat-hint>Choose an end date</mat-hint>
-                    <input matInput formControlName="until" [matDatepicker]="until" placeholder="Jul 9, 2018, 11:45:00 AM">
-                    <mat-datepicker-toggle matSuffix [for]="until"></mat-datepicker-toggle>
-                    <mat-datepicker type="datetime" touchUi #until></mat-datepicker>
-                    <mat-error *ngIf="rfidOptions.get('until')?.invalid">Invalid</mat-error>
-                  </mat-form-field>
-                </div>
-              </td>
-            </tr>
-          </table>
+        <div class="m-1" fxFlex fxLayout="row" fxLayout.xs="column">
+          <div fxFlex>
+            <mat-form-field class="full-width" appearance="outline">
+              <mat-label>from</mat-label>
+              <mat-hint>Choose a start date</mat-hint>
+              <input matInput formControlName="from" [matDatepicker]="from" placeholder="Jul 9, 2018, 5:15:00 AM">
+              <mat-datepicker-toggle matSuffix [for]="from"></mat-datepicker-toggle>
+              <mat-datepicker type="datetime" touchUi #from></mat-datepicker>
+              <mat-error *ngIf="rfidOptions.get('from')?.invalid">Invalid</mat-error>
+            </mat-form-field>
+          </div>
+          <div fxFlex="1"></div>
+          <div fxFlex>
+            <mat-form-field class="full-width" appearance="outline">
+              <mat-label>until</mat-label>
+              <mat-hint>Choose an end date</mat-hint>
+              <input matInput formControlName="until" [matDatepicker]="until" placeholder="Jul 9, 2018, 11:45:00 AM">
+              <mat-datepicker-toggle matSuffix [for]="until"></mat-datepicker-toggle>
+              <mat-datepicker type="datetime" touchUi #until></mat-datepicker>
+              <mat-error *ngIf="rfidOptions.get('until')?.invalid">Invalid</mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="m-1">
 
           <mat-form-field class="full-width mb-1" appearance="fill">
             <mat-label>RFID</mat-label>

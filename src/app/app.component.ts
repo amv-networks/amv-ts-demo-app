@@ -1,9 +1,9 @@
-import {Component, OnInit} from '@angular/core';
-import {TranslateService} from '@ngx-translate/core';
-import {Meta, Title} from '@angular/platform-browser';
-import {NavigationEnd, Router} from '@angular/router';
-import {AppConfig} from './config/app.config';
-import {MatSnackBar} from '@angular/material';
+import { Component, OnInit } from '@angular/core';
+import { TranslateService } from '@ngx-translate/core';
+import { Meta, Title } from '@angular/platform-browser';
+import { NavigationEnd, Router } from '@angular/router';
+import { AppConfig } from './config/app.config';
+import { MatSnackBar } from '@angular/material';
 
 declare const Modernizr;
 
@@ -17,10 +17,10 @@ export class AppComponent implements OnInit {
   isOnline: boolean;
 
   constructor(private translateService: TranslateService,
-              private title: Title,
-              private meta: Meta,
-              private snackBar: MatSnackBar,
-              private router: Router) {
+    private title: Title,
+    private meta: Meta,
+    private snackBar: MatSnackBar,
+    private router: Router) {
     this.isOnline = navigator.onLine;
   }
 
@@ -29,8 +29,11 @@ export class AppComponent implements OnInit {
     this.translateService.use('en');
 
     this.title.setTitle('amv system demo');
+
     this.router.events.subscribe((event: any) => {
       if (event instanceof NavigationEnd) {
+        this.title.setTitle('amv system demo');
+
         switch (event.urlAfterRedirects) {
           case '/':
             this.meta.updateTag({
@@ -39,7 +42,7 @@ export class AppComponent implements OnInit {
             });
             break;
           case '/' + AppConfig.routes.settings:
-            this.title.setTitle('settings');
+            this.title.setTitle(this.title.getTitle() + ' - settings');
             this.meta.updateTag({
               name: 'description',
               content: 'Settings'

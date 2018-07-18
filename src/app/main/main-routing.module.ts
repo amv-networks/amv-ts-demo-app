@@ -17,9 +17,13 @@ const mainRoutes: Routes = [
       { path: '', component: MainFrontComponent },
       { path: 'faq', component: MainFaqComponent },
       { path: 'settings', component: MainSettingsComponent },
-      { path: 'box/:id', component: MainBoxComponent },
       { path: 'box/:id/reservation', component: MainBoxReservationsComponent },
-      { path: 'box/:id/reservation/create', component: MainBoxReservationCreateComponent}
+      { path: 'box/:id/reservation/create', component: MainBoxReservationCreateComponent },
+      { path: 'box/:id/_tabs/:slug', component: MainBoxComponent },
+      {
+        path: 'box/:id',
+        redirectTo: '/box/:id/_tabs/location',
+      },
     ]
   }
 ];
