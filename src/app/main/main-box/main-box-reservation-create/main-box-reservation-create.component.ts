@@ -66,14 +66,26 @@ export class MainBoxReservationCreateComponent implements OnInit, AfterViewInit 
   }
 
   popupSnackBar(content: any, panelClass: string): void {
+    let val = content;
+    if (content instanceof Error) {
+      const isTsError = !!content['response'] && !!content['response'].data && !!content['response'].data.message;
+      val = isTsError ? content['response'].data.message : content;
+    }
+
     const config: any = new MatSnackBarConfig();
     config.duration = AppConfig.snackBarDuration;
     config.panelClass = panelClass;
-    this.snackBar.open(content, 'OK', config);
+    this.snackBar.open(val, 'OK', config);
   }
 
   onRfidFormSubmit() {
     if (this.rfidOptions.invalid) {
+      return;
+    }
+
+    const validDates = this.rfidOptions.get('until').value.isAfter(this.rfidOptions.get('from').value);
+    if (!validDates) {
+      this.popupError('Validation error: End date must be greater than start date.');
       return;
     }
 
