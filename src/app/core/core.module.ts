@@ -7,7 +7,6 @@ import {NavComponent} from './nav/nav.component';
 import {FooterComponent} from './footer/footer.component';
 import {SharedModule} from '../shared/modules/shared.module';
 import {RouterModule} from '@angular/router';
-import {SearchBarComponent} from './search-bar/search-bar.component';
 import {Error404Component} from './error404/error-404.component';
 import {ProgressBarService} from './shared/progress-bar.service';
 
@@ -26,7 +25,6 @@ import {ProgressBarService} from './shared/progress-bar.service';
   declarations: [
     NavComponent,
     FooterComponent,
-    SearchBarComponent,
     Error404Component
   ],
   providers: [

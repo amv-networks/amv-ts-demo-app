@@ -176,7 +176,7 @@ export class MainBoxReservationsComponent implements OnInit, AfterViewInit {
       );
     }));
   }
-  
+
   private load() {
     this.loading = true;
 

@@ -42,18 +42,14 @@ import { LeafletModule } from '@asymmetrik/ngx-leaflet';
     MainBoxMapComponent,
     CancelReservationDialogComponent,
     EnterPassphraseDialogComponent
-    // RemoveHeroDialogComponent,
-    // HeroDetailComponent
   ],
   entryComponents: [
     CancelReservationDialogComponent,
     EnterPassphraseDialogComponent
-    // RemoveHeroDialogComponent
   ],
   providers: [
     ApplicationSettingsService,
     TrafficsoftClientService
-    // HeroService
   ]
 })
 

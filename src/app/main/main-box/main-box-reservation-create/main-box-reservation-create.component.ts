@@ -3,7 +3,6 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MatSnackBar, MatSnackBarConfig } from '@angular/material';
 import { Observable } from 'rxjs';
-import { from } from 'rxjs/observable/from';
 import { of } from 'rxjs/observable/of';
 import { zip } from 'rxjs/observable/zip';
 import { catchError, delay, tap, map, flatMap, filter, mergeAll } from 'rxjs/operators';
@@ -22,10 +21,9 @@ import * as moment from 'moment';
 })
 export class MainBoxReservationCreateComponent implements OnInit, AfterViewInit {
   vehicleId: number;
-  
+
   rfidOptions: FormGroup;
   btleOptions: FormGroup;
-
 
   constructor(private router: Router,
     private route: ActivatedRoute,
@@ -78,7 +76,7 @@ export class MainBoxReservationCreateComponent implements OnInit, AfterViewInit 
     if (this.rfidOptions.invalid) {
       return;
     }
-    
+
     const reservation = {
       vehicleId: this.vehicleId,
       from: this.rfidOptions.value.from.toISOString(),
@@ -99,7 +97,7 @@ export class MainBoxReservationCreateComponent implements OnInit, AfterViewInit 
   }
 
 
-  private createReservation(settings: ApplicationSettings, reservation : any): Observable<Reservation[]> {
+  private createReservation(settings: ApplicationSettings, reservation: any): Observable<Reservation[]> {
     return zip(
       this.trafficsoftClientService.carSharingReservation(settings),
       of(1).pipe(delay(1))

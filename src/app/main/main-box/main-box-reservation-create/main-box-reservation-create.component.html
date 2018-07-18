@@ -14,60 +14,60 @@
   </div>
 
   <form #settingsForm="ngForm" class="form-container" [formGroup]="rfidOptions">
-    
-      <mat-tab-group class="mat-elevation-z5">
-        <mat-tab label="RFID">
-          <div class="m-2">
-            <table class="full-width mb-1">
-              <tr>
-                <td>
-                  <div class="mr-1">
-                    <mat-form-field class="full-width" appearance="outline">
-                        <mat-label>from</mat-label>
-                        <mat-hint>Choose a start date</mat-hint>
-                        <input matInput formControlName="from" [matDatepicker]="from" placeholder="Jul 9, 2018, 5:15:00 AM">
-                        <mat-datepicker-toggle matSuffix [for]="from"></mat-datepicker-toggle>
-                        <mat-datepicker type="datetime" touchUi #from></mat-datepicker>
-                        <mat-error *ngIf="rfidOptions.get('from')?.invalid">Invalid</mat-error>
-                      </mat-form-field>
-                  </div>
-                </td>
-                <td>
-                  <div class="">
-                    <mat-form-field class="full-width" appearance="outline">
-                        <mat-label>until</mat-label>
-                        <mat-hint>Choose an end date</mat-hint>
-                        <input matInput formControlName="until" [matDatepicker]="until" placeholder="Jul 9, 2018, 11:45:00 AM">
-                        <mat-datepicker-toggle matSuffix [for]="until"></mat-datepicker-toggle>
-                        <mat-datepicker type="datetime" touchUi #until></mat-datepicker>
-                        <mat-error *ngIf="rfidOptions.get('until')?.invalid">Invalid</mat-error>
-                    </mat-form-field>
-                  </div>
-                </td>
-              </tr>
-            </table>
 
-            <mat-form-field class="full-width mb-1" appearance="fill">
-              <mat-label>RFID</mat-label>
-              <mat-hint>The rfid tag</mat-hint>
-              <input matInput type="text" placeholder="ABCEDEF01234" formControlName="dtid" minlength="4">
-              <mat-error *ngIf="rfidOptions.get('dtid')?.invalid">Must have 4, 8 or 12 characters</mat-error>
-            </mat-form-field>
+    <mat-tab-group class="mat-elevation-z5">
+      <mat-tab label="RFID">
+        <div class="m-2">
+          <table class="full-width mb-1">
+            <tr>
+              <td>
+                <div class="mr-1">
+                  <mat-form-field class="full-width" appearance="outline">
+                    <mat-label>from</mat-label>
+                    <mat-hint>Choose a start date</mat-hint>
+                    <input matInput formControlName="from" [matDatepicker]="from" placeholder="Jul 9, 2018, 5:15:00 AM">
+                    <mat-datepicker-toggle matSuffix [for]="from"></mat-datepicker-toggle>
+                    <mat-datepicker type="datetime" touchUi #from></mat-datepicker>
+                    <mat-error *ngIf="rfidOptions.get('from')?.invalid">Invalid</mat-error>
+                  </mat-form-field>
+                </div>
+              </td>
+              <td>
+                <div class="">
+                  <mat-form-field class="full-width" appearance="outline">
+                    <mat-label>until</mat-label>
+                    <mat-hint>Choose an end date</mat-hint>
+                    <input matInput formControlName="until" [matDatepicker]="until" placeholder="Jul 9, 2018, 11:45:00 AM">
+                    <mat-datepicker-toggle matSuffix [for]="until"></mat-datepicker-toggle>
+                    <mat-datepicker type="datetime" touchUi #until></mat-datepicker>
+                    <mat-error *ngIf="rfidOptions.get('until')?.invalid">Invalid</mat-error>
+                  </mat-form-field>
+                </div>
+              </td>
+            </tr>
+          </table>
 
-              
-            <div class="mt-2 text--center">
-              <button class="btn-lg" mat-raised-button color="primary" [disabled]="rfidOptions.invalid" (click)="onRfidFormSubmit()">
-                <mat-icon>send</mat-icon> Send reservation
-              </button>
-            </div>
+          <mat-form-field class="full-width mb-1" appearance="fill">
+            <mat-label>RFID</mat-label>
+            <mat-hint>The rfid tag</mat-hint>
+            <input matInput type="text" placeholder="ABCEDEF01234" formControlName="dtid" minlength="4">
+            <mat-error *ngIf="rfidOptions.get('dtid')?.invalid">Must have 4, 8 or 12 characters</mat-error>
+          </mat-form-field>
+
+
+          <div class="mt-2 text--center">
+            <button class="btn-lg" mat-raised-button color="primary" [disabled]="rfidOptions.invalid" (click)="onRfidFormSubmit()">
+              <mat-icon>send</mat-icon> Send reservation
+            </button>
           </div>
-        </mat-tab>
-        <mat-tab label="BTLE">
-          <div class="m-1">
-            <mat-card>Not implemented yet.</mat-card>
-          </div>
-        </mat-tab>
-      </mat-tab-group>
+        </div>
+      </mat-tab>
+      <mat-tab label="BTLE">
+        <div class="m-1">
+          <mat-card>Not implemented yet.</mat-card>
+        </div>
+      </mat-tab>
+    </mat-tab-group>
   </form>
 
 </div>

@@ -38,11 +38,11 @@ export class AppComponent implements OnInit {
               content: 'amv system demo'
             });
             break;
-          case '/' + AppConfig.routes.heroes:
-            this.title.setTitle('Heroes list');
+          case '/' + AppConfig.routes.settings:
+            this.title.setTitle('settings');
             this.meta.updateTag({
               name: 'description',
-              content: 'List of super-heroes'
+              content: 'Settings'
             });
             break;
         }

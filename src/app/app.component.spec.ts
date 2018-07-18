@@ -1,14 +1,12 @@
-import {async, TestBed} from '@angular/core/testing';
-import {AppComponent} from './app.component';
-import {APP_BASE_HREF} from '@angular/common';
-import {TestsModule} from './shared/modules/tests.module';
-import {TranslateModule} from '@ngx-translate/core';
-import {AppRoutingModule} from './app-routing.module';
-import {HeroTopComponent} from './heroes/hero-top/hero-top.component';
-import {CUSTOM_ELEMENTS_SCHEMA} from '@angular/core';
-import {APP_CONFIG, AppConfig} from './config/app.config';
-import {HeroService} from './heroes/shared/hero.service';
-import {Error404Component} from './core/error404/error-404.component';
+import { async, TestBed } from '@angular/core/testing';
+import { AppComponent } from './app.component';
+import { APP_BASE_HREF } from '@angular/common';
+import { TestsModule } from './shared/modules/tests.module';
+import { TranslateModule } from '@ngx-translate/core';
+import { AppRoutingModule } from './app-routing.module';
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { APP_CONFIG, AppConfig } from './config/app.config';
+import { Error404Component } from './core/error404/error-404.component';
 
 describe('AppComponent', () => {
   let fixture;
@@ -23,13 +21,11 @@ describe('AppComponent', () => {
       ],
       declarations: [
         AppComponent,
-        HeroTopComponent,
         Error404Component
       ],
       providers: [
-        {provide: APP_CONFIG, useValue: AppConfig},
-        {provide: APP_BASE_HREF, useValue: '/'},
-        HeroService
+        { provide: APP_CONFIG, useValue: AppConfig },
+        { provide: APP_BASE_HREF, useValue: '/' },
       ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA]
     }).compileComponents();
