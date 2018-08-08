@@ -6,14 +6,18 @@ footer {
   background: $primary--color;
   margin-top: 0; /*2rem;*/
   position: sticky;
-  top: 100%;
+  top: calc(100vh - 36px);;
 
   img {
     width: 25%;
   }
 }
 
+.footer-section-right {
+  text-align: right;
+}
+
 .footer-xs {
-  text-align: center;
+  text-align: center !important;
   padding-top: 1rem;
 }

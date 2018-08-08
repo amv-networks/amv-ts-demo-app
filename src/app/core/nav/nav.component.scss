@@ -1,5 +1,8 @@
 @import "mixins";
 
+$progress_bar_height: calculateRem(5px);
+$nav_bar_height: 2rem;
+
 :host(app-nav) {
   padding-top: 0;
   padding-bottom: 3.3rem;
@@ -16,7 +19,7 @@
       align-items: center;
       padding: calculateRem(8px) calculateRem(16px);
       color: $secondary--color;
-      height: 2rem;
+      height: $nav_bar_height;
       background: $primary--color;
 
       .mat-raised-button {
@@ -28,7 +31,7 @@
         display: flex;
         align-content: center;
         align-items: center;
-        height: calculateRem(5px);
+        height: $progress_bar_height;
       }
 
       .icon__image {
@@ -55,13 +58,13 @@
       position: relative;
 
       nav {
-        height: 6rem;
+        height: $nav_bar_height;
         display: flex;
-        padding: 1rem 1rem 0;
+        /*padding: 1rem 1rem 0;*/
 
-        > div {
-          margin-top: 0.1rem;
-        }
+        /*> div {
+          margin-top: calculateRem(5px);
+        }*/
       }
     }
   }

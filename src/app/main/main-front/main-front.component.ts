@@ -28,6 +28,7 @@ export class MainFrontComponent implements OnInit {
 
   subscriptions: any[] = [];
   lastData: any[] = [];
+  filteredLastData: any[] = [];
 
   selectedVehicle: any;
 
@@ -61,9 +62,24 @@ export class MainFrontComponent implements OnInit {
 
   reload() {
     this.subscriptions = [];
-    this.lastData = [];
+    this.updateLastData([]);
 
     this.load(() => { });
+  }
+
+  resetVehicleFilter() {
+    this.filteredLastData = Object.assign([], this.lastData);
+  }
+
+  applyVehicleFilter(value) {
+    if (!value) {
+      this.resetVehicleFilter();
+      return;
+    }
+
+    this.filteredLastData = Object.assign([], this.lastData).filter(
+      item => ('' + item.id).indexOf(value.toLowerCase()) > -1
+    );
   }
 
   onMapReady(_map: Map) {
@@ -121,13 +137,18 @@ export class MainFrontComponent implements OnInit {
     }
   }
 
+  private updateLastData(lastData: any[]) {
+    this.lastData = lastData;
+    this.resetVehicleFilter();
+  }
+
   private load(onLoadFinished: Function) {
     this.loading = true;
 
     this.applicationSettingsService.get().pipe(
       flatMap(settings => this.fetchLastData(settings))
     ).subscribe(lastData => {
-      this.lastData = lastData;
+      this.updateLastData(lastData);
 
       const markerArray = this.lastData
         .filter(vehicle => vehicle.latitude && vehicle.longitude)

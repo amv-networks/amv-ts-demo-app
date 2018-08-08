@@ -1,98 +1,101 @@
+<mat-sidenav-container hasBackdrop="false">
+  <mat-sidenav #sideNavMain mode="side" opened disableClose position="end" class="full-height-without-toolbar">
+    <div class="clear mb-1"></div>
+    <button mat-button matTooltip="Reload latest xfcd data" matTooltipPosition="right" (click)="reload()">
+      <mat-icon>autorenew</mat-icon>
+    </button>
+    <div class="clear mb-1"></div>
+    <button mat-button matTooltip="Show/hide vehicle pane" matTooltipPosition="right" (click)="sideNavOne.toggle()">
+      <mat-icon>ballot</mat-icon>
+    </button>
+    <div class="clear mb-1"></div>
+    <button mat-button matTooltip="Reset map zoom/center" matTooltipPosition="right" (click)="resetMapZoom()">
+      <mat-icon>zoom_out_map</mat-icon>
+    </button>
+    <div class="clear mb-1"></div>
 
-
-  <mat-sidenav-container hasBackdrop="false">
-    <mat-sidenav #sideNavMain mode="side" opened disableClose position="end" class="height-vh-100">
-      <div class="clear mb-1"></div>
-      <button mat-button matTooltip="Reload latest xfcd data" matTooltipPosition="right" (click)="reload()">
-        <mat-icon>autorenew</mat-icon>
-      </button>
-      <div class="clear mb-1"></div>
-      <button mat-button matTooltip="Show/hide vehicle pane" matTooltipPosition="right" (click)="sideNavOne.toggle()">
-        <mat-icon>ballot</mat-icon>
-      </button>
-      <div class="clear mb-1"></div>
-      <button mat-button matTooltip="Reset map zoom/center" matTooltipPosition="right" (click)="resetMapZoom()">
-        <mat-icon>zoom_out_map</mat-icon>
-      </button>
-      <div class="clear mb-1"></div>
-
-    </mat-sidenav>
-    <mat-sidenav-content>
-      <mat-sidenav-container [hasBackdrop]="sideNavDebug.opened" class="height-vh-100">
-        <mat-sidenav #sideNavOne mode="over" opened disableClose position="start">
-          <div class="m-0_5" style="width: 250px">
-            <mat-spinner *ngIf="loading" class="app-spinner-center"></mat-spinner>
-            <div id="box-list">
-              <mat-card class="box-card" *ngFor="let vehicle of lastData">
-                <h3>{{vehicle.id}}</h3>
-                <mat-card-content style="font-size: 70%">
-                  <p *ngIf="vehicle.alias" class="mb-1">{{vehicle.alias}}</p>
-                  <table>
-                    <tr>
-                      <td style="padding-right: 1rem;">
-                        <span class="bold">timestamp</span>
-                      </td>
-                      <td>{{ vehicle.timestamp | date:'short' }}</td>
-                    </tr>
-                    <tr>
-                      <td>
-                        <span class="bold">lat/lon</span>
-                      </td>
-                      <td> {{ vehicle.latitude | number:0 }} / {{ vehicle.longitude | number:0 }}</td>
-                    </tr>
-                    <tr>
-                      <td>
-                        <span class="bold">speed</span>
-                      </td>
-                      <td>{{ vehicle.speed | number:0 }} km/h</td>
-
-                    </tr>
-                  </table>
-                </mat-card-content>
-                <mat-card-actions>
-
-                  <button class="m-1" mat-icon-button mat-raised-button routerLink="/box/{{vehicle.id}}" matTooltip="Go to dashboard" matTooltipPosition="above"
-                    matTooltipShowDelay="500">
-                    <mat-icon>dashboard</mat-icon>
-                  </button>
-                  <button *ngIf="debugMode" class="m-1" mat-icon-button mat-raised-button (click)="showDebugPaneForVehicle(vehicle)" matTooltip="Show details in debug page"
-                    matTooltipPosition="above" matTooltipShowDelay="500">
-                    <mat-icon>code</mat-icon>
-                  </button>
-                  <button class="m-1" style="float: right" mat-icon-button mat-raised-button (click)="onFocusVehicleClicked(vehicle)" matTooltip="Focus on map"
-                    matTooltipPosition="above" matTooltipShowDelay="500">
-                    <mat-icon>my_location</mat-icon>
-                  </button>
-                </mat-card-actions>
-              </mat-card>
-            </div>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <mat-sidenav-container [hasBackdrop]="sideNavDebug.opened" class="full-height-without-toolbar">
+      <mat-sidenav #sideNavOne mode="over" opened disableClose position="start">
+        <div class="m-0_5" style="width: 250px">
+          <mat-spinner *ngIf="loading" class="app-spinner-center"></mat-spinner>
+          <div *ngIf="lastData.length > 0" style="margin: 0 0.5em;">
+            <mat-form-field class="full-width">
+              <input matInput (keyup)="applyVehicleFilter($event.target.value)" placeholder="Filter">
+            </mat-form-field>
           </div>
+          <div id="box-list">
+            <mat-card class="box-card" *ngFor="let vehicle of filteredLastData">
+              <h3>{{vehicle.id}}</h3>
+              <mat-card-content style="font-size: 70%">
+                <p *ngIf="vehicle.alias" class="mb-1">{{vehicle.alias}}</p>
+                <table>
+                  <tr>
+                    <td style="padding-right: 1rem;">
+                      <span class="bold">timestamp</span>
+                    </td>
+                    <td>{{ vehicle.timestamp | date:'short' }}</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <span class="bold">lat/lon</span>
+                    </td>
+                    <td> {{ vehicle.latitude | number:0 }} / {{ vehicle.longitude | number:0 }}</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <span class="bold">speed</span>
+                    </td>
+                    <td>{{ vehicle.speed | number:0 }} km/h</td>
 
-        </mat-sidenav>
-        <mat-sidenav #sideNavDebug mode="over" position="end">
-          <button class="m-1" mat-button (click)="sideNavDebug.toggle()" style="float:left">
-            <mat-icon>close</mat-icon>
-          </button>
+                  </tr>
+                </table>
+              </mat-card-content>
+              <mat-card-actions>
 
-          <div class="clear"></div>
+                <button class="m-1" mat-icon-button mat-raised-button routerLink="/box/{{vehicle.id}}" matTooltip="Go to dashboard" matTooltipPosition="above"
+                  matTooltipShowDelay="500">
+                  <mat-icon>dashboard</mat-icon>
+                </button>
+                <button *ngIf="debugMode" class="m-1" mat-icon-button mat-raised-button (click)="showDebugPaneForVehicle(vehicle)" matTooltip="Show details in debug page"
+                  matTooltipPosition="above" matTooltipShowDelay="500">
+                  <mat-icon>code</mat-icon>
+                </button>
+                <button class="m-1" style="float: right" mat-icon-button mat-raised-button (click)="onFocusVehicleClicked(vehicle)" matTooltip="Focus on map"
+                  matTooltipPosition="above" matTooltipShowDelay="500">
+                  <mat-icon>my_location</mat-icon>
+                </button>
+              </mat-card-actions>
+            </mat-card>
+          </div>
+        </div>
 
-          <mat-card class="m-1" *ngIf="selectedVehicle">
-            <mat-card-header>
-              <mat-card-title>
-                <b class="bold">id</b>: {{ selectedVehicle.id }}
-              </mat-card-title>
-              <mat-card-subtitle>
-                <b class="bold">timestamp</b>: {{ selectedVehicle.timestamp }}</mat-card-subtitle>
-            </mat-card-header>
-            <mat-card-content>
-              <pre>{{selectedVehicle | json }}</pre>
-            </mat-card-content>
-          </mat-card>
-        </mat-sidenav>
+      </mat-sidenav>
+      <mat-sidenav #sideNavDebug mode="over" position="end">
+        <button class="m-1" mat-button (click)="sideNavDebug.toggle()" style="float:left">
+          <mat-icon>close</mat-icon>
+        </button>
 
-        <mat-sidenav-content>
-          <div #map class="map" leaflet [leafletOptions]="leafletOptions" [leafletLayers]="leafletLayers" (leafletMapReady)="onMapReady($event)"></div>
-        </mat-sidenav-content>
-      </mat-sidenav-container>
-    </mat-sidenav-content>
-  </mat-sidenav-container>
+        <div class="clear"></div>
+
+        <mat-card class="m-1" *ngIf="selectedVehicle">
+          <mat-card-header>
+            <mat-card-title>
+              <b class="bold">id</b>: {{ selectedVehicle.id }}
+            </mat-card-title>
+            <mat-card-subtitle>
+              <b class="bold">timestamp</b>: {{ selectedVehicle.timestamp }}</mat-card-subtitle>
+          </mat-card-header>
+          <mat-card-content>
+            <pre>{{selectedVehicle | json }}</pre>
+          </mat-card-content>
+        </mat-card>
+      </mat-sidenav>
+
+      <mat-sidenav-content>
+        <div #map class="map" leaflet [leafletOptions]="leafletOptions" [leafletLayers]="leafletLayers" (leafletMapReady)="onMapReady($event)"></div>
+      </mat-sidenav-content>
+    </mat-sidenav-container>
+  </mat-sidenav-content>
+</mat-sidenav-container>
