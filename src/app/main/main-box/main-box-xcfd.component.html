@@ -22,15 +22,25 @@
         *ngIf="xfcdDataSource.data.length > 0">
         <ng-container matColumnDef="param">
           <th mat-header-cell *matHeaderCellDef> param </th>
-          <td mat-cell *matCellDef="let element"> {{element.param}} </td>
+          <td mat-cell *matCellDef="let element">
+            <mat-chip-list>
+              <mat-chip>{{element.param}}</mat-chip>
+            </mat-chip-list>
+          </td>
         </ng-container>
         <ng-container matColumnDef="value">
           <th mat-header-cell *matHeaderCellDef> value </th>
           <td mat-cell *matCellDef="let element"> {{element.value}} </td>
         </ng-container>
+        <ng-container matColumnDef="updated_at">
+          <th mat-header-cell *matHeaderCellDef>last update</th>
+          <td mat-cell *matCellDef="let element">
+            {{element.timestamp | amTimeAgo}}
+          </td>
+        </ng-container>
         <ng-container matColumnDef="timestamp">
           <th mat-header-cell *matHeaderCellDef> timestamp </th>
-          <td mat-cell *matCellDef="let element">{{element.timestamp | date:'short'}} </td>
+          <td mat-cell *matCellDef="let element">{{element.timestamp | amDateFormat: 'YYYY-MM-DD HH:mm'}} </td>
         </ng-container>
 
         <tr mat-header-row *matHeaderRowDef="xfcdDisplayedColumns"></tr>
@@ -51,15 +61,25 @@
       <table mat-table [dataSource]="statesDataSource" class="mt-1 full-width mat-elevation-z2">
         <ng-container matColumnDef="param">
           <th mat-header-cell *matHeaderCellDef> param </th>
-          <td mat-cell *matCellDef="let element"> {{element.param}} </td>
+          <td mat-cell *matCellDef="let element">
+            <mat-chip-list>
+              <mat-chip>{{element.param}}</mat-chip>
+            </mat-chip-list>
+          </td>
         </ng-container>
         <ng-container matColumnDef="value">
           <th mat-header-cell *matHeaderCellDef> value </th>
           <td mat-cell *matCellDef="let element"> {{element.value}} </td>
         </ng-container>
+        <ng-container matColumnDef="updated_at">
+          <th mat-header-cell *matHeaderCellDef>last update</th>
+          <td mat-cell *matCellDef="let element">
+            {{element.timestamp | amTimeAgo}}
+          </td>
+        </ng-container>
         <ng-container matColumnDef="timestamp">
           <th mat-header-cell *matHeaderCellDef> timestamp </th>
-          <td mat-cell *matCellDef="let element">{{element.timestamp | date:'short'}} </td>
+          <td mat-cell *matCellDef="let element"> {{element.timestamp | amDateFormat: 'YYYY-MM-DD HH:mm'}} </td>
         </ng-container>
 
         <tr mat-header-row *matHeaderRowDef="statesDisplayedColumns"></tr>

@@ -12,6 +12,7 @@ import { TrafficsoftClientService, XfcdParam, StateParam } from '../shared/traff
 import { AppConfig } from '../../config/app.config';
 import { ApplicationSettingsService } from '../shared/application_settings.service';
 import { ApplicationSettings } from '../shared/application_settings.model';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-main-box-xfcd',
@@ -24,10 +25,10 @@ export class MainBoxXfcdComponent implements OnInit, AfterViewInit {
   loading = true;
   private debugMode = false;
 
-  private xfcdDisplayedColumns: string[] = ['param', 'value'];
+  private xfcdDisplayedColumns: string[] = ['param', 'value', 'updated_at', 'timestamp'];
   private xfcdDataSource = new MatTableDataSource<XfcdParam>([]);
 
-  private statesDisplayedColumns: string[] = ['param', 'value'];
+  private statesDisplayedColumns: string[] = ['param', 'value', 'updated_at', 'timestamp'];
   private statesDataSource = new MatTableDataSource<StateParam>([]);
 
   @ViewChild(MatSort) sort: MatSort;
