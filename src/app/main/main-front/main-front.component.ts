@@ -77,9 +77,8 @@ export class MainFrontComponent implements OnInit {
       return;
     }
 
-    this.filteredLastData = Object.assign([], this.lastData).filter(
-      item => ('' + item.id).indexOf(value.toLowerCase()) > -1
-    );
+    this.filteredLastData = Object.assign([], this.lastData)
+      .filter(item => ('' + item.id).indexOf(value.toLowerCase()) > -1);
   }
 
   onMapReady(_map: Map) {

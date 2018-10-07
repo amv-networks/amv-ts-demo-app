@@ -40,10 +40,14 @@ export function createLeafletOptions(options: LeafletOptions) {
         maxZoom: 6,
         attribution: '-'
       }),
-      tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      /*tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
         minZoom: 7,
         attribution: '-'
-      }),
+      }),*/
+      tileLayer('https://maps.wikimedia.org/osm-intl/{z}/{x}/{y}.png', {
+        minZoom: 7,
+        attribution: '-'
+      })
     ],
     zoom: options.zoom || 7,
     center: options.center
