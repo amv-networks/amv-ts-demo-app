@@ -1,7 +1,6 @@
-import { Observable, of } from 'rxjs';
-import { map, tap, } from 'rxjs/operators';
-import { Map, tileLayer, latLng, circle, polygon, marker, icon, control, Util, Control } from 'leaflet';
-import { LeafletDirective } from '@asymmetrik/ngx-leaflet';
+
+import { Map, Marker, tileLayer, latLng, featureGroup, circle, polygon, marker, icon, control, Util, Control } from 'leaflet';
+
 
 export interface LeafletOptions {
   zoom: number;
@@ -15,6 +14,19 @@ export function zoomToPlace(leafletMap: Map, lat: number, lng: number, zoom: num
   } else {
     leafletMap.setView([lat, lng], zoom);
   }
+}
+
+
+export function leafletFitMapToMarkerBounds(map: Map, markers: Array<Marker>) {
+  if (!map || !markers) {
+    return;
+  }
+  if (markers.length === 0) {
+    return;
+  }
+
+  const group = featureGroup(markers);
+  map.fitBounds(group.getBounds());
 }
 
 export function customizeMap(leafletMap: Map): Map {

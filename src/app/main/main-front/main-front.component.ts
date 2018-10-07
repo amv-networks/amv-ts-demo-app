@@ -11,7 +11,13 @@ import { TrafficsoftClientService } from '../shared/trafficsoft-clients.service'
 import { MatSnackBar, MatSnackBarConfig } from '@angular/material';
 import { Map, tileLayer, latLng, circle, polygon, marker, icon, control } from 'leaflet';
 import { ApplicationSettingsService } from '../shared/application_settings.service';
-import { createMarkerForVehicle, createLeafletOptions, zoomToPlace, customizeMap } from '../shared/leaflet-map.util';
+import {
+  createMarkerForVehicle,
+  createLeafletOptions,
+  zoomToPlace,
+  leafletFitMapToMarkerBounds,
+  customizeMap
+} from '../shared/leaflet-map.util';
 import { ApplicationSettings } from '../shared/application_settings.model';
 
 @Component({
@@ -56,7 +62,7 @@ export class MainFrontComponent implements OnInit {
       .subscribe(settings => this.debugMode = settings.debugMode);
 
     this.load(() => {
-      this.focusFirstVehicleIfPossible();
+      this.fitMapToMarkerBounds();
     });
   }
 
@@ -87,10 +93,9 @@ export class MainFrontComponent implements OnInit {
 
   resetMapZoom(): void {
     if (null != this.map) {
-      this.map.setView(MainFrontComponent.INITIAL_CENTER, MainFrontComponent.INITIAL_ZOOM);
+      // this.map.setView(MainFrontComponent.INITIAL_CENTER, MainFrontComponent.INITIAL_ZOOM);
 
-      this.focusFirstVehicleIfPossible();
-
+      this.fitMapToMarkerBounds();
       this.popupMessage('Map zoom and center have been reset');
     }
   }
@@ -124,9 +129,9 @@ export class MainFrontComponent implements OnInit {
     this.snackBar.open(content, 'OK', config);
   }
 
-  private focusFirstVehicleIfPossible() {
-    if (this.lastData.length > 0) {
-      this.focusVehicleOnMap(this.lastData[0], MainFrontComponent.INITIAL_ZOOM);
+  private fitMapToMarkerBounds() {
+    if (this.map && this.leafletLayers.length > 0) {
+      leafletFitMapToMarkerBounds(this.map, this.leafletLayers);
     }
   }
 
