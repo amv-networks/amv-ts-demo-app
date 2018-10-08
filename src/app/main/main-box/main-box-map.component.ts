@@ -29,6 +29,7 @@ export class MainBoxMapComponent implements OnInit {
   private static INITIAL_ZOOM = 7;
 
   @Input() vehicleId: number;
+  @Input() vehicle: any;
   @Input() enableActionButtons: boolean = false;
   @Input() mapHeight: any = '250px';
 
@@ -36,7 +37,6 @@ export class MainBoxMapComponent implements OnInit {
   debugMode = false;
 
   lastData: any[] = [];
-
   selectedVehicle: any;
 
   leafletOptions: any;
@@ -62,7 +62,11 @@ export class MainBoxMapComponent implements OnInit {
     this.applicationSettingsService.get()
       .subscribe(settings => this.debugMode = settings.debugMode);
 
-    this.load();
+    if (!this.vehicle) {
+      this.load();
+    } else {
+      this.updateSelectedVehicle(this.vehicle);
+    }
   }
 
   reload() {
@@ -80,15 +84,13 @@ export class MainBoxMapComponent implements OnInit {
     this.map.addControl(control.zoom({ position: 'topright' }));
 
     if (this.selectedVehicle) {
-      this.focusVehicleOnMap(this.selectedVehicle);
+      this.fitMapToMarkerBounds();
     }
   }
 
-  focusVehicleOnMap(vehicle: any) {
-    if (null != this.map) {
+  fitMapToMarkerBounds() {
+    if (null != this.map && this.leafletLayers) {
       leafletFitMapToMarkerBounds(this.map, this.leafletLayers);
-    } else {
-      console.log('map not ready');
     }
   }
 
@@ -126,15 +128,7 @@ export class MainBoxMapComponent implements OnInit {
       this.lastData = lastData;
 
       if (lastData.length > 0) {
-        this.selectedVehicle = lastData[0];
-
-        const markerArray = this.lastData
-          .filter(d => d.latitude && d.longitude)
-          .map(d => createMarkerForVehicle(d));
-
-        this.leafletLayers = markerArray;
-
-        this.focusVehicleOnMap(this.selectedVehicle);
+        this.updateSelectedVehicle(lastData[0]);
       }
     }, err => {
       this.popupError('Loading latest data errored');
@@ -142,5 +136,25 @@ export class MainBoxMapComponent implements OnInit {
     }, () => {
       this.loading = false;
     });
+  }
+
+  private buildMarkerFromSelectedVehicle() {
+    if(!this.selectedVehicle) {
+      return;
+    }
+
+    const markerArray = [this.selectedVehicle]
+          .filter(d => d.latitude && d.longitude)
+          .map(d => createMarkerForVehicle(d));
+
+    this.leafletLayers = markerArray;
+  }
+
+
+  private updateSelectedVehicle(vehicle: any) {
+    this.selectedVehicle = vehicle;
+
+    this.buildMarkerFromSelectedVehicle();
+    this.fitMapToMarkerBounds();
   }
 }

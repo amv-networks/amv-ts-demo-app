@@ -1,7 +1,14 @@
 import { Component, OnInit, AfterViewInit, ViewChild } from '@angular/core';
 import { Router, ActivatedRoute, NavigationEnd } from '@angular/router';
-import { MatTabGroup } from '@angular/material';
+import { MatTabGroup, MatSnackBar, MatSnackBarConfig } from '@angular/material';
+import { TrafficsoftClientService } from '../shared/trafficsoft-clients.service';
+import { ApplicationSettingsService } from '../shared/application_settings.service';
+import { ApplicationSettings } from '../shared/application_settings.model';
+import { AppConfig } from '../../config/app.config';
 
+import { Observable } from 'rxjs';
+import { fromPromise } from 'rxjs/observable/fromPromise';
+import { catchError, delay, tap, map, flatMap } from 'rxjs/operators';
 import 'rxjs/add/operator/filter';
 import 'rxjs/add/operator/map';
 
@@ -21,10 +28,31 @@ export class MainBoxComponent implements OnInit, AfterViewInit {
     slug: 'location',
   }];
 
+  loading = true;
+  debugMode = false;
+
+  lastData: any[] = [];
+
   vehicleId: number;
+  vehicle: any;
 
   @ViewChild('tabGroup') tabGroup: MatTabGroup;
   tabIndex = 0;
+
+  constructor(private router: Router,
+    private activatedRoute: ActivatedRoute,
+    private snackBar: MatSnackBar,
+    private trafficsoftClientService: TrafficsoftClientService,
+    private applicationSettingsService: ApplicationSettingsService) {
+
+
+  }
+  
+  reload() {
+    this.lastData = [];
+
+    this.load();
+  }
 
   static getTabIndex(route: ActivatedRoute) {
     let r = route;
@@ -45,8 +73,6 @@ export class MainBoxComponent implements OnInit, AfterViewInit {
     }
     return 0;
   }
-
-  constructor(private router: Router, private activatedRoute: ActivatedRoute) { }
 
   ngOnInit() {
     this.vehicleId = +this.activatedRoute.snapshot.paramMap.get('id');
@@ -72,6 +98,11 @@ export class MainBoxComponent implements OnInit, AfterViewInit {
           this.tabIndex = newTabIndex;
         }
       });
+
+    this.load();
+
+    this.applicationSettingsService.get()
+    .subscribe(settings => this.debugMode = settings.debugMode);
   }
 
   onSelectedIndexChange(newTabIndex) {
@@ -83,4 +114,49 @@ export class MainBoxComponent implements OnInit, AfterViewInit {
 
   ngAfterViewInit(): void {
   }
+
+  private load() {
+    this.loading = true;
+
+    this.applicationSettingsService.get().pipe(
+      flatMap(settings => this.fetchLastData(settings))
+    ).subscribe(lastData => {
+      this.lastData = lastData;
+
+      if (lastData.length > 0) {
+        this.vehicle = lastData[0];
+      }
+    }, err => {
+      this.popupError('Loading latest data errored');
+      this.loading = false;
+    }, () => {
+      this.loading = false;
+    });
+  }
+
+  fetchLastData(settings: ApplicationSettings): Observable<any[]> {
+    return this.trafficsoftClientService.xfcd(settings)
+      .pipe(flatMap(client => {
+        return fromPromise(client.getLastData(this.vehicleId)).pipe(
+          map(response => response['data'] || []),
+          map(array => array.filter(a => a.id === this.vehicleId))
+        );
+      }));
+  }
+
+  popupError(error): void {
+    this.popupSnackBar(error, 'background-red');
+  }
+
+  popupMessage(message): void {
+    this.popupSnackBar(message, '');
+  }
+
+  popupSnackBar(content: any, panelClass: string): void {
+    const config: any = new MatSnackBarConfig();
+    config.duration = AppConfig.snackBarDuration;
+    config.panelClass = panelClass;
+    this.snackBar.open(content, 'OK', config);
+  }
+
 }

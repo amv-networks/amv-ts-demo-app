@@ -1,6 +1,6 @@
-
-<app-main-box-map [vehicleId]="vehicleId" mapHeight="300px"></app-main-box-map>
-
+<div *ngIf="vehicle">
+  <app-main-box-map [vehicle]="vehicle" mapHeight="300px"></app-main-box-map>
+</div>
 
 <div class="container mat-typography">
   <h1 class="title">Vehicle {{vehicleId}}</h1>
