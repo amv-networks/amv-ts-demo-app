@@ -156,7 +156,11 @@ export class MainFrontComponent implements OnInit {
 
       const markerArray = this.lastData
         .filter(vehicle => vehicle.latitude && vehicle.longitude)
-        .map(vehicle => createMarkerForVehicle(vehicle));
+        .map(vehicle => createMarkerForVehicle(vehicle, `<a 
+          class="mt-1 mat-button mat-raised-button mat-primary" 
+          href="#/box/${vehicle.id}" title="dashboard">
+            go to dashboard
+          </a>`));
 
       this.leafletLayers = markerArray;
 

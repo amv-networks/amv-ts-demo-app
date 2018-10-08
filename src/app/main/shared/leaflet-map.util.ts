@@ -81,7 +81,7 @@ export function createSimpleMarker(title: any, latitude: number, longitude: numb
   return m;
 }
 
-export function createMarkerForVehicle(vehicle: any): latLng {
+export function createMarkerForVehicle(vehicle: any, additionalContent: string = ''): latLng {
   const m = createSimpleMarker(vehicle.id, vehicle.latitude, vehicle.longitude);
 
   // somehow, css classes do not seem to work, hence 'style' is used - i am sorry :/
@@ -96,9 +96,7 @@ export function createMarkerForVehicle(vehicle: any): latLng {
       <li><span class="bold">speed</span>: ${vehicle.speed}km/h</li>
       </ul>
       <br />
-      <a class="mt-1 mat-button mat-raised-button mat-primary" href="#/box/${vehicle.id}" title="dashboard">
-          go to dashboard
-      </a>
+      ${additionalContent}
     </div>
     `);
 
