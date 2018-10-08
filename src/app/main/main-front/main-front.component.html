@@ -1,5 +1,5 @@
 <mat-sidenav-container hasBackdrop="false">
-  <mat-sidenav #sideNavMain mode="side" opened disableClose position="end" class="full-height-without-toolbar">
+  <mat-sidenav #sideNavMain mode="side" opened disableClose position="start" class="full-height-without-toolbar">
     <div class="clear mb-1"></div>
     <button mat-button matTooltip="Reload latest xfcd data" matTooltipPosition="right" (click)="reload()">
       <mat-icon>autorenew</mat-icon>
@@ -17,7 +17,7 @@
   </mat-sidenav>
   <mat-sidenav-content>
     <mat-sidenav-container [hasBackdrop]="sideNavDebug.opened" class="full-height-without-toolbar">
-      <mat-sidenav #sideNavOne mode="over" disableClose position="start">
+      <mat-sidenav #sideNavOne mode="push" disableClose position="end">
         <div class="m-0_5" style="width: 250px">
           <mat-spinner *ngIf="loading" class="app-spinner-center"></mat-spinner>
           <div *ngIf="lastData.length > 0" style="margin: 0 0.5em;">
@@ -72,7 +72,7 @@
         </div>
 
       </mat-sidenav>
-      <mat-sidenav #sideNavDebug mode="over" position="end">
+      <mat-sidenav #sideNavDebug mode="over" position="start">
         <button class="m-1" mat-button (click)="sideNavDebug.toggle()" style="float:left">
           <mat-icon>close</mat-icon>
         </button>
