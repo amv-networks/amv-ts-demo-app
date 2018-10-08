@@ -4,7 +4,7 @@ import { Map, Marker, tileLayer, latLng, featureGroup, circle, polygon, marker, 
 
 export interface LeafletOptions {
   zoom: number;
-  center: latLng;
+  center: any;
 }
 
 export function zoomToPlace(leafletMap: Map, lat: number, lng: number, zoom: number = 15,
@@ -49,7 +49,7 @@ export function createLeafletOptions(options: LeafletOptions) {
     layers: [
       tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
         minZoom: 0,
-        maxZoom: 6,
+        maxZoom: 7,
         attribution: '-'
       }),
       /*tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {

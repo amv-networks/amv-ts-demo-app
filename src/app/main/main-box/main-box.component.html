@@ -1,16 +1,23 @@
+
+<app-main-box-map [vehicleId]="vehicleId" mapHeight="300px"></app-main-box-map>
+
+
 <div class="container mat-typography">
   <h1 class="title">Vehicle {{vehicleId}}</h1>
   <h2 class="subtitle">Dashboard</h2>
 
   <mat-tab-group class="mat-elevation-z5" #tabGroup [selectedIndex]="tabIndex" (selectedIndexChange)="onSelectedIndexChange($event)">
-    <mat-tab label="Location">
-      <app-main-box-map [vehicleId]="vehicleId"></app-main-box-map>
-    </mat-tab>
+
     <mat-tab label="xfcd">
       <app-main-box-xfcd [vehicleId]="vehicleId"></app-main-box-xfcd>
     </mat-tab>
     <mat-tab label="Reservations">
       <app-main-box-reservations [vehicleId]="vehicleId"></app-main-box-reservations>
+    </mat-tab>
+    <mat-tab label="Location">
+        <ng-template matTabContent>
+      <app-main-box-map [vehicleId]="vehicleId" enableActionButtons="true" mapHeight="480px"></app-main-box-map>
+      </ng-template>
     </mat-tab>
   </mat-tab-group>
 </div>

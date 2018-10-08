@@ -10,7 +10,12 @@ import { MatSnackBar, MatSnackBarConfig } from '@angular/material';
 import { Map, tileLayer, latLng, circle, polygon, marker, icon, control } from 'leaflet';
 import { ApplicationSettingsService } from '../shared/application_settings.service';
 import { ApplicationSettings } from '../shared/application_settings.model';
-import { createMarkerForVehicle, createLeafletOptions, zoomToPlace } from '../shared/leaflet-map.util';
+import { 
+  createMarkerForVehicle, 
+  leafletFitMapToMarkerBounds,
+  createLeafletOptions,
+  zoomToPlace
+} from '../shared/leaflet-map.util';
 
 
 @Component({
@@ -24,6 +29,8 @@ export class MainBoxMapComponent implements OnInit {
   private static INITIAL_ZOOM = 7;
 
   @Input() vehicleId: number;
+  @Input() enableActionButtons: boolean = false;
+  @Input() mapHeight: any = '250px';
 
   loading = true;
   debugMode = false;
@@ -43,28 +50,12 @@ export class MainBoxMapComponent implements OnInit {
     private snackBar: MatSnackBar,
     private applicationSettingsService: ApplicationSettingsService) {
 
-    // TODO: what, wtf? tried `createLeafletOptions` and it does not work -> vehicle will not be focused -> very strange..
-    /*
-      this.leafletOptions = createLeafletOptions({
-        zoom: MainBoxMapComponent.INITIAL_ZOOM,
-        center: MainBoxMapComponent.INITIAL_CENTER
-      });
-    */
-    this.leafletOptions = {
-      layers: [
-        tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
-          minZoom: 0,
-          maxZoom: 7,
-          attribution: '-'
-        }),
-        tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-          minZoom: 7,
-          attribution: '-'
-        }),
-      ],
+
+    this.leafletOptions = createLeafletOptions({
       zoom: MainBoxMapComponent.INITIAL_ZOOM,
       center: MainBoxMapComponent.INITIAL_CENTER
-    };
+    });
+
   }
 
   ngOnInit() {
@@ -95,7 +86,9 @@ export class MainBoxMapComponent implements OnInit {
 
   focusVehicleOnMap(vehicle: any) {
     if (null != this.map) {
-      zoomToPlace(this.map, vehicle.latitude, vehicle.longitude, 15);
+      leafletFitMapToMarkerBounds(this.map, this.leafletLayers);
+    } else {
+      console.log('map not ready');
     }
   }
 

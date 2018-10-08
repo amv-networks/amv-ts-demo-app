@@ -22,7 +22,7 @@ const mainRoutes: Routes = [
       { path: 'box/:id/_tabs/:slug', component: MainBoxComponent },
       {
         path: 'box/:id',
-        redirectTo: '/box/:id/_tabs/location',
+        redirectTo: '/box/:id/_tabs/xfcd',
       },
     ]
   }

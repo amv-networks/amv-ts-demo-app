@@ -13,12 +13,12 @@ import 'rxjs/add/operator/map';
 
 export class MainBoxComponent implements OnInit, AfterViewInit {
 
-  static tabInfos = [{
-    slug: 'location',
-  }, {
+  static tabInfos = [ {
     slug: 'xfcd',
   }, {
     slug: 'reservation',
+  },{
+    slug: 'location',
   }];
 
   vehicleId: number;
