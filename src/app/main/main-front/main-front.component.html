@@ -17,7 +17,7 @@
   </mat-sidenav>
   <mat-sidenav-content>
     <mat-sidenav-container [hasBackdrop]="sideNavDebug.opened" class="full-height-without-toolbar">
-      <mat-sidenav #sideNavOne mode="over" opened disableClose position="start">
+      <mat-sidenav #sideNavOne mode="over" disableClose position="start">
         <div class="m-0_5" style="width: 250px">
           <mat-spinner *ngIf="loading" class="app-spinner-center"></mat-spinner>
           <div *ngIf="lastData.length > 0" style="margin: 0 0.5em;">

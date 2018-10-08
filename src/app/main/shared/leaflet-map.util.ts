@@ -66,9 +66,9 @@ export function createLeafletOptions(options: LeafletOptions) {
   };
 }
 
-export function createMarkerForVehicle(vehicle: any): latLng {
-  const m = marker([vehicle.latitude, vehicle.longitude], {
-    title: vehicle.id,
+export function createSimpleMarker(title: any, latitude: number, longitude: number): latLng {
+  const m = marker([latitude, longitude], {
+    title: title,
     icon: icon({
       iconSize: [25, 41],
       iconAnchor: [13, 41],
@@ -78,10 +78,29 @@ export function createMarkerForVehicle(vehicle: any): latLng {
     riseOnHover: true
   });
 
+  return m;
+}
+
+export function createMarkerForVehicle(vehicle: any): latLng {
+  const m = createSimpleMarker(vehicle.id, vehicle.latitude, vehicle.longitude);
+
   // somehow, css classes do not seem to work, hence 'style' is used - i am sorry :/
-  m.bindPopup('<span class="h6" style="font-weight: 600;">' + vehicle.id + '</span><br />' +
-    '<span class="bold">lat/lon</span>: ' + vehicle.latitude + '/' + vehicle.longitude + '<br />' +
-    '<span class="bold">speed</span>: ' + vehicle.speed + ' km/h');
+  m.bindPopup(`
+    <div style="padding: 0.1rem;">
+      <span class="h6">${vehicle.id}</span>
+      <br />
+      <br />
+
+      <ul>
+      <li><span class="bold">lat/lon</span>: ${vehicle.latitude}/${vehicle.longitude}</li>
+      <li><span class="bold">speed</span>: ${vehicle.speed}km/h</li>
+      </ul>
+      <br />
+      <a class="mt-1 mat-button mat-raised-button mat-primary" href="#/box/${vehicle.id}" title="dashboard">
+          go to dashboard
+      </a>
+    </div>
+    `);
 
   m.bindTooltip('' + vehicle.id);
   return m;
