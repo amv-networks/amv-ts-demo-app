@@ -60,8 +60,8 @@
     "heading": 0,
     "id": 1004,
     "alias": "demo vehicle",
-    "latitude": 47.482,
-    "longitude": 13.71,
+    "latitude": 47.061490,
+    "longitude": 15.437857,
     "satellites": 0,
     "speed": 0,
     "states": [
@@ -84,8 +84,8 @@
     "heading": 0,
     "id": 1003,
     "alias": "demo vehicle",
-    "latitude": 47.912,
-    "longitude": 13.031,
+    "latitude": 48.128976,
+    "longitude": 11.557327,
     "satellites": 0,
     "speed": 42,
     "states": [
@@ -115,8 +115,8 @@
     "heading": 0,
     "id": 1002,
     "alias": "demo vehicle",
-    "latitude": 48.867,
-    "longitude": 12.132,
+    "latitude": 47.522309,
+    "longitude": 12.428447,
     "satellites": 0,
     "speed": 23,
     "states": [
