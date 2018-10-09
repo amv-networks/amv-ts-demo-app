@@ -20,39 +20,13 @@ import 'rxjs/add/operator/map';
 
 export class MainBoxComponent implements OnInit, AfterViewInit {
 
-  static tabInfos = [ {
+  static tabInfos = [{
     slug: 'xfcd',
   }, {
     slug: 'reservation',
-  },{
+  }, {
     slug: 'location',
   }];
-
-  loading = true;
-  debugMode = false;
-
-  lastData: any[] = [];
-
-  vehicleId: number;
-  vehicle: any;
-
-  @ViewChild('tabGroup') tabGroup: MatTabGroup;
-  tabIndex = 0;
-
-  constructor(private router: Router,
-    private activatedRoute: ActivatedRoute,
-    private snackBar: MatSnackBar,
-    private trafficsoftClientService: TrafficsoftClientService,
-    private applicationSettingsService: ApplicationSettingsService) {
-
-
-  }
-  
-  reload() {
-    this.lastData = [];
-
-    this.load();
-  }
 
   static getTabIndex(route: ActivatedRoute) {
     let r = route;
@@ -73,6 +47,35 @@ export class MainBoxComponent implements OnInit, AfterViewInit {
     }
     return 0;
   }
+
+  loading = true;
+  debugMode = false;
+
+  lastData: any[] = [];
+
+  vehicleId: number;
+  vehicle: any;
+
+  @ViewChild('tabGroup') tabGroup: MatTabGroup;
+  tabIndex = 0;
+
+
+
+  constructor(private router: Router,
+    private activatedRoute: ActivatedRoute,
+    private snackBar: MatSnackBar,
+    private trafficsoftClientService: TrafficsoftClientService,
+    private applicationSettingsService: ApplicationSettingsService) {
+
+
+  }
+
+  reload() {
+    this.lastData = [];
+
+    this.load();
+  }
+
 
   ngOnInit() {
     this.vehicleId = +this.activatedRoute.snapshot.paramMap.get('id');
@@ -102,7 +105,7 @@ export class MainBoxComponent implements OnInit, AfterViewInit {
     this.load();
 
     this.applicationSettingsService.get()
-    .subscribe(settings => this.debugMode = settings.debugMode);
+      .subscribe(settings => this.debugMode = settings.debugMode);
   }
 
   onSelectedIndexChange(newTabIndex) {

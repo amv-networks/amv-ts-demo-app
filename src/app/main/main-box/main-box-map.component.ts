@@ -10,8 +10,8 @@ import { MatSnackBar, MatSnackBarConfig } from '@angular/material';
 import { Map, tileLayer, latLng, circle, polygon, marker, icon, control } from 'leaflet';
 import { ApplicationSettingsService } from '../shared/application_settings.service';
 import { ApplicationSettings } from '../shared/application_settings.model';
-import { 
-  createMarkerForVehicle, 
+import {
+  createMarkerForVehicle,
   leafletFitMapToMarkerBounds,
   createLeafletOptions,
   zoomToPlace
@@ -30,7 +30,7 @@ export class MainBoxMapComponent implements OnInit {
 
   @Input() vehicleId: number;
   @Input() vehicle: any;
-  @Input() enableActionButtons: boolean = false;
+  @Input() enableActionButtons = false;
   @Input() mapHeight: any = '250px';
 
   loading = true;
@@ -139,13 +139,13 @@ export class MainBoxMapComponent implements OnInit {
   }
 
   private buildMarkerFromSelectedVehicle() {
-    if(!this.selectedVehicle) {
+    if (!this.selectedVehicle) {
       return;
     }
 
     const markerArray = [this.selectedVehicle]
-          .filter(d => d.latitude && d.longitude)
-          .map(d => createMarkerForVehicle(d));
+      .filter(d => d.latitude && d.longitude)
+      .map(d => createMarkerForVehicle(d));
 
     this.leafletLayers = markerArray;
   }

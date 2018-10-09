@@ -14,7 +14,7 @@
     "http-server": "http-server dist/ -c-1",
     "build": "ng build --prod --output-path .dist/",
     "build-all": "ng build --output-path ./dist-dev/ && ng build --prod --output-path ./dist/ && ng build --prod --output-path ./docs/",
-    "build-gh": "ng build --prod --output-path ./docs/",
+    "build-gh": "npm run ci && ng build --prod --output-path ./docs/",
     "test": "ng test",
     "e2e": "ng e2e",
     "lint": "ng lint",
