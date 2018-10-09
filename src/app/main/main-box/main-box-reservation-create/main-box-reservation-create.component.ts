@@ -14,6 +14,8 @@ import { ApplicationSettings } from '../../shared/application_settings.model';
 import { TrafficsoftClientService, Reservation } from '../../shared/trafficsoft-clients.service';
 import * as moment from 'moment';
 
+import { SnackBarService } from '../../../core/shared/snack-bar.service';
+
 @Component({
   selector: 'app-main-box-reservation-create',
   templateUrl: './main-box-reservation-create.component.html',
@@ -28,7 +30,7 @@ export class MainBoxReservationCreateComponent implements OnInit, AfterViewInit 
   constructor(private router: Router,
     private route: ActivatedRoute,
     private formBuilder: FormBuilder,
-    private snackBar: MatSnackBar,
+    private snackBar: SnackBarService,
     private trafficsoftClientService: TrafficsoftClientService,
     private applicationSettingsService: ApplicationSettingsService) {
 
@@ -57,27 +59,6 @@ export class MainBoxReservationCreateComponent implements OnInit, AfterViewInit 
 
   }
 
-  popupError(error): void {
-    this.popupSnackBar(error, 'background-red');
-  }
-
-  popupMessage(message): void {
-    this.popupSnackBar(message, '');
-  }
-
-  popupSnackBar(content: any, panelClass: string): void {
-    let val = content;
-    if (content instanceof Error) {
-      const isTsError = !!content['response'] && !!content['response'].data && !!content['response'].data.message;
-      val = isTsError ? content['response'].data.message : content;
-    }
-
-    const config: any = new MatSnackBarConfig();
-    config.duration = AppConfig.snackBarDuration;
-    config.panelClass = panelClass;
-    this.snackBar.open(val, 'OK', config);
-  }
-
   onRfidFormSubmit() {
     if (this.rfidOptions.invalid) {
       return;
@@ -85,7 +66,7 @@ export class MainBoxReservationCreateComponent implements OnInit, AfterViewInit 
 
     const validDates = this.rfidOptions.get('until').value.isAfter(this.rfidOptions.get('from').value);
     if (!validDates) {
-      this.popupError('Validation error: End date must be greater than start date.');
+      this.snackBar.popupError('Validation error: End date must be greater than start date.');
       return;
     }
 
@@ -103,9 +84,9 @@ export class MainBoxReservationCreateComponent implements OnInit, AfterViewInit 
     ).subscribe(result => {
       this.router.navigate(['/box', this.vehicleId, '_tabs', 'reservation']);
     }, error => {
-      this.popupError(error);
+      this.snackBar.popupError(error);
     }, () => {
-      this.popupMessage('Successfully created reservation.');
+      this.snackBar.popupMessage('Successfully created reservation.');
     });
   }
 

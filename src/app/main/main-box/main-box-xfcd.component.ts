@@ -10,8 +10,12 @@ import { catchError, delay, tap, filter, map, flatMap } from 'rxjs/operators';
 import { fromPromise } from 'rxjs/observable/fromPromise';
 import { TrafficsoftClientService, XfcdParam, StateParam } from '../shared/trafficsoft-clients.service';
 import { AppConfig } from '../../config/app.config';
+import { ProgressBarService } from '../../core/shared/progress-bar.service';
 import { ApplicationSettingsService } from '../shared/application_settings.service';
 import { ApplicationSettings } from '../shared/application_settings.model';
+
+import { SnackBarService } from '../../core/shared/snack-bar.service';
+
 import * as moment from 'moment';
 
 @Component({
@@ -37,8 +41,9 @@ export class MainBoxXfcdComponent implements OnInit, AfterViewInit {
 
   constructor(private router: Router,
     private trafficsoftClientService: TrafficsoftClientService,
-    private snackBar: MatSnackBar,
-    private applicationSettingsService: ApplicationSettingsService) {
+    private snackBar: SnackBarService,
+    private applicationSettingsService: ApplicationSettingsService,
+    private progressBar: ProgressBarService) {
   }
 
   ngOnInit() {
@@ -53,29 +58,6 @@ export class MainBoxXfcdComponent implements OnInit, AfterViewInit {
   ngAfterViewInit(): void {
   }
 
-  popupError(error): void {
-    this.popupSnackBar(error, 'background-red');
-  }
-
-  popupMessage(message): void {
-    this.popupSnackBar(message, '');
-  }
-
-  popupSnackBar(content: any, panelClass: string): void {
-    const config: any = new MatSnackBarConfig();
-    config.duration = AppConfig.snackBarDuration;
-    config.panelClass = panelClass;
-    this.snackBar.open(content, 'OK', config);
-  }
-
-  reload() {
-    this.lastData = {};
-    this.xfcdDataSource.data = [];
-    this.statesDataSource.data = [];
-
-    this.load();
-  }
-
   applyXfcdFilter(filterValue: string) {
     this.xfcdDataSource.filter = filterValue.trim().toLowerCase();
   }
@@ -87,26 +69,46 @@ export class MainBoxXfcdComponent implements OnInit, AfterViewInit {
   private load() {
     this.loading = true;
 
-    this.applicationSettingsService.get().pipe(
-      flatMap(settings => this.fetchLastData(settings))
-    ).subscribe(data => {
-      this.lastData = data[0] || {};
-
-      this.xfcdDataSource.data = this.lastData.xfcds || [];
-      this.statesDataSource.data = this.lastData.states || [];
-    }, err => {
-      this.popupError('error while fetching latest xfcd data');
-      this.loading = false;
-    }, () => {
-      this.loading = false;
-    });
+    this.fetchLastData()
+      .subscribe(foo => {
+      }, err => {
+        this.snackBar.popupError('error while fetching latest xfcd data');
+        this.loading = false;
+      }, () => {
+        this.loading = false;
+      });
   }
 
-  private fetchLastData(settings: ApplicationSettings): Observable<any[]> {
+  reload() {
+    this.progressBar.increaseIndeterminate();
+
+    this.fetchLastData()
+      .subscribe(foo => { },
+        err => {
+          this.snackBar.popupError('error while fetching latest xfcd data');
+          this.progressBar.decrease();
+        }, () => {
+          this.progressBar.decrease();
+        });
+  }
+
+  private fetchLastData() {
+    return this.applicationSettingsService.get()
+      .pipe(flatMap(settings => this.fetchLastDataWithSettings(settings)))
+      .map(data => {
+        this.lastData = data[0] || {};
+
+        this.xfcdDataSource.data = this.lastData.xfcds || [];
+        this.statesDataSource.data = this.lastData.states || [];
+        return data;
+      });
+  }
+
+  private fetchLastDataWithSettings(settings: ApplicationSettings): Observable<any[]> {
     return zip(
       this.trafficsoftClientService.xfcd(settings),
       of(this.vehicleId),
-      of(1).pipe(delay(442))
+      of(1).pipe(delay(242))
     ).pipe(flatMap(pair => {
       const client = pair[0];
       const vehicleIds = pair[1];

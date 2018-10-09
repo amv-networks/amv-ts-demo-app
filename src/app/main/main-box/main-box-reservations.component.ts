@@ -14,8 +14,11 @@ import { catchError, delay, tap, map, flatMap, filter, mergeAll } from 'rxjs/ope
 import { fromPromise } from 'rxjs/observable/fromPromise';
 import { TrafficsoftClientService, Reservation } from '../shared/trafficsoft-clients.service';
 import { AppConfig } from '../../config/app.config';
+import { ProgressBarService } from '../../core/shared/progress-bar.service';
 import { ApplicationSettingsService } from '../shared/application_settings.service';
 import { ApplicationSettings } from '../shared/application_settings.model';
+
+import { SnackBarService } from '../../core/shared/snack-bar.service';
 
 @Component({
   selector: 'app-main-box-reservations-cancel-dialog',
@@ -58,7 +61,8 @@ export class MainBoxReservationsComponent implements OnInit, AfterViewInit {
     private formBuilder: FormBuilder,
     private trafficsoftClientService: TrafficsoftClientService,
     private applicationSettingsService: ApplicationSettingsService,
-    private snackBar: MatSnackBar) {
+    private snackBar: SnackBarService,
+    private progressBar: ProgressBarService) {
   }
 
   ngOnInit() {
@@ -68,29 +72,6 @@ export class MainBoxReservationsComponent implements OnInit, AfterViewInit {
   ngAfterViewInit(): void {
     this.dataSource.sort = this.sort;
     this.dataSource.paginator = this.paginator;
-  }
-
-
-  popupError(error): void {
-    this.popupSnackBar(error, 'background-red');
-  }
-
-  popupMessage(message): void {
-    this.popupSnackBar(message, '');
-  }
-
-  popupSnackBar(content: any, panelClass: string): void {
-    const config: any = new MatSnackBarConfig();
-    config.duration = AppConfig.snackBarDuration;
-    config.panelClass = panelClass;
-    this.snackBar.open(content, 'OK', config);
-  }
-
-  reload() {
-    this.reservations = [];
-    this.dataSource.data = this.reservations;
-
-    this.load();
   }
 
   applyReservationsFilter(filterValue: string) {
@@ -110,13 +91,10 @@ export class MainBoxReservationsComponent implements OnInit, AfterViewInit {
       this.selection.clear() :
       this.dataSource.data.forEach(row => this.selection.select(row));
   }
-  createReservation(): void {
-    this.popupError(new Error('Not yet implemented.'));
-  }
 
-  deleteSelectedItems() {
+  deleteSelectedItemsButtonPressed() {
     if (!this.selection.hasValue()) {
-      this.popupError(new Error('No item selected'));
+      this.snackBar.popupError(new Error('No item selected'));
       return;
     }
 
@@ -125,27 +103,26 @@ export class MainBoxReservationsComponent implements OnInit, AfterViewInit {
       data: this.selection.selected
     });
 
-
-    dialogRef.afterClosed().pipe(
-      filter(result => result === true),
-    ).subscribe(dialogResult => {
-      of(this.selection.selected).pipe(
-        flatMap(selected => from(selected)),
-        flatMap(s => this.applicationSettingsService.get().pipe(
-          map(settings => this.deleteReservation(settings, s.vehicleId, s.reservationId)))
-        ),
-        mergeAll()
-      ).subscribe(deleteReservationResult => {
-      }, error => {
-        this.popupError(error);
-      }, () => {
-        this.load();
-        this.popupMessage('Successfully cancelled selected reservations.');
+    dialogRef.afterClosed()
+      .pipe(filter(result => result === true))
+      .subscribe(dialogResult => {
+        of(this.selection.selected).pipe(
+          flatMap(selected => from(selected)),
+          flatMap(s => this.applicationSettingsService.get().pipe(
+            map(settings => this.deleteReservation(settings, s.vehicleId, s.reservationId)))
+          ),
+          mergeAll()
+        ).subscribe(deleteReservationResult => {
+        }, error => {
+          this.snackBar.popupError(error);
+        }, () => {
+          this.load();
+          this.snackBar.popupMessage('Successfully cancelled selected reservations.');
+        });
       });
-    });
   }
 
-  deleteReservation(settings: ApplicationSettings, vehicleId: number, reservationId: number): Observable<any> {
+  private deleteReservation(settings: ApplicationSettings, vehicleId: number, reservationId: number): Observable<any> {
     return this.trafficsoftClientService.carSharingReservation(settings)
       .pipe(flatMap(client => {
         return fromPromise(client.cancelReservation(vehicleId, reservationId)).pipe(
@@ -154,7 +131,46 @@ export class MainBoxReservationsComponent implements OnInit, AfterViewInit {
       }));
   }
 
-  fetchReservations(settings: ApplicationSettings): Observable<Reservation[]> {
+  private load() {
+    this.loading = true;
+
+    this.fetchReservations()
+      .subscribe(data => {
+        this.reservations = data[0];
+        this.dataSource.data = this.reservations;
+      }, err => {
+        this.snackBar.popupError('Error while fetching reservations: ' + err);
+        this.loading = false;
+      }, () => {
+        this.loading = false;
+      });
+  }
+
+  reload() {
+    this.progressBar.increaseIndeterminate();
+
+    this.fetchReservations()
+      .subscribe(data => {
+        this.reservations = data[0];
+        this.dataSource.data = this.reservations;
+      }, err => {
+        this.snackBar.popupError('Error while fetching reservations: ' + err);
+        this.progressBar.none();
+      }, () => {
+        this.progressBar.none();
+      });
+  }
+
+  private fetchReservations() {
+    return this.applicationSettingsService.get().pipe(
+      flatMap(settings => zip(
+        this.fetchReservationsWithSettings(settings),
+        of(1).pipe(delay(242))
+      ))
+    );
+  }
+
+  private fetchReservationsWithSettings(settings: ApplicationSettings): Observable<Reservation[]> {
     return zip(
       this.trafficsoftClientService.carSharingReservation(settings),
       of(this.vehicleId),
@@ -175,25 +191,5 @@ export class MainBoxReservationsComponent implements OnInit, AfterViewInit {
           }))
       );
     }));
-  }
-
-  private load() {
-    this.loading = true;
-
-    this.applicationSettingsService.get().pipe(
-      flatMap(settings => zip(
-        this.fetchReservations(settings),
-        of(1).pipe(delay(242))
-      ))
-    ).subscribe(data => {
-      this.reservations = data[0];
-
-      this.dataSource.data = this.reservations;
-    }, err => {
-      this.popupError('Error while fetching reservations: ' + err);
-      this.loading = false;
-    }, () => {
-      this.loading = false;
-    });
   }
 }

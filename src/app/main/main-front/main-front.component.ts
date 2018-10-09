@@ -5,10 +5,8 @@ import { of } from 'rxjs/observable/of';
 import { zip } from 'rxjs/observable/zip';
 import { catchError, delay, tap, map, flatMap } from 'rxjs/operators';
 import { fromPromise } from 'rxjs/observable/fromPromise';
-import { AppConfig } from '../../config/app.config';
 import { Router } from '@angular/router';
 import { TrafficsoftClientService } from '../shared/trafficsoft-clients.service';
-import { MatSnackBar, MatSnackBarConfig } from '@angular/material';
 import { Map, tileLayer, latLng, circle, polygon, marker, icon, control } from 'leaflet';
 import { ApplicationSettingsService } from '../shared/application_settings.service';
 import {
@@ -19,6 +17,8 @@ import {
   customizeMap
 } from '../shared/leaflet-map.util';
 import { ApplicationSettings } from '../shared/application_settings.model';
+import { ProgressBarService } from '../../core/shared/progress-bar.service';
+import { SnackBarService } from '../../core/shared/snack-bar.service';
 
 @Component({
   selector: 'app-main-front',
@@ -48,7 +48,8 @@ export class MainFrontComponent implements OnInit {
   constructor(private router: Router,
     private formBuilder: FormBuilder,
     private trafficsoftClientService: TrafficsoftClientService,
-    private snackBar: MatSnackBar,
+    private snackBar: SnackBarService,
+    private progressBar: ProgressBarService,
     private applicationSettingsService: ApplicationSettingsService) {
 
     this.leafletOptions = createLeafletOptions({
@@ -96,14 +97,14 @@ export class MainFrontComponent implements OnInit {
       // this.map.setView(MainFrontComponent.INITIAL_CENTER, MainFrontComponent.INITIAL_ZOOM);
 
       this.fitMapToMarkerBounds();
-      this.popupMessage('Map zoom and center have been reset');
+      this.snackBar.popupMessage('Map zoom and center have been reset');
     }
   }
 
   onFocusVehicleClicked(vehicle: any) {
     if (null != this.map) {
       this.focusVehicleOnMap(vehicle);
-      this.popupMessage('Vehicle ' + vehicle.id + ' has been focused');
+      this.snackBar.popupMessage('Vehicle ' + vehicle.id + ' has been focused');
     }
   }
 
@@ -112,21 +113,6 @@ export class MainFrontComponent implements OnInit {
       this.sideNavDebug.toggle();
     }
     this.selectedVehicle = vehicle;
-  }
-
-  popupError(error): void {
-    this.popupSnackBar(error, 'background-red');
-  }
-
-  popupMessage(message): void {
-    this.popupSnackBar(message, '');
-  }
-
-  popupSnackBar(content: any, panelClass: string): void {
-    const config = new MatSnackBarConfig();
-    config.duration = AppConfig.snackBarDuration;
-    config.panelClass = panelClass;
-    this.snackBar.open(content, 'OK', config);
   }
 
   private fitMapToMarkerBounds() {
@@ -148,29 +134,32 @@ export class MainFrontComponent implements OnInit {
 
   private load(onLoadFinished: Function) {
     this.loading = true;
+    this.progressBar.buffer();
 
-    this.applicationSettingsService.get().pipe(
-      flatMap(settings => this.fetchLastData(settings))
-    ).subscribe(lastData => {
-      this.updateLastData(lastData);
+    this.applicationSettingsService.get()
+      .pipe(flatMap(settings => this.fetchLastData(settings)))
+      .subscribe(lastData => {
+        this.updateLastData(lastData);
 
-      const markerArray = this.lastData
-        .filter(vehicle => vehicle.latitude && vehicle.longitude)
-        .map(vehicle => createMarkerForVehicle(vehicle, `<a
+        const markerArray = this.lastData
+          .filter(vehicle => vehicle.latitude && vehicle.longitude)
+          .map(vehicle => createMarkerForVehicle(vehicle, `<a
           class="mt-1 mat-button mat-raised-button mat-primary"
           href="#/box/${vehicle.id}" title="dashboard">
             go to dashboard
           </a>`));
 
-      this.leafletLayers = markerArray;
+        this.leafletLayers = markerArray;
 
-      onLoadFinished();
-    }, err => {
-      this.popupError('Error while loading data: ' + err);
-      this.loading = false;
-    }, () => {
-      this.loading = false;
-    });
+        onLoadFinished();
+      }, err => {
+        this.snackBar.popupError('Error while loading data: ' + err);
+        this.loading = false;
+        this.progressBar.decrease();
+      }, () => {
+        this.loading = false;
+        this.progressBar.decrease();
+      });
   }
 
   private getOrFetchSubscriptions(settings: ApplicationSettings): Observable<any[]> {
@@ -190,9 +179,8 @@ export class MainFrontComponent implements OnInit {
   }
 
   private fetchVehicleIds(settings: ApplicationSettings): Observable<any[]> {
-    return this.getOrFetchSubscriptions(settings).pipe(
-      map(subscriptions => subscriptions.map(s => s.vehicleId))
-    );
+    return this.getOrFetchSubscriptions(settings)
+      .pipe(map(subscriptions => subscriptions.map(s => s.vehicleId)));
   }
 
   private fetchLastData(settings: ApplicationSettings): Observable<any[]> {
@@ -206,7 +194,7 @@ export class MainFrontComponent implements OnInit {
 
       return fromPromise(client.getLastData(vehicleIds)).pipe(
         map(response => response['data'] || []),
-        map(array => array.sort((a, b) => a.id > b.id))
+        map(array => array.sort((a, b) => a.id > b.id ? 1 : -1))
       );
     }));
   }

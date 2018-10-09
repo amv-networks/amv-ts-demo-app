@@ -32,6 +32,10 @@ $nav_bar_height: 2rem;
         align-content: center;
         align-items: center;
         height: $progress_bar_height;
+        position: fixed;
+        top: 0;
+        width: 100%;
+        z-index: 9999;
       }
 
       .icon__image {

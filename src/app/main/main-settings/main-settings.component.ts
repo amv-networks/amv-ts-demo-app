@@ -5,6 +5,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MatSnackBar, MatSnackBarConfig } from '@angular/material';
 
+import { SnackBarService } from '../../core/shared/snack-bar.service';
+
 @Component({
   selector: 'app-main-settings',
   templateUrl: './main-settings.component.html',
@@ -20,7 +22,7 @@ export class MainSettingsComponent implements OnInit, AfterViewInit {
   constructor(private router: Router,
     private route: ActivatedRoute,
     private formBuilder: FormBuilder,
-    private snackBar: MatSnackBar,
+    private snackBar: SnackBarService,
     private applicationSettingsService: ApplicationSettingsService) {
 
     this.options = this.formBuilder.group({
@@ -47,7 +49,7 @@ export class MainSettingsComponent implements OnInit, AfterViewInit {
         });
 
         this.onChange();
-      }, error => this.popupError(error));
+      }, error => this.snackBar.popupError(error));
   }
 
   ngAfterViewInit() {
@@ -62,10 +64,10 @@ export class MainSettingsComponent implements OnInit, AfterViewInit {
     this.applicationSettingsService.saveWithNewPassphrase(this.options.value)
       .subscribe(
         foo => { },
-        error => this.popupError(error),
+        error => this.snackBar.popupError(error),
         () => {
           this.onChange();
-          this.popupMessage('Settings saved');
+          this.snackBar.popupMessage('Settings saved');
         }
       );
   }
@@ -77,10 +79,10 @@ export class MainSettingsComponent implements OnInit, AfterViewInit {
 
     this.applicationSettingsService.save(this.options.value).subscribe(
       foo => { },
-      error => this.popupError(error),
+      error => this.snackBar.popupError(error),
       () => {
         this.onChange();
-        this.popupMessage('Settings saved');
+        this.snackBar.popupMessage('Settings saved');
       }
     );
   }
@@ -88,10 +90,10 @@ export class MainSettingsComponent implements OnInit, AfterViewInit {
   onDeleteStoredSettingsClicked() {
     this.applicationSettingsService.delete().subscribe(
       foo => { },
-      error => this.popupError(error),
+      error => this.snackBar.popupError(error),
       () => {
         this.onChange();
-        this.popupMessage('Settings have been deleted');
+        this.snackBar.popupMessage('Settings have been deleted');
       }
     );
   }
@@ -99,20 +101,5 @@ export class MainSettingsComponent implements OnInit, AfterViewInit {
   onChange() {
     this.hasUserKey = this.applicationSettingsService.hasUserKey();
     this.hasUserValue = this.applicationSettingsService.hasUserValue();
-  }
-
-  popupError(error): void {
-    this.popupSnackBar(error, 'background-red');
-  }
-
-  popupMessage(message): void {
-    this.popupSnackBar(message, '');
-  }
-
-  popupSnackBar(content: any, panelClass: string): void {
-    const config: any = new MatSnackBarConfig();
-    config.duration = AppConfig.snackBarDuration;
-    config.panelClass = panelClass;
-    this.snackBar.open(content, 'OK', config);
   }
 }

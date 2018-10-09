@@ -5,6 +5,7 @@ import { NavigationEnd, Router } from '@angular/router';
 import { AppConfig } from './config/app.config';
 import { MatSnackBar } from '@angular/material';
 
+
 declare const Modernizr;
 
 @Component({

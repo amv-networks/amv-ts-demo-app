@@ -17,6 +17,8 @@ import {
   zoomToPlace
 } from '../shared/leaflet-map.util';
 
+import { SnackBarService } from '../../core/shared/snack-bar.service';
+
 
 @Component({
   selector: 'app-main-box-map',
@@ -47,7 +49,7 @@ export class MainBoxMapComponent implements OnInit {
   constructor(private router: Router,
     private formBuilder: FormBuilder,
     private trafficsoftClientService: TrafficsoftClientService,
-    private snackBar: MatSnackBar,
+    private snackBar: SnackBarService,
     private applicationSettingsService: ApplicationSettingsService) {
 
 
@@ -104,21 +106,6 @@ export class MainBoxMapComponent implements OnInit {
       }));
   }
 
-  popupError(error): void {
-    this.popupSnackBar(error, 'background-red');
-  }
-
-  popupMessage(message): void {
-    this.popupSnackBar(message, '');
-  }
-
-  popupSnackBar(content: any, panelClass: string): void {
-    const config: any = new MatSnackBarConfig();
-    config.duration = AppConfig.snackBarDuration;
-    config.panelClass = panelClass;
-    this.snackBar.open(content, 'OK', config);
-  }
-
   private load() {
     this.loading = true;
 
@@ -131,7 +118,7 @@ export class MainBoxMapComponent implements OnInit {
         this.updateSelectedVehicle(lastData[0]);
       }
     }, err => {
-      this.popupError('Loading latest data errored');
+      this.snackBar.popupError('Loading latest data errored');
       this.loading = false;
     }, () => {
       this.loading = false;

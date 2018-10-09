@@ -14,7 +14,6 @@ export const AppConfig: IAppConfig = {
   },
   endpoints: {
   },
-  snackBarDuration: 3000,
   repositoryURL: 'https://github.com/amv-networks/amv-ts-demo-app',
   debug: {
     enableTracing: !environment.production,

@@ -12,6 +12,9 @@ import { catchError, delay, tap, map, flatMap } from 'rxjs/operators';
 import 'rxjs/add/operator/filter';
 import 'rxjs/add/operator/map';
 
+import { ProgressBarService } from '../../core/shared/progress-bar.service';
+import { SnackBarService } from '../../core/shared/snack-bar.service';
+
 @Component({
   selector: 'app-main-box',
   templateUrl: './main-box.component.html',
@@ -59,23 +62,13 @@ export class MainBoxComponent implements OnInit, AfterViewInit {
   @ViewChild('tabGroup') tabGroup: MatTabGroup;
   tabIndex = 0;
 
-
-
   constructor(private router: Router,
     private activatedRoute: ActivatedRoute,
-    private snackBar: MatSnackBar,
+    private snackBar: SnackBarService,
+    private progressBar: ProgressBarService,
     private trafficsoftClientService: TrafficsoftClientService,
     private applicationSettingsService: ApplicationSettingsService) {
-
-
   }
-
-  reload() {
-    this.lastData = [];
-
-    this.load();
-  }
-
 
   ngOnInit() {
     this.vehicleId = +this.activatedRoute.snapshot.paramMap.get('id');
@@ -108,6 +101,9 @@ export class MainBoxComponent implements OnInit, AfterViewInit {
       .subscribe(settings => this.debugMode = settings.debugMode);
   }
 
+  ngAfterViewInit(): void {
+  }
+
   onSelectedIndexChange(newTabIndex) {
     if (this.tabIndex !== newTabIndex) {
       const tabInfo = MainBoxComponent.tabInfos[newTabIndex];
@@ -115,29 +111,51 @@ export class MainBoxComponent implements OnInit, AfterViewInit {
     }
   }
 
-  ngAfterViewInit(): void {
+
+  reload() {
+    this.loading = true;
+
+    this.fetchLastData()
+      .subscribe(foo => {
+      }, err => {
+        this.snackBar.popupError('Loading latest data errored');
+        this.loading = false;
+      }, () => {
+        this.loading = false;
+      });
   }
 
   private load() {
     this.loading = true;
+    this.progressBar.buffer();
 
-    this.applicationSettingsService.get().pipe(
-      flatMap(settings => this.fetchLastData(settings))
-    ).subscribe(lastData => {
-      this.lastData = lastData;
-
-      if (lastData.length > 0) {
-        this.vehicle = lastData[0];
-      }
-    }, err => {
-      this.popupError('Loading latest data errored');
-      this.loading = false;
-    }, () => {
-      this.loading = false;
-    });
+    this.fetchLastData()
+      .subscribe(foo => {
+      }, err => {
+        this.snackBar.popupError('Loading latest data errored');
+        this.loading = false;
+        this.progressBar.decrease();
+      }, () => {
+        this.loading = false;
+        this.progressBar.decrease();
+      });
   }
 
-  fetchLastData(settings: ApplicationSettings): Observable<any[]> {
+  private fetchLastData() {
+    return this.applicationSettingsService.get()
+      .pipe(flatMap(settings => this.fetchLastDataWithSettings(settings)))
+      .map(lastData => {
+        this.lastData = lastData;
+
+        if (lastData.length > 0) {
+          this.vehicle = lastData[0];
+        }
+
+        return lastData;
+      });
+  }
+
+  private fetchLastDataWithSettings(settings: ApplicationSettings): Observable<any[]> {
     return this.trafficsoftClientService.xfcd(settings)
       .pipe(flatMap(client => {
         return fromPromise(client.getLastData(this.vehicleId)).pipe(
@@ -146,20 +164,4 @@ export class MainBoxComponent implements OnInit, AfterViewInit {
         );
       }));
   }
-
-  popupError(error): void {
-    this.popupSnackBar(error, 'background-red');
-  }
-
-  popupMessage(message): void {
-    this.popupSnackBar(message, '');
-  }
-
-  popupSnackBar(content: any, panelClass: string): void {
-    const config: any = new MatSnackBarConfig();
-    config.duration = AppConfig.snackBarDuration;
-    config.panelClass = panelClass;
-    this.snackBar.open(content, 'OK', config);
-  }
-
 }
