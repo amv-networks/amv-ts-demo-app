@@ -1,24 +1,25 @@
 <mat-sidenav-container hasBackdrop="false">
   <mat-sidenav #sideNavMain mode="side" opened disableClose position="start" class="full-height-without-toolbar">
-    <div class="clear mb-1"></div>
-    <button mat-button matTooltip="Reload latest xfcd data" matTooltipPosition="right" (click)="reload()">
-      <mat-icon>autorenew</mat-icon>
-    </button>
-    <div class="clear mb-1"></div>
-    <button mat-button matTooltip="Show/hide vehicle pane" matTooltipPosition="right" (click)="sideNavOne.toggle()">
-      <mat-icon>ballot</mat-icon>
-    </button>
-    <div class="clear mb-1"></div>
-    <button mat-button matTooltip="Reset map zoom/center" matTooltipPosition="right" (click)="resetMapZoom()">
-      <mat-icon>zoom_out_map</mat-icon>
-    </button>
-    <div class="clear mb-1"></div>
+    <div class="main-font-nav-button-row">
+      <div class="clear mb-1"></div>
+      <button mat-button matTooltip="Reload latest xfcd data" matTooltipPosition="right" (click)="reload()">
+        <mat-icon>autorenew</mat-icon>
+      </button>
+      <div class="clear mb-1"></div>
+      <button mat-button matTooltip="Show/hide vehicle pane" matTooltipPosition="right" (click)="sideNavOne.toggle()">
+        <mat-icon>ballot</mat-icon>
+      </button>
+      <div class="clear mb-1"></div>
+      <button mat-button matTooltip="Reset map zoom/center" matTooltipPosition="right" (click)="resetMapZoom()">
+        <mat-icon>zoom_out_map</mat-icon>
+      </button>
+      <div class="clear mb-1"></div>
+    </div>
 
   </mat-sidenav>
   <mat-sidenav-content>
     <mat-sidenav-container [hasBackdrop]="sideNavDebug.opened" class="full-height-without-toolbar">
-      <mat-sidenav #sideNavOne mode="push" disableClose position="start" 
-       style="border-left: 1px solid #e9e9e9;">
+      <mat-sidenav #sideNavOne mode="push" disableClose position="start" style="border-left: 1px solid #e9e9e9;">
         <div class="m-0_5" style="width: 250px;">
           <mat-spinner *ngIf="loading" class="app-spinner-center"></mat-spinner>
           <div *ngIf="lastData.length > 0" style="margin: 0 0.5em;">

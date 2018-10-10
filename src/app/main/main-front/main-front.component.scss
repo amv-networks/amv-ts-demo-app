@@ -23,3 +23,7 @@ $aa: calc(calculateRem(100vh) - $mm);
   background-image: url('../../../assets/images/heroes/1-thumbnail.jpg');
   background-size: cover;
 }
+
+.main-font-nav-button-row .mat-button {
+  min-width: 44px;
+}
