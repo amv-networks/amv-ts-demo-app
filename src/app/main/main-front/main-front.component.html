@@ -14,6 +14,11 @@
         <mat-icon>zoom_out_map</mat-icon>
       </button>
       <div class="clear mb-1"></div>
+      <button mat-button matTooltip="Toggle satellite overlay layer" matTooltipPosition="right" (click)="toggleSatelliteOverlayLayer()">
+        <mat-icon [hidden]="isSatelliteOverlayLayerEnabled()">satellite</mat-icon>
+        <mat-icon [hidden]="!isSatelliteOverlayLayerEnabled()">layers_clear</mat-icon>
+      </button>
+      <div class="clear mb-1"></div>
     </div>
 
   </mat-sidenav>

@@ -7,14 +7,15 @@ import { catchError, delay, tap, map, flatMap } from 'rxjs/operators';
 import { fromPromise } from 'rxjs/observable/fromPromise';
 import { Router } from '@angular/router';
 import { TrafficsoftClientService } from '../shared/trafficsoft-clients.service';
-import { Map, tileLayer, latLng, circle, polygon, marker, icon, control } from 'leaflet';
+import { Map, Layer, tileLayer, latLng, circle, polygon, marker, icon, control } from 'leaflet';
 import { ApplicationSettingsService } from '../shared/application_settings.service';
 import {
   createMarkerForVehicle,
   createLeafletOptions,
   zoomToPlace,
   leafletFitMapToMarkerBounds,
-  customizeMap
+  customizeMap,
+  createSatelliteLayer
 } from '../shared/leaflet-map.util';
 import { ApplicationSettings } from '../shared/application_settings.model';
 import { ProgressBarService } from '../../core/shared/progress-bar.service';
@@ -31,6 +32,7 @@ export class MainFrontComponent implements OnInit {
 
   loading = true;
   debugMode = false;
+  satelliteOverlayLayerEnabled = false;
 
   subscriptions: any[] = [];
   lastData: any[] = [];
@@ -44,6 +46,7 @@ export class MainFrontComponent implements OnInit {
   @ViewChild('sideNavDebug')
   sideNavDebug: any;
   map: Map;
+  satelliteOverlayLayer: Layer;
 
   constructor(private router: Router,
     private formBuilder: FormBuilder,
@@ -56,6 +59,7 @@ export class MainFrontComponent implements OnInit {
       zoom: MainFrontComponent.INITIAL_ZOOM,
       center: MainFrontComponent.INITIAL_CENTER
     });
+    this.satelliteOverlayLayer = createSatelliteLayer();
   }
 
   ngOnInit() {
@@ -65,6 +69,19 @@ export class MainFrontComponent implements OnInit {
     this.load(() => {
       this.fitMapToMarkerBounds();
     });
+  }
+
+  isSatelliteOverlayLayerEnabled(): boolean {
+    return this.satelliteOverlayLayerEnabled;
+  }
+
+  toggleSatelliteOverlayLayer() {
+    if (this.satelliteOverlayLayerEnabled) {
+      this.map.removeLayer(this.satelliteOverlayLayer);
+    } else {
+      this.map.addLayer(this.satelliteOverlayLayer);
+    }
+    this.satelliteOverlayLayerEnabled = !this.satelliteOverlayLayerEnabled;
   }
 
   reload() {

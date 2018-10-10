@@ -1,6 +1,28 @@
 
 import { Map, Marker, tileLayer, latLng, featureGroup, circle, polygon, marker, icon, control, Util, Control } from 'leaflet';
 
+const LEAFLET_MIN_ZOOM = 0;
+const LEAFLET_MAX_ZOOM = 18;
+
+function createLayer(baseUrl: string, minZoom: number = LEAFLET_MIN_ZOOM, maxZoom: number = LEAFLET_MAX_ZOOM) {
+  return tileLayer(baseUrl, {
+    minZoom: minZoom,
+    maxZoom: maxZoom,
+    attribution: '-'
+  });
+}
+
+export function createSatelliteLayer(minZoom: number = LEAFLET_MIN_ZOOM, maxZoom: number = LEAFLET_MAX_ZOOM) {
+  return createLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', minZoom, maxZoom);
+}
+
+export function createStreetsLayer(minZoom: number = LEAFLET_MIN_ZOOM, maxZoom: number = LEAFLET_MAX_ZOOM) {
+  return createLayer('https://maps.wikimedia.org/osm-intl/{z}/{x}/{y}.png', minZoom, maxZoom);
+  /* tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    minZoom: 7,
+    attribution: '-'
+  }), */
+}
 
 export interface LeafletOptions {
   zoom: number;
@@ -45,27 +67,15 @@ export function customizeMap(leafletMap: Map): Map {
 }
 
 export function createLeafletOptions(options: LeafletOptions) {
+  const SATELLITE_BASE_LAYER = createSatelliteLayer(LEAFLET_MIN_ZOOM, 7);
+  const STREET_BASE_LAYER = createStreetsLayer(7, LEAFLET_MAX_ZOOM);
+
   return {
-    layers: [
-      tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
-        minZoom: 0,
-        maxZoom: 7,
-        attribution: '-'
-      }),
-      /*tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        minZoom: 7,
-        attribution: '-'
-      }),*/
-      tileLayer('https://maps.wikimedia.org/osm-intl/{z}/{x}/{y}.png', {
-        minZoom: 7,
-        attribution: '-'
-      })
-    ],
+    layers: [SATELLITE_BASE_LAYER, STREET_BASE_LAYER],
     zoom: options.zoom || 7,
     center: options.center
   };
 }
-
 export function createSimpleMarker(title: any, latitude: number, longitude: number): latLng {
   const m = marker([latitude, longitude], {
     title: title,
