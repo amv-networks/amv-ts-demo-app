@@ -1,22 +1,14 @@
 import { Component, OnInit, AfterViewInit, ViewChild, Input } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { Router, ActivatedRoute } from '@angular/router';
-import { MatSnackBar, MatSnackBarConfig } from '@angular/material';
+import { Router } from '@angular/router';
 import { MatSort, MatTableDataSource } from '@angular/material';
-import { Observable } from 'rxjs';
-import { of } from 'rxjs/observable/of';
-import { zip } from 'rxjs/observable/zip';
-import { catchError, delay, tap, filter, map, flatMap } from 'rxjs/operators';
-import { fromPromise } from 'rxjs/observable/fromPromise';
+import { Observable, of, zip, from as fromPromise } from 'rxjs';
+import { delay, map, flatMap } from 'rxjs/operators';
 import { TrafficsoftClientService, XfcdParam, StateParam } from '../shared/trafficsoft-clients.service';
-import { AppConfig } from '../../config/app.config';
 import { ProgressBarService } from '../../core/shared/progress-bar.service';
 import { ApplicationSettingsService } from '../shared/application_settings.service';
 import { ApplicationSettings } from '../shared/application_settings.model';
 
 import { SnackBarService } from '../../core/shared/snack-bar.service';
-
-import * as moment from 'moment';
 
 @Component({
   selector: 'app-main-box-xfcd',
@@ -95,13 +87,13 @@ export class MainBoxXfcdComponent implements OnInit, AfterViewInit {
   private fetchLastData() {
     return this.applicationSettingsService.get()
       .pipe(flatMap(settings => this.fetchLastDataWithSettings(settings)))
-      .map(data => {
+      .pipe(map(data => {
         this.lastData = data[0] || {};
 
         this.xfcdDataSource.data = this.lastData.xfcds || [];
         this.statesDataSource.data = this.lastData.states || [];
         return data;
-      });
+      }));
   }
 
   private fetchLastDataWithSettings(settings: ApplicationSettings): Observable<any[]> {

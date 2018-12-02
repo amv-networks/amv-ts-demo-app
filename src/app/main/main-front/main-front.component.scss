@@ -2,11 +2,8 @@
 @import '../../core/footer/footer.component';
 @import "mixins";
 
-$mm: 3.3rem - calculateRem(53px);
-$aa: calc(calculateRem(100vh) - $mm);
-
 .map {
-  height: calc(100vh - 3.3rem - 3.25rem);
+  height: calc(100vh - 6.55rem);
   width: 100%;
 }
 

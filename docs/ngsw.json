@@ -17,13 +17,13 @@
       "installMode": "lazy",
       "updateMode": "prefetch",
       "urls": [
+        "/assets/CNAME",
         "/assets/api/rest/v1/car-sharing/vehicle/1001/reservation",
         "/assets/api/rest/v1/car-sharing/vehicle/1002/reservation",
         "/assets/api/rest/v1/car-sharing/vehicle/1003/reservation",
         "/assets/api/rest/v1/car-sharing/vehicle/1004/reservation",
         "/assets/api/rest/v1/contract/1/subscription",
         "/assets/api/rest/v1/xfcd/last",
-        "/assets/CNAME",
         "/assets/css/loading.css",
         "/assets/css/reset.css",
         "/assets/i18n/en.json",
@@ -62,15 +62,13 @@
   ],
   "dataGroups": [],
   "hashTable": {
-    "/favicon.ico": "8dde64d5926ab8d2352062bb7ca536f818feacaa",
+    "/assets/CNAME": "e52867b819101e44bcb34553abe026372eff5686",
     "/assets/api/rest/v1/car-sharing/vehicle/1001/reservation": "0d3b458bcde8da3afde2ad35904b9eb127e156ff",
-    "/index.html": "30f1e423564fc6147074a790587f4b65b37c7d4c",
     "/assets/api/rest/v1/car-sharing/vehicle/1002/reservation": "076e9a4f845febcf63b9e2cf10b11c7fc683395b",
     "/assets/api/rest/v1/car-sharing/vehicle/1003/reservation": "21e6814ef6ad2575190366d2702237a4548fb166",
     "/assets/api/rest/v1/car-sharing/vehicle/1004/reservation": "b4b8e8407f43d1591315bde9a45630d04b336fe5",
     "/assets/api/rest/v1/contract/1/subscription": "70ade22baf575cdc0e8ee57d75e36eb322e661fa",
     "/assets/api/rest/v1/xfcd/last": "a85f9a011fe3f4ab32e1f24c51aa3fece8f3e626",
-    "/assets/CNAME": "e52867b819101e44bcb34553abe026372eff5686",
     "/assets/css/loading.css": "b2fb4239d4fcff487b71e8bc252904c7163e849c",
     "/assets/css/reset.css": "98e924ee8c54cf2e58cbd479eb9e2802a9f5666b",
     "/assets/i18n/en.json": "0e8ec80331c8acc3c553e9c683b09c5b43cf8b09",
@@ -102,7 +100,9 @@
     "/assets/leaflet/dist/images/marker-icon-2x.png": "cf3a536596b1f58e0ac805404183c8e6d6bdacb5",
     "/assets/leaflet/dist/images/marker-icon.png": "60a90bcbb2b42b7ddb4556db94eb7c1084b0e5da",
     "/assets/leaflet/dist/images/marker-shadow.png": "7b6a8df63930381e96604e705168d0527d6b82bc",
-    "/assets/sitemap.xml": "a1b0efe0ff8a55bf2729cc4fc22cc32b8c011c39"
+    "/assets/sitemap.xml": "a1b0efe0ff8a55bf2729cc4fc22cc32b8c011c39",
+    "/favicon.ico": "8dde64d5926ab8d2352062bb7ca536f818feacaa",
+    "/index.html": "2cba2b5062ae1ce60794f895d3026b7e4145832d"
   },
   "navigationUrls": [
     {
@@ -111,15 +111,15 @@
     },
     {
       "positive": false,
-      "regex": "^\\/(?:.+\\/)?[^\\/]*\\.[^\\/]*$"
+      "regex": "^\\/(?:.+\\/)?[^/]*\\.[^/]*$"
     },
     {
       "positive": false,
-      "regex": "^\\/(?:.+\\/)?[^\\/]*__[^\\/]*$"
+      "regex": "^\\/(?:.+\\/)?[^/]*__[^/]*$"
     },
     {
       "positive": false,
-      "regex": "^\\/(?:.+\\/)?[^\\/]*__[^\\/]*\\/.*$"
+      "regex": "^\\/(?:.+\\/)?[^/]*__[^/]*\\/.*$"
     }
   ]
 }

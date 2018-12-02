@@ -1,31 +1,25 @@
-import { Component, OnInit, ViewChild, Input } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { Observable } from 'rxjs';
-import { catchError, delay, tap, map, flatMap } from 'rxjs/operators';
-import { fromPromise } from 'rxjs/observable/fromPromise';
-import { AppConfig } from '../../config/app.config';
+import { Component, OnInit, Input } from '@angular/core';
+import { FormBuilder } from '@angular/forms';
+import { Observable, from as fromPromise } from 'rxjs';
+import { map, flatMap } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { TrafficsoftClientService } from '../shared/trafficsoft-clients.service';
-import { MatSnackBar, MatSnackBarConfig } from '@angular/material';
-import { Map, tileLayer, latLng, circle, polygon, marker, icon, control } from 'leaflet';
+import { Map, latLng, control } from 'leaflet';
 import { ApplicationSettingsService } from '../shared/application_settings.service';
 import { ApplicationSettings } from '../shared/application_settings.model';
 import {
   createMarkerForVehicle,
   leafletFitMapToMarkerBounds,
-  createLeafletOptions,
-  zoomToPlace
+  createLeafletOptions
 } from '../shared/leaflet-map.util';
 
 import { SnackBarService } from '../../core/shared/snack-bar.service';
-
 
 @Component({
   selector: 'app-main-box-map',
   templateUrl: './main-box-map.component.html',
   styleUrls: ['./main-box-map.component.scss']
 })
-
 export class MainBoxMapComponent implements OnInit {
   private static INITIAL_CENTER = latLng(47.5, 13);
   private static INITIAL_ZOOM = 7;

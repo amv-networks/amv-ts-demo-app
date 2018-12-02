@@ -1,16 +1,13 @@
 @import "mixins";
 
+
 footer {
   padding: calculateRem(8px) calculateRem(16px);
   color: $secondary--color;
   background: $primary--color;
-  margin-top: 0; /*2rem;*/
+  margin-top: 0; 
   position: sticky;
-  top: calc(100vh - 36px);;
-
-  img {
-    width: 25%;
-  }
+  top: 100vh;
 }
 
 .footer-section-right {

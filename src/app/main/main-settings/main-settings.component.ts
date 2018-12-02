@@ -1,9 +1,7 @@
 import { Component, OnInit, AfterViewInit } from '@angular/core';
-import { AppConfig } from '../../config/app.config';
 import { ApplicationSettingsService } from '../shared/application_settings.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { MatSnackBar, MatSnackBarConfig } from '@angular/material';
 
 import { SnackBarService } from '../../core/shared/snack-bar.service';
 

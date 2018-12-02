@@ -2,7 +2,7 @@ import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { Observable, of, EMPTY } from 'rxjs';
 import { Injectable } from '@angular/core';
 import { ApplicationSettings } from './application_settings.model';
-import { catchError, filter, tap, map, flatMap, defaultIfEmpty, delay, share } from 'rxjs/operators';
+import { filter, tap, map, flatMap, defaultIfEmpty, delay, share } from 'rxjs/operators';
 import { EnterPassphraseDialogComponent, EnterPassphraseDialogData } from './enter_passphrase.dialog';
 import * as sjcl from 'sjcl';
 

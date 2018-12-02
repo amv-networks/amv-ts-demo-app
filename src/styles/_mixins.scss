@@ -1,6 +1,9 @@
 @import "colors";
 @import "functions";
 
+$progress_bar_height: calculateRem(5px);
+$nav_bar_height: 3rem;
+
 @mixin font-size($size) {
   font-size: $size;
   font-size: calculateRem($size);

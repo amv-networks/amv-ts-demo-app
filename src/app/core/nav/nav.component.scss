@@ -1,17 +1,20 @@
 @import "mixins";
 
-$progress_bar_height: calculateRem(5px);
-$nav_bar_height: 2rem;
-
 :host(app-nav) {
   padding-top: 0;
-  padding-bottom: 3.3rem;
+  padding-bottom: $nav_bar_height + $progress_bar_height;
   display: grid;
 
   header {
     position: fixed;
     z-index: 999;
     width: 100%;
+
+    .progress-bar {
+      mat-progress-bar {
+        height: $progress_bar_height;
+      }
+    }
 
     nav {
       display: flex;
@@ -26,18 +29,7 @@ $nav_bar_height: 2rem;
         color: $primary--color;
         margin-right: 1rem;
       }
-
-      .progress-bar {
-        display: flex;
-        align-content: center;
-        align-items: center;
-        height: $progress_bar_height;
-        position: fixed;
-        top: 0;
-        width: 100%;
-        z-index: 9999;
-      }
-
+      
       .icon__image {
         width: calculateRem(20px);
         height: calculateRem(20px);

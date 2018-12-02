@@ -1,14 +1,9 @@
 import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { MatSnackBar, MatSnackBarConfig } from '@angular/material';
-import { Observable } from 'rxjs';
-import { of } from 'rxjs/observable/of';
-import { zip } from 'rxjs/observable/zip';
-import { catchError, delay, tap, map, flatMap, filter, mergeAll } from 'rxjs/operators';
-import { fromPromise } from 'rxjs/observable/fromPromise';
+import { Observable, of, zip, from as fromPromise } from 'rxjs';
+import { delay, map, flatMap } from 'rxjs/operators';
 
-import { AppConfig } from '../../../config/app.config';
 import { ApplicationSettingsService } from '../../shared/application_settings.service';
 import { ApplicationSettings } from '../../shared/application_settings.model';
 import { TrafficsoftClientService, Reservation } from '../../shared/trafficsoft-clients.service';

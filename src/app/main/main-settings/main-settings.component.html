@@ -11,15 +11,17 @@
       <mat-tab-group>
         <mat-tab label="API">
           <div class="m-1">
+            
+            <div fxLayout="row wrap" fxLayoutAlign="space-around center">
+              <mat-form-field class="full-width mb-1">
+                <mat-label>Base URL</mat-label>
+                <mat-hint>The backend service you want to communicate with</mat-hint>
+                <input matInput type="text" placeholder="https://www.example.com/api/v1" formControlName="baseUrl" minlength="10">
+                <mat-error *ngIf="options.get('baseUrl')?.invalid">Invalid</mat-error>
+              </mat-form-field>
+            </div>
 
-            <mat-form-field class="full-width mb-1">
-              <mat-label>Base URL</mat-label>
-              <mat-hint>The backend service you want to communicate with</mat-hint>
-              <input matInput type="text" placeholder="https://www.example.com/api/v1" formControlName="baseUrl" minlength="10">
-              <mat-error *ngIf="options.get('baseUrl')?.invalid">Invalid</mat-error>
-            </mat-form-field>
-
-            <div fxFlex fxLayout="row" fxLayout.xs="column">
+            <div fxLayout="row" fxLayout.xs="column">
               <div fxFlex>
                 <mat-form-field class="full-width">
                   <mat-label>Username</mat-label>

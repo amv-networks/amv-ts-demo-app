@@ -1,13 +1,10 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { Observable } from 'rxjs';
-import { of } from 'rxjs/observable/of';
-import { zip } from 'rxjs/observable/zip';
-import { catchError, delay, tap, map, flatMap } from 'rxjs/operators';
-import { fromPromise } from 'rxjs/observable/fromPromise';
+import { FormBuilder } from '@angular/forms';
+import { Observable, of, zip, from as fromPromise } from 'rxjs';
+import { delay, tap, map, flatMap } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { TrafficsoftClientService } from '../shared/trafficsoft-clients.service';
-import { Map, Layer, tileLayer, latLng, circle, polygon, marker, icon, control } from 'leaflet';
+import { Map, Layer, latLng } from 'leaflet';
 import { ApplicationSettingsService } from '../shared/application_settings.service';
 import {
   createMarkerForVehicle,

@@ -1,19 +1,13 @@
 import { Component, OnInit, AfterViewInit, ViewChild, Input } from '@angular/core';
-import { Injectable, Inject } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { Inject } from '@angular/core';
+import { FormBuilder } from '@angular/forms';
 import { SelectionModel } from '@angular/cdk/collections';
 import { MatPaginator, MatTableDataSource, MatSort } from '@angular/material';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 
-import { MatSnackBar, MatSnackBarConfig } from '@angular/material';
-import { Observable } from 'rxjs';
-import { from } from 'rxjs/observable/from';
-import { of } from 'rxjs/observable/of';
-import { zip } from 'rxjs/observable/zip';
-import { catchError, delay, tap, map, flatMap, filter, mergeAll } from 'rxjs/operators';
-import { fromPromise } from 'rxjs/observable/fromPromise';
+import { Observable, from, of, zip, from as fromPromise } from 'rxjs';
+import { delay, map, flatMap, filter, mergeAll } from 'rxjs/operators';
 import { TrafficsoftClientService, Reservation } from '../shared/trafficsoft-clients.service';
-import { AppConfig } from '../../config/app.config';
 import { ProgressBarService } from '../../core/shared/progress-bar.service';
 import { ApplicationSettingsService } from '../shared/application_settings.service';
 import { ApplicationSettings } from '../shared/application_settings.model';

@@ -1,16 +1,13 @@
+
 import { Component, OnInit, AfterViewInit, ViewChild } from '@angular/core';
 import { Router, ActivatedRoute, NavigationEnd } from '@angular/router';
-import { MatTabGroup, MatSnackBar, MatSnackBarConfig } from '@angular/material';
+import { MatTabGroup } from '@angular/material';
 import { TrafficsoftClientService } from '../shared/trafficsoft-clients.service';
 import { ApplicationSettingsService } from '../shared/application_settings.service';
 import { ApplicationSettings } from '../shared/application_settings.model';
-import { AppConfig } from '../../config/app.config';
 
-import { Observable } from 'rxjs';
-import { fromPromise } from 'rxjs/observable/fromPromise';
-import { catchError, delay, tap, map, flatMap } from 'rxjs/operators';
-import 'rxjs/add/operator/filter';
-import 'rxjs/add/operator/map';
+import { Observable, from as fromPromise } from 'rxjs';
+import { filter, map, flatMap } from 'rxjs/operators';
 
 import { ProgressBarService } from '../../core/shared/progress-bar.service';
 import { SnackBarService } from '../../core/shared/snack-bar.service';
@@ -76,18 +73,18 @@ export class MainBoxComponent implements OnInit, AfterViewInit {
     const slug = this.activatedRoute.snapshot.paramMap.get('slug');
     this.tabIndex = MainBoxComponent.getTabIndexBySlug(slug);
 
-    this.router.events
-      .filter(event => {
+    this.router.events.pipe(
+      filter(event => {
         return event instanceof NavigationEnd;
-      })
-      .map(() => this.activatedRoute)
-      .map(route => {
+      }),
+      map(() => this.activatedRoute),
+      map(route => {
         while (route.firstChild) {
           route = route.firstChild;
         }
         return route;
-      })
-      .filter(route => route.outlet === 'primary')
+      }),
+      filter(route => route.outlet === 'primary'), )
       .subscribe(route => {
         const newTabIndex = MainBoxComponent.getTabIndex(route);
         if (this.tabIndex !== newTabIndex) {
@@ -143,16 +140,16 @@ export class MainBoxComponent implements OnInit, AfterViewInit {
 
   private fetchLastData() {
     return this.applicationSettingsService.get()
-      .pipe(flatMap(settings => this.fetchLastDataWithSettings(settings)))
-      .map(lastData => {
-        this.lastData = lastData;
+      .pipe(flatMap(settings => this.fetchLastDataWithSettings(settings))).pipe(
+        map(lastData => {
+          this.lastData = lastData;
 
-        if (lastData.length > 0) {
-          this.vehicle = lastData[0];
-        }
+          if (lastData.length > 0) {
+            this.vehicle = lastData[0];
+          }
 
-        return lastData;
-      });
+          return lastData;
+        }));
   }
 
   private fetchLastDataWithSettings(settings: ApplicationSettings): Observable<any[]> {
