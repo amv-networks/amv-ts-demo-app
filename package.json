@@ -1,6 +1,6 @@
 {
   "name": "amv-ts-demo",
-  "version": "0.0.7",
+  "version": "0.0.12",
   "license": "Apache-2.0",
   "author": {
     "name": "AMV Networks GmbH",
@@ -12,9 +12,10 @@
     "start": "ng serve --open",
     "eject": "ng eject",
     "http-server": "http-server dist/ -c-1",
-    "build": "ng build --prod --output-path ./dist/",
-    "build-dev": "ng build --output-path ./dist-dev/",
-    "build-gh": "npm run ci && ng build --prod --output-path ./docs/",
+    "http-server-dev": "http-server dist-dev/ -c-1",
+    "build": "ng build --prod --aot --output-path ./dist/",
+    "build-dev": "ng build --aot --output-path ./dist-dev/",
+    "build-gh": "npm run ci && ng build --prod --aot --output-path ./docs/",
     "build-all": "npm run build && npm run build-dev && npm run build-gh",
     "test": "ng test",
     "e2e": "ng e2e",
