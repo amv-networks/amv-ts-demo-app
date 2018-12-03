@@ -1,31 +1,31 @@
 <h2 mat-dialog-title>Cancel selected</h2>
 <mat-dialog-content>
   <div *ngIf="data.length === 1">
-    Do you really want to cancel this reservation?
+    <span i18n>Do you really want to cancel this reservation?</span>
   </div>
   <div *ngIf="data.length > 1">
-    Do you really want to cancel {{data.length}} reservations?
+    <span i18n>Do you really want to cancel {{data.length}} reservations?</span>
   </div>
 </mat-dialog-content>
 
 <div class="m-1" *ngIf="data.length === 1">
   <div *ngFor="let r of data">
     <p>
-      <b class="bold">Id</b>: {{r.reservationId }}
+      <b class="bold" i18n>Id</b>: {{r.reservationId }}
     </p>
     <p>
-      <b class="bold">type</b>: {{r.btle ? 'btle' : 'rfid' }}
+      <b class="bold" i18n>type</b>: {{r.btle ? 'btle' : 'rfid' }}
     </p>
     <p>
-      <b class="bold">from</b>: {{r.from | date:'medium' }}
+      <b class="bold" i18n>from</b>: {{r.from | date:'medium' }}
     </p>
     <p>
-      <b class="bold">until</b>: {{r.until | date:'medium' }}
+      <b class="bold" i18n>until</b>: {{r.until | date:'medium' }}
     </p>
     <pre class="m-1">{{(r.btle ? r.btle : r.rfid) | json }}</pre>
   </div>
 </div>
 <mat-dialog-actions>
-  <button mat-button mat-dialog-close>No</button>
-  <button mat-button [mat-dialog-close]="true">Yes, delete</button>
+  <button mat-button mat-dialog-close i18n>No</button>
+  <button mat-button [mat-dialog-close]="true" i18n>Yes, delete</button>
 </mat-dialog-actions>

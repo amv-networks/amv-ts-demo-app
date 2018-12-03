@@ -1,9 +1,15 @@
 <div class="m-1" [hidden]="!enableActionButtons">
-    <button class="m-1" mat-button (click)="fitMapToMarkerBounds()" [disabled]="loading"><mat-icon>my_location</mat-icon> focus</button>
-    <button class="m-1" mat-button (click)="reload()" [disabled]="loading" style="float:right"><mat-icon>autorenew</mat-icon> reload</button>
+    <button class="m-1" mat-button (click)="fitMapToMarkerBounds()" [disabled]="loading">
+        <mat-icon>my_location</mat-icon>
+        <span i18n>focus</span>
+    </button>
+    <button class="m-1" mat-button (click)="reload()" [disabled]="loading" style="float:right">
+        <mat-icon>autorenew</mat-icon>
+        <span i18n>reload</span>
+    </button>
     <div class="clear"></div>
 </div>
-     
+
 <div style="height: 250px;" [ngStyle]="{ 'height': mapHeight }">
     <div #map class="map" leaflet [leafletOptions]="leafletOptions" [leafletLayers]="leafletLayers" (leafletMapReady)="onMapReady($event)">
     </div>

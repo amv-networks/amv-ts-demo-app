@@ -1,0 +1,355 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+  <file source-language="de" datatype="plaintext" original="ng2.template">
+    <body>
+      <trans-unit id="5c9ec004b57270713f5ce237ea9430045d290277" datatype="html">
+        <source>offlineMessage</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/app.component.html</context>
+          <context context-type="linenumber">7</context>
+        </context-group>
+        <note priority="1" from="meaning">offlineMessage</note>
+      </trans-unit>
+      <trans-unit id="14febbc345081b407ef359cde3a8795ac065652b" datatype="html">
+        <source>timestamp</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/main/main-front/main-front.component.html</context>
+          <context context-type="linenumber">43</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/main/main-front/main-front.component.html</context>
+          <context context-type="linenumber">95</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="77ca38b78c6bb3d5b3ba8d2b92a434a812ddfc00" datatype="html">
+        <source>lat/lon</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/main/main-front/main-front.component.html</context>
+          <context context-type="linenumber">49</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="05a98b74ff8cc8d4c59c59f03f2b8a7919536f09" datatype="html">
+        <source>speed</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/main/main-front/main-front.component.html</context>
+          <context context-type="linenumber">55</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="e928864038ca70ee7d67bbf1fd71a01c3938a127" datatype="html">
+        <source>id</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/main/main-front/main-front.component.html</context>
+          <context context-type="linenumber">92</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="6decc7a6483848e23a1ca0b0385841f68f8c8d00" datatype="html">
+        <source>Delete stored settings</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/main/main-settings/main-settings.component.html</context>
+          <context context-type="linenumber">4</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="121cc5391cd2a5115bc2b3160379ee5b36cd7716" datatype="html">
+        <source>Settings</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/main/main-settings/main-settings.component.html</context>
+          <context context-type="linenumber">7</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="18c06b09a82e1e91c54d41ea08293c81cdd32437" datatype="html">
+        <source>Base URL</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/main/main-settings/main-settings.component.html</context>
+          <context context-type="linenumber">17</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="50a985606aea76b61c30311d29534b51b022ca4a" datatype="html">
+        <source>The backend service you want to communicate with</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/main/main-settings/main-settings.component.html</context>
+          <context context-type="linenumber">18</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="08c74dc9762957593b91f6eb5d65efdfc975bf48" datatype="html">
+        <source>Username</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/main/main-settings/main-settings.component.html</context>
+          <context context-type="linenumber">27</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="77e5186f996f6fb42d6d830ba0d8a3eb6460a55a" datatype="html">
+        <source>The username you want to authenticate with</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/main/main-settings/main-settings.component.html</context>
+          <context context-type="linenumber">28</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="c32ef07f8803a223a83ed17024b38e8d82292407" datatype="html">
+        <source>Password</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/main/main-settings/main-settings.component.html</context>
+          <context context-type="linenumber">36</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="bbd84eae4c147f3a0cbd146001ac73c7992b9b22" datatype="html">
+        <source>Contract ID</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/main/main-settings/main-settings.component.html</context>
+          <context context-type="linenumber">44</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="986ee72c3f187763925eafea55fe2d540e91175d" datatype="html">
+        <source>Id of the contract you want to be used for requests</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/main/main-settings/main-settings.component.html</context>
+          <context context-type="linenumber">45</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="3c1f75e94b0d959bfa53596dd71eef3f452ff904" datatype="html">
+        <source>Debug Mode</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/main/main-settings/main-settings.component.html</context>
+          <context context-type="linenumber">55</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="52c9a103b812f258bcddc3d90a6e3f46871d25fe" datatype="html">
+        <source>Save</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/main/main-settings/main-settings.component.html</context>
+          <context context-type="linenumber">66</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="90e8d32a52da6675296cc03bd416ba8104651814" datatype="html">
+        <source>Enter passphrase and save</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/main/main-settings/main-settings.component.html</context>
+          <context context-type="linenumber">67</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="367b8760b7327f6402b09106e02098f5e5847848" datatype="html">
+        <source>Save with new passphrase</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/main/main-settings/main-settings.component.html</context>
+          <context context-type="linenumber">71</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="f65253954b66e929a8b4d5ecaf61f9129f8cec64" datatype="html">
+        <source>Dashboard</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/main/main-box/main-box.component.html</context>
+          <context context-type="linenumber">7</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="af5bfefbdbbd68bb2a9416cc2d843002a1ed0005" datatype="html">
+        <source>Do you really want to cancel this reservation?</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/main/main-box/main-box-reservations-cancel.dialog.html</context>
+          <context context-type="linenumber">4</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="2cd5678b24a5294797b7fa588c84b5802d6d8d49" datatype="html">
+        <source>Do you really want to cancel <x id="INTERPOLATION" equiv-text="{{data.length}}"/> reservations?</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/main/main-box/main-box-reservations-cancel.dialog.html</context>
+          <context context-type="linenumber">7</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="2798cc1e152b1ec07fd8daf94a2a073d1ba1ebcc" datatype="html">
+        <source>Id</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/main/main-box/main-box-reservations-cancel.dialog.html</context>
+          <context context-type="linenumber">14</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="240c9c1e96dc38814922a83ad041dc815b084f32" datatype="html">
+        <source>type</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/main/main-box/main-box-reservations-cancel.dialog.html</context>
+          <context context-type="linenumber">17</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="19cecd49046d686211736257fe7f109ae9c4f46a" datatype="html">
+        <source>from</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/main/main-box/main-box-reservations-cancel.dialog.html</context>
+          <context context-type="linenumber">20</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/main/main-box/main-box-reservation-create/main-box-reservation-create.component.html</context>
+          <context context-type="linenumber">23</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="71f34a47f91a1261e9057a751eaa09b4207b8aa5" datatype="html">
+        <source>until</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/main/main-box/main-box-reservations-cancel.dialog.html</context>
+          <context context-type="linenumber">23</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/main/main-box/main-box-reservation-create/main-box-reservation-create.component.html</context>
+          <context context-type="linenumber">36</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="3d3ae7deebc5949b0c1c78b9847886a94321d9fd" datatype="html">
+        <source>No</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/main/main-box/main-box-reservations-cancel.dialog.html</context>
+          <context context-type="linenumber">29</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="1a25016bfc0d05a4e7e329e4086b30825ec36db7" datatype="html">
+        <source>Yes, delete</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/main/main-box/main-box-reservations-cancel.dialog.html</context>
+          <context context-type="linenumber">30</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="3a34c56edf7846a2248da5e2549dd795b521ca32" datatype="html">
+        <source>Create reservation</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/main/main-box/main-box-reservation-create/main-box-reservation-create.component.html</context>
+          <context context-type="linenumber">4</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="7db1173d92879cf5dce5155a8e08260aefbb01fd" datatype="html">
+        <source>Back to dashboard</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/main/main-box/main-box-reservation-create/main-box-reservation-create.component.html</context>
+          <context context-type="linenumber">10</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="46d90dde9a3291f22d355eb1d7a12846fd174366" datatype="html">
+        <source>Choose a start date</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/main/main-box/main-box-reservation-create/main-box-reservation-create.component.html</context>
+          <context context-type="linenumber">24</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="48d03f3f6ccd9d5b1b6a24a589bd086dba58a0ba" datatype="html">
+        <source>Invalid value</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/main/main-box/main-box-reservation-create/main-box-reservation-create.component.html</context>
+          <context context-type="linenumber">29</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/main/main-box/main-box-reservation-create/main-box-reservation-create.component.html</context>
+          <context context-type="linenumber">42</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="fe8368b1be333a8f5a9e426448c3bb95842cfedb" datatype="html">
+        <source>Choose an end date</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/main/main-box/main-box-reservation-create/main-box-reservation-create.component.html</context>
+          <context context-type="linenumber">37</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="b1cf0ac0a79b50761be51a999c5d15b69f404e9e" datatype="html">
+        <source>RFID</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/main/main-box/main-box-reservation-create/main-box-reservation-create.component.html</context>
+          <context context-type="linenumber">50</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="2fba8d3cabf6df2011364a720de19df479d115ff" datatype="html">
+        <source>The rfid tag</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/main/main-box/main-box-reservation-create/main-box-reservation-create.component.html</context>
+          <context context-type="linenumber">51</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="6c510a5e4faf0bcb3d1f73f47034daad31c22697" datatype="html">
+        <source>Must have more than 4 characters and must match pattern</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/main/main-box/main-box-reservation-create/main-box-reservation-create.component.html</context>
+          <context context-type="linenumber">54</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="cb41be99701b1ea4656d85b6adc21485167bb644" datatype="html">
+        <source>Send reservation</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/main/main-box/main-box-reservation-create/main-box-reservation-create.component.html</context>
+          <context context-type="linenumber">63</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="4b77e7150df96c96b525723710e5aaaefde48d38" datatype="html">
+        <source>Not implemented yet.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/main/main-box/main-box-reservation-create/main-box-reservation-create.component.html</context>
+          <context context-type="linenumber">70</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="7349d79ba59d4c97f38beb36acbb4b4589add839" datatype="html">
+        <source> param </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/main/main-box/main-box-xcfd.component.html</context>
+          <context context-type="linenumber">24</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/main/main-box/main-box-xcfd.component.html</context>
+          <context context-type="linenumber">63</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="abaf21b5a9d7428c039b06784d297c57d5a5a456" datatype="html">
+        <source> value </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/main/main-box/main-box-xcfd.component.html</context>
+          <context context-type="linenumber">32</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/main/main-box/main-box-xcfd.component.html</context>
+          <context context-type="linenumber">71</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="9a0706320cf4c7534f5cf7fcae4d00ea394db67e" datatype="html">
+        <source>last update</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/main/main-box/main-box-xcfd.component.html</context>
+          <context context-type="linenumber">36</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/main/main-box/main-box-xcfd.component.html</context>
+          <context context-type="linenumber">75</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="f99a2a16862ea6aa809da0eab00d8a7342706da9" datatype="html">
+        <source> timestamp </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/main/main-box/main-box-xcfd.component.html</context>
+          <context context-type="linenumber">42</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/main/main-box/main-box-xcfd.component.html</context>
+          <context context-type="linenumber">81</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="17d79615f30979ae169029e4eef10403d6a6c8d2" datatype="html">
+        <source>states</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/main/main-box/main-box-xcfd.component.html</context>
+          <context context-type="linenumber">54</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="bb5c857ffaefc664faa3542f4f0fe30594fa466c" datatype="html">
+        <source>No content</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/main/main-box/main-box-xcfd.component.html</context>
+          <context context-type="linenumber">56</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="d8d2e11af48b0a1236e83003c4e5602588a54247" datatype="html">
+        <source>focus</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/main/main-box/main-box-map.component.html</context>
+          <context context-type="linenumber">4</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="2670c9091002cf7efbc8e136da698fe12aa74534" datatype="html">
+        <source>reload</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/main/main-box/main-box-map.component.html</context>
+          <context context-type="linenumber">8</context>
+        </context-group>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>

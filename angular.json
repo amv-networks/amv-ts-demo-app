@@ -83,6 +83,53 @@
                   "with": "src/environments/environment.prod.ts"
                 }
               ]
+            },
+            "en": {
+              "outputPath": "dist/en/",
+              "i18nFile": "src/i18n/messages.en.xlf",
+              "i18nFormat": "xlf",
+              "i18nLocale": "en",
+              "aot": true,
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "extractCss": true,
+              "namedChunks": false,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "serviceWorker": true,
+              "baseHref": "/",
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.prod.ts"
+                }
+              ]
+            },
+            "de": {
+              "outputPath": "dist/de/",
+              "i18nMissingTranslation": "error",
+              "i18nFile": "src/i18n/messages.de.xlf",
+              "i18nFormat": "xlf",
+              "i18nLocale": "de",
+              "aot": true,
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "extractCss": true,
+              "namedChunks": false,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "serviceWorker": true,
+              "baseHref": "/",
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.prod.ts"
+                }
+              ]
             }
           }
         },
@@ -94,6 +141,14 @@
           "configurations": {
             "production": {
               "browserTarget": "amv-ts-demo:build:production",
+              "aot": false
+            },
+            "en": {
+              "browserTarget": "amv-ts-demo:build:en",
+              "aot": false
+            },
+            "de": {
+              "browserTarget": "amv-ts-demo:build:de",
               "aot": false
             }
           }

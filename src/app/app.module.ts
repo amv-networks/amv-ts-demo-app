@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { LOCALE_ID, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
 import { APP_CONFIG, AppConfig } from './config/app.config';
@@ -41,6 +41,7 @@ import { environment } from '../environments/environment';
     AppComponent,
   ],
   providers: [
+    // { provide: LOCALE_ID, useValue: 'en' },
     { provide: APP_CONFIG, useValue: AppConfig },
     { provide: HTTP_INTERCEPTORS, useClass: ProgressInterceptor, multi: true, deps: [ProgressBarService] },
     { provide: HTTP_INTERCEPTORS, useClass: TimingInterceptor, multi: true }

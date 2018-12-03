@@ -1,19 +1,19 @@
 <div class="m-1 mat-typography">
 
   <button class="m-1" style="float:right" mat-button (click)="reload()" [hidden]="loading">
-    <mat-icon>autorenew</mat-icon> reload
+    <mat-icon>autorenew</mat-icon> <span i18n>reload</span>
   </button>
   <h3 class="mt-1">
-    <span>XFCD</span>
+    <span i18n>XFCD</span>
   </h3>
 
   <mat-spinner class="m-1" *ngIf="loading" class="app-spinner-center"></mat-spinner>
 
   <div *ngIf="!loading">
     <h3 class="mt-1">
-      <span [matBadge]="xfcdDataSource.data.length" matBadgeOverlap="false">xfcd</span>
+      <span [matBadge]="xfcdDataSource.data.length" matBadgeOverlap="false" i18n>xfcd</span>
     </h3>
-    <mat-card class="mt-1" *ngIf="xfcdDataSource.data.length === 0">No content</mat-card>
+    <mat-card class="mt-1" *ngIf="xfcdDataSource.data.length === 0" i18n>No content</mat-card>
     <div class="mt-1" *ngIf="xfcdDataSource.data.length > 0">
       <mat-form-field class="full-width">
         <input matInput (keyup)="applyXfcdFilter($event.target.value)" placeholder="Filter">
@@ -21,7 +21,7 @@
       <table mat-table [dataSource]="xfcdDataSource" matSort matSortActive="param" matSortDirection="asc" class="mt-1 full-width mat-elevation-z2"
         *ngIf="xfcdDataSource.data.length > 0">
         <ng-container matColumnDef="param">
-          <th mat-header-cell *matHeaderCellDef> param </th>
+          <th mat-header-cell *matHeaderCellDef i18n>param</th>
           <td mat-cell *matCellDef="let element">
             <mat-chip-list>
               <mat-chip>{{element.param}}</mat-chip>
@@ -29,17 +29,17 @@
           </td>
         </ng-container>
         <ng-container matColumnDef="value">
-          <th mat-header-cell *matHeaderCellDef> value </th>
+          <th mat-header-cell *matHeaderCellDef i18n>value</th>
           <td mat-cell *matCellDef="let element"> {{element.value}} </td>
         </ng-container>
         <ng-container matColumnDef="updated_at">
-          <th mat-header-cell *matHeaderCellDef>last update</th>
+          <th mat-header-cell *matHeaderCellDef i18n>last update</th>
           <td mat-cell *matCellDef="let element">
             {{element.timestamp | amTimeAgo}}
           </td>
         </ng-container>
         <ng-container matColumnDef="timestamp">
-          <th mat-header-cell *matHeaderCellDef> timestamp </th>
+          <th mat-header-cell *matHeaderCellDef i18n>timestamp</th>
           <td mat-cell *matCellDef="let element">{{element.timestamp | amDateFormat: 'YYYY-MM-DD HH:mm'}} </td>
         </ng-container>
 
@@ -51,16 +51,16 @@
     <div class="clear mt-1 mb-1">&nbsp;</div>
 
     <h3 class="mt-1">
-      <span [matBadge]="statesDataSource.data.length" matBadgeOverlap="false">states</span>
+      <span [matBadge]="statesDataSource.data.length" matBadgeOverlap="false" i18n>states</span>
     </h3>
-    <mat-card class="mt-1" *ngIf="statesDataSource.data.length === 0">No content</mat-card>
+    <mat-card class="mt-1" *ngIf="statesDataSource.data.length === 0" i18n>No content</mat-card>
     <div class="mt-1" *ngIf="statesDataSource.data.length > 0">
       <mat-form-field class="full-width">
         <input matInput (keyup)="applyStatesFilter($event.target.value)" placeholder="Filter">
       </mat-form-field>
       <table mat-table [dataSource]="statesDataSource" class="mt-1 full-width mat-elevation-z2">
         <ng-container matColumnDef="param">
-          <th mat-header-cell *matHeaderCellDef> param </th>
+          <th mat-header-cell *matHeaderCellDef i18n>param</th>
           <td mat-cell *matCellDef="let element">
             <mat-chip-list>
               <mat-chip>{{element.param}}</mat-chip>
@@ -68,17 +68,17 @@
           </td>
         </ng-container>
         <ng-container matColumnDef="value">
-          <th mat-header-cell *matHeaderCellDef> value </th>
+          <th mat-header-cell *matHeaderCellDef i18n>value</th>
           <td mat-cell *matCellDef="let element"> {{element.value}} </td>
         </ng-container>
         <ng-container matColumnDef="updated_at">
-          <th mat-header-cell *matHeaderCellDef>last update</th>
+          <th mat-header-cell *matHeaderCellDef i18n>last update</th>
           <td mat-cell *matCellDef="let element">
             {{element.timestamp | amTimeAgo}}
           </td>
         </ng-container>
         <ng-container matColumnDef="timestamp">
-          <th mat-header-cell *matHeaderCellDef> timestamp </th>
+          <th mat-header-cell *matHeaderCellDef i18n>timestamp</th>
           <td mat-cell *matCellDef="let element"> {{element.timestamp | amDateFormat: 'YYYY-MM-DD HH:mm'}} </td>
         </ng-container>
 

@@ -3,7 +3,7 @@
         <div fxFlex fxLayout="row" fxLayoutAlign="center center">
             <div fxFlex="60">
                 <a mat-button *ngFor="let item of menuItems" routerLink="{{item.link}}">
-                    {{item.name | uppercase}}
+                    {{item.name | uppercase | translate}}
                 </a>
             </div>
             <div fxFlex class="text--right">
@@ -13,9 +13,7 @@
                 <mat-menu #matmenu="matMenu">
                     <button mat-menu-item (click)="changeLanguage('en')">
                         <mat-icon>flag</mat-icon>
-                        <span>
-                            English
-                        </span>
+                        <span i18n>English</span>
                     </button>
                     <!-- button mat-menu-item (click)="changeLanguage('de')">
                         <mat-icon>flag</mat-icon>

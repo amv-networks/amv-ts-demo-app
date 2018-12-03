@@ -40,19 +40,19 @@
                 <table>
                   <tr>
                     <td style="padding-right: 1rem;">
-                      <span class="bold">timestamp</span>
+                      <span class="bold" i18n>timestamp</span>
                     </td>
                     <td>{{ vehicle.timestamp | date:'short' }}</td>
                   </tr>
                   <tr>
                     <td>
-                      <span class="bold">lat/lon</span>
+                      <span class="bold" i18n>lat/lon</span>
                     </td>
                     <td> {{ vehicle.latitude | number:0 }} / {{ vehicle.longitude | number:0 }}</td>
                   </tr>
                   <tr>
                     <td>
-                      <span class="bold">speed</span>
+                      <span class="bold" i18n>speed</span>
                     </td>
                     <td>{{ vehicle.speed | number:0 }} km/h</td>
 
@@ -89,10 +89,10 @@
         <mat-card class="m-1" *ngIf="selectedVehicle">
           <mat-card-header>
             <mat-card-title>
-              <b class="bold">id</b>: {{ selectedVehicle.id }}
+              <b class="bold" i18n>id</b>: {{ selectedVehicle.id }}
             </mat-card-title>
             <mat-card-subtitle>
-              <b class="bold">timestamp</b>: {{ selectedVehicle.timestamp }}</mat-card-subtitle>
+              <b class="bold" i18n>timestamp</b>: {{ selectedVehicle.timestamp }}</mat-card-subtitle>
           </mat-card-header>
           <mat-card-content>
             <pre>{{selectedVehicle | json }}</pre>
